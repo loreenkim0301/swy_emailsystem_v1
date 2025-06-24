@@ -4,16 +4,16 @@
   "description": "EmailJS 학습 도구 - 단계별 가이드로 EmailJS 배우기",
   "main": "index.html",
   "scripts": {
-    "dev": "npx serve . -p 5173",
-    "start": "npx serve .",
-    "build": "mkdir -p dist && cp index.html dist/ && echo 'Build completed successfully'",
-    "preview": "npx serve dist -p 4173"
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0"
   },
   "devDependencies": {
-    "serve": "^14.2.1"
+    "vite": "^5.0.0"
   },
   "keywords": ["emailjs", "learning", "tutorial", "email", "javascript"],
   "author": "김로린 (AI코딩하는 기획자)",
