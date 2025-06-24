@@ -30,15 +30,14 @@ export async function subscribeToNewsletter(email) {
     }
     
     try {
-        // 중복 이메일 확인
+        // 중복 이메일 확인 - maybeSingle() 사용으로 에러 방지
         const { data: existingSubscriber, error: checkError } = await supabaseClient
             .from('subscribers')
             .select('id, status')
             .eq('email', email)
-            .single();
+            .maybeSingle();
         
-        if (checkError && checkError.code !== 'PGRST116') {
-            // PGRST116은 "no rows returned" 에러 (정상적인 경우)
+        if (checkError) {
             throw checkError;
         }
         
