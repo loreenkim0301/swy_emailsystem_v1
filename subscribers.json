@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "email": "test@gmail.com",
+    "subscribedAt": "2025-06-24T05:56:44.730Z",
+    "source": "emailjs-learning-tool"
+  }
+]
