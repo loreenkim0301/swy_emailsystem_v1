@@ -9,7 +9,9 @@
     "build": "mkdir -p dist && cp index.html dist/ && echo 'Build completed successfully'",
     "preview": "npx serve dist -p 4173"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
   "devDependencies": {
     "serve": "^14.2.1"
   },

@@ -882,7 +882,7 @@
                         
                         <div class="subscription-input-group">
                             <input type="email" id="subscriptionEmail" class="subscription-input" placeholder="이메일 주소를 입력하세요">
-                            <button class="subscription-btn" onclick="subscribeToNewsletter()" id="subscribeBtn">
+                            <button class="subscription-btn" onclick="handleSubscription()" id="subscribeBtn">
                                 <span id="subscribeBtnText">구독하기</span>
                                 <span id="subscribeBtnLoading" class="loading hidden">
                                     <div class="spinner"></div>
@@ -901,15 +901,24 @@
         </div>
     </footer>
 
+    <!-- Supabase 라이브러리 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- EmailJS 라이브러리 로드 -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Supabase 클라이언트 로드 -->
+    <script src="js/supabase-client.js"></script>
+    
     <script>
         let emailConfig = null;
         let isEmailJSInitialized = false;
+        let isSupabaseInitialized = false;
 
         // 페이지 로드 시 초기화
         document.addEventListener('DOMContentLoaded', function() {
             console.log('페이지 로드 완료');
+            
+            // Supabase 초기화
+            isSupabaseInitialized = initializeSupabase();
             
             // EmailJS 라이브러리 로드 대기
             setTimeout(() => {
@@ -929,7 +938,15 @@
                 document.getElementById('troubleshoot').classList.remove('hidden');
                 return false;
             } else {
-                debugText.innerHTML = '✅ EmailJS 라이브러리 로드 완료<br>준비 상태: 정상<br>🔒 보안: 모든 정보는 메모리에서만 처리됩니다';
+                let statusText = '✅ EmailJS 라이브러리 로드 완료<br>준비 상태: 정상<br>🔒 보안: 모든 정보는 메모리에서만 처리됩니다';
+                
+                if (isSupabaseInitialized) {
+                    statusText += '<br>✅ Supabase 연결 완료 (구독 기능 활성화)';
+                } else {
+                    statusText += '<br>⚠️ Supabase 연결 필요 (구독 기능 비활성화)';
+                }
+                
+                debugText.innerHTML = statusText;
                 return true;
             }
         }
@@ -1197,8 +1214,8 @@
                 });
         }
 
-        // 뉴스레터 구독 함수 (Netlify Functions 사용)
-        function subscribeToNewsletter() {
+        // 뉴스레터 구독 함수 (Supabase 사용)
+        async function handleSubscription() {
             const email = document.getElementById('subscriptionEmail').value.trim();
             const subscribeBtn = document.getElementById('subscribeBtn');
             const subscribeBtnText = document.getElementById('subscribeBtnText');
@@ -1211,38 +1228,35 @@
                 return;
             }
 
+            // Supabase 연결 확인
+            if (!isSupabaseInitialized) {
+                showSubscriptionStatus('Supabase 연결이 필요합니다. 관리자에게 문의해주세요.', 'error');
+                return;
+            }
+
             // 버튼 상태 변경
             subscribeBtn.disabled = true;
             subscribeBtnText.classList.add('hidden');
             subscribeBtnLoading.classList.remove('hidden');
 
-            // Netlify Functions API 호출
-            fetch('/.netlify/functions/subscribe', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: email })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showSubscriptionStatus(data.message, 'success');
+            try {
+                const result = await subscribeToNewsletter(email);
+                
+                if (result.success) {
+                    showSubscriptionStatus(result.message, 'success');
                     document.getElementById('subscriptionEmail').value = '';
                 } else {
-                    showSubscriptionStatus(data.message, 'error');
+                    showSubscriptionStatus(result.message, 'error');
                 }
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('구독 처리 중 오류:', error);
-                showSubscriptionStatus('구독 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'error');
-            })
-            .finally(() => {
+                showSubscriptionStatus(error.message, 'error');
+            } finally {
                 // 버튼 상태 복원
                 subscribeBtn.disabled = false;
                 subscribeBtnText.classList.remove('hidden');
                 subscribeBtnLoading.classList.add('hidden');
-            });
+            }
         }
 
         // 구독 상태 메시지 표시
@@ -1285,7 +1299,7 @@
         // Enter 키로 구독하기
         document.getElementById('subscriptionEmail').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                subscribeToNewsletter();
+                handleSubscription();
             }
         });
     </script>
