@@ -174,6 +174,54 @@
         .setup-notice strong {
             color: #333;
         }
+
+        .config-section {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .config-section h3 {
+            color: #1565c0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .config-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #90caf9;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .config-input:focus {
+            outline: none;
+            border-color: #1976d2;
+            box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+        }
+
+        .config-btn {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .config-btn:hover {
+            background: #1565c0;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -183,13 +231,27 @@
             <p>간단하게 이메일을 보내보세요</p>
         </div>
 
-        <div class="setup-notice">
-            <strong>✅ 설정 완료!</strong><br>
-            EmailJS 설정이 완료되었습니다. 이제 실제 이메일을 보낼 수 있습니다!<br>
-            받을 이메일 주소만 아래 코드에서 설정해주세요.
+        <div class="config-section" id="configSection">
+            <h3>🔧 EmailJS 설정</h3>
+            <p style="margin-bottom: 15px; color: #666; font-size: 14px;">
+                EmailJS 설정 정보를 입력해주세요. 이 정보는 브라우저에만 저장되며 외부로 전송되지 않습니다.
+            </p>
+            
+            <input type="text" id="publicKey" class="config-input" placeholder="EmailJS Public Key 입력">
+            <input type="text" id="serviceId" class="config-input" placeholder="Service ID 입력">
+            <input type="text" id="templateId" class="config-input" placeholder="Template ID 입력">
+            <input type="email" id="toEmail" class="config-input" placeholder="받을 이메일 주소 입력">
+            
+            <button class="config-btn" onclick="saveConfig()">설정 저장</button>
+            <button class="config-btn" onclick="loadSampleConfig()" style="background: #757575;">샘플 설정 로드</button>
         </div>
 
-        <form id="emailForm">
+        <div class="setup-notice" id="setupNotice" style="display: none;">
+            <strong>✅ 설정 완료!</strong><br>
+            EmailJS 설정이 완료되었습니다. 이제 이메일을 보낼 수 있습니다!
+        </div>
+
+        <form id="emailForm" class="hidden">
             <div class="form-group">
                 <label for="name">이름</label>
                 <input type="text" id="name" name="name" required placeholder="보내는 사람의 이름을 입력하세요">
@@ -217,12 +279,99 @@
         <div id="statusMessage" class="status-message"></div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/emailjs-com/3.2.0/email.min.js"></script>
     <script>
-        // EmailJS 라이브러리 로드 확인 및 초기화
+        // 설정 저장소
+        let emailConfig = {
+            publicKey: '',
+            serviceId: '',
+            templateId: '',
+            toEmail: ''
+        };
+
+        // 페이지 로드 시 저장된 설정 확인
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedConfig();
+        });
+
+        // 저장된 설정 불러오기
+        function loadSavedConfig() {
+            const saved = localStorage.getItem('emailjs_config');
+            if (saved) {
+                try {
+                    emailConfig = JSON.parse(saved);
+                    if (emailConfig.publicKey && emailConfig.serviceId && emailConfig.templateId && emailConfig.toEmail) {
+                        showEmailForm();
+                        return;
+                    }
+                } catch (e) {
+                    console.log('저장된 설정을 불러오는데 실패했습니다.');
+                }
+            }
+            showConfigForm();
+        }
+
+        // 설정 저장
+        function saveConfig() {
+            const publicKey = document.getElementById('publicKey').value.trim();
+            const serviceId = document.getElementById('serviceId').value.trim();
+            const templateId = document.getElementById('templateId').value.trim();
+            const toEmail = document.getElementById('toEmail').value.trim();
+
+            if (!publicKey || !serviceId || !templateId || !toEmail) {
+                showStatus('모든 설정 항목을 입력해주세요! ⚠️', 'error');
+                return;
+            }
+
+            // 이메일 형식 검증
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(toEmail)) {
+                showStatus('올바른 이메일 주소를 입력해주세요! ⚠️', 'error');
+                return;
+            }
+
+            emailConfig = { publicKey, serviceId, templateId, toEmail };
+            
+            // 로컬 스토리지에 저장
+            localStorage.setItem('emailjs_config', JSON.stringify(emailConfig));
+            
+            showStatus('설정이 저장되었습니다! ✅', 'success');
+            
+            setTimeout(() => {
+                showEmailForm();
+            }, 1500);
+        }
+
+        // 샘플 설정 로드 (개발/테스트용)
+        function loadSampleConfig() {
+            document.getElementById('publicKey').value = 'YOUR_PUBLIC_KEY_HERE';
+            document.getElementById('serviceId').value = 'YOUR_SERVICE_ID_HERE';
+            document.getElementById('templateId').value = 'YOUR_TEMPLATE_ID_HERE';
+            document.getElementById('toEmail').value = 'your-email@example.com';
+            
+            showStatus('샘플 설정이 로드되었습니다. 실제 값으로 수정해주세요! 📝', 'error');
+        }
+
+        // 설정 폼 표시
+        function showConfigForm() {
+            document.getElementById('configSection').classList.remove('hidden');
+            document.getElementById('setupNotice').style.display = 'none';
+            document.getElementById('emailForm').classList.add('hidden');
+        }
+
+        // 이메일 폼 표시
+        function showEmailForm() {
+            document.getElementById('configSection').classList.add('hidden');
+            document.getElementById('setupNotice').style.display = 'block';
+            document.getElementById('emailForm').classList.remove('hidden');
+            
+            // EmailJS 초기화
+            initEmailJS();
+        }
+
+        // EmailJS 초기화
         function initEmailJS() {
             if (typeof emailjs !== 'undefined') {
-                emailjs.init("hW2NsXn-Xb6ZR2t3W");
+                emailjs.init(emailConfig.publicKey);
                 console.log('EmailJS 초기화 완료');
                 setupForm();
             } else {
@@ -231,6 +380,7 @@
             }
         }
 
+        // 폼 설정
         function setupForm() {
             const form = document.getElementById('emailForm');
             const sendBtn = document.getElementById('sendBtn');
@@ -238,8 +388,11 @@
             const btnText = document.querySelector('.btn-text');
             const loading = document.querySelector('.loading');
 
-            // 폼 제출 이벤트 처리
-            form.addEventListener('submit', function(e) {
+            // 기존 이벤트 리스너 제거
+            form.removeEventListener('submit', handleFormSubmit);
+            form.addEventListener('submit', handleFormSubmit);
+
+            function handleFormSubmit(e) {
                 e.preventDefault();
                 console.log('폼 제출 시작');
                 
@@ -264,13 +417,13 @@
                     name: name,
                     email: email,
                     message: message,
-                    to_email: 'soojung.sue@gmail.com' // 실제 받을 이메일 주소
+                    to_email: emailConfig.toEmail
                 };
 
-                console.log('전송할 데이터:', formData);
+                console.log('전송할 데이터:', { ...formData, to_email: '[보안상 숨김]' });
 
                 // EmailJS로 이메일 발송
-                emailjs.send('service_n9xgehz', 'ejs-test-mail-service', formData)
+                emailjs.send(emailConfig.serviceId, emailConfig.templateId, formData)
                     .then(function(response) {
                         console.log('이메일 전송 성공!', response.status, response.text);
                         showStatus('이메일이 성공적으로 전송되었습니다! 📧', 'success');
@@ -286,36 +439,33 @@
                         btnText.style.display = 'block';
                         loading.style.display = 'none';
                     });
-            });
-
-            function showStatus(message, type) {
-                statusMessage.textContent = message;
-                statusMessage.className = `status-message ${type}`;
-                statusMessage.style.display = 'block';
-                console.log('상태 메시지:', message);
-
-                // 5초 후 메시지 숨기기
-                setTimeout(() => {
-                    statusMessage.style.display = 'none';
-                }, 5000);
             }
 
             console.log('폼 설정 완료');
         }
 
-        // 페이지 로드 후 EmailJS 초기화 시작
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('페이지 로드 완료');
-            initEmailJS();
-        });
+        // 상태 메시지 표시
+        function showStatus(message, type) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
+            console.log('상태 메시지:', message);
 
-        // 즉시 시작 (DOMContentLoaded 이벤트가 이미 지났을 경우 대비)
-        if (document.readyState === 'loading') {
-            // 아직 로딩 중
-        } else {
-            // 이미 로드 완료
-            initEmailJS();
+            // 5초 후 메시지 숨기기
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
         }
+
+        // 설정 초기화 (개발자 도구에서 사용 가능)
+        function resetConfig() {
+            localStorage.removeItem('emailjs_config');
+            location.reload();
+        }
+
+        // 전역 함수로 설정 (콘솔에서 접근 가능)
+        window.resetEmailConfig = resetConfig;
     </script>
 </body>
 </html>
