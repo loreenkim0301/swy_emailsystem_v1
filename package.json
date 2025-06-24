@@ -7,7 +7,13 @@
     "dev": "npx serve . -p 5173",
     "start": "npx serve .",
     "build": "mkdir -p dist && cp index.html dist/ && echo 'Build completed successfully'",
-    "preview": "npx serve dist -p 4173"
+    "preview": "npx serve dist -p 4173",
+    "server": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2"
   },
   "devDependencies": {
     "serve": "^14.2.1"
