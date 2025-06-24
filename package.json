@@ -8,12 +8,17 @@
     "start": "npx serve .",
     "build": "mkdir -p dist && cp index.html dist/ && echo 'Build completed successfully'",
     "preview": "npx serve dist -p 4173",
-    "server": "node server.js"
+    "server": "node server.js",
+    "db:init": "node scripts/init-db.js",
+    "db:backup": "node scripts/backup-db.js",
+    "db:stats": "node scripts/db-stats.js"
   },
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
-    "body-parser": "^1.20.2"
+    "body-parser": "^1.20.2",
+    "sqlite3": "^5.1.6",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "serve": "^14.2.1"
