@@ -531,6 +531,7 @@
             align-items: center;
             gap: 0.5rem;
             letter-spacing: -0.005em;
+            line-height: 1.5;
         }
 
         .tech-item:hover {
@@ -656,6 +657,12 @@
             letter-spacing: -0.005em;
         }
 
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 28px;
@@ -680,12 +687,6 @@
 
             .subscription-btn {
                 width: 100%;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
             }
         }
 
