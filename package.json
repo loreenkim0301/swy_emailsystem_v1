@@ -1,25 +1,19 @@
 {
-  "name": "newsletter-app",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "emailjs-learning-tool",
+  "version": "1.0.0",
+  "description": "EmailJS 학습 도구 - 단계별 가이드로 EmailJS 배우기",
+  "main": "index.html",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "server": "node server.js",
-    "start": "concurrently \"npm run server\" \"npm run dev\"",
-    "init-db": "node scripts/init-db.js",
-    "db-stats": "node scripts/db-stats.js",
-    "backup-db": "node scripts/backup-db.js"
+    "dev": "npx serve . -p 5173",
+    "start": "npx serve .",
+    "build": "mkdir -p dist && cp index.html dist/ && echo 'Build completed successfully'",
+    "preview": "npx serve dist -p 4173"
   },
+  "dependencies": {},
   "devDependencies": {
-    "vite": "^5.0.8",
-    "concurrently": "^8.2.2"
+    "serve": "^14.2.1"
   },
-  "dependencies": {
-    "express": "^4.18.2",
-    "sqlite3": "^5.1.6",
-    "cors": "^2.8.5"
-  }
+  "keywords": ["emailjs", "learning", "tutorial", "email", "javascript"],
+  "author": "김로린 (AI코딩하는 기획자)",
+  "license": "MIT"
 }

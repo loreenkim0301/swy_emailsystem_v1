@@ -1197,13 +1197,12 @@
                 });
         }
 
-        // 뉴스레터 구독 함수
+        // 뉴스레터 구독 함수 (Netlify Functions 사용)
         function subscribeToNewsletter() {
             const email = document.getElementById('subscriptionEmail').value.trim();
             const subscribeBtn = document.getElementById('subscribeBtn');
             const subscribeBtnText = document.getElementById('subscribeBtnText');
             const subscribeBtnLoading = document.getElementById('subscribeBtnLoading');
-            const statusElement = document.getElementById('subscriptionStatus');
 
             // 이메일 유효성 검사
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1217,8 +1216,8 @@
             subscribeBtnText.classList.add('hidden');
             subscribeBtnLoading.classList.remove('hidden');
 
-            // API 호출
-            fetch('/api/subscribe', {
+            // Netlify Functions API 호출
+            fetch('/.netlify/functions/subscribe', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
