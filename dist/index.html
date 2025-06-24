@@ -473,6 +473,17 @@
                 height: 120px;
             }
         }
+
+        .optional-field {
+            position: relative;
+        }
+
+        .optional-label {
+            font-size: 11px;
+            color: #28a745;
+            font-weight: 500;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -587,20 +598,14 @@
                             <input type="email" id="senderEmail" placeholder="sender@example.com" value="test@example.com">
                         </div>
 
-                        <div class="form-group">
-                            <label for="subject">제목</label>
-                            <input type="text" id="subject" placeholder="테스트 이메일입니다" value="EmailJS 테스트 메일">
+                        <div class="form-group optional-field">
+                            <label for="subject">제목 <span class="optional-label">(선택사항 - 비워두면 템플릿 기본값 사용)</span></label>
+                            <input type="text" id="subject" placeholder="비워두면 EmailJS 템플릿의 기본 제목이 사용됩니다">
                         </div>
 
-                        <div class="form-group">
-                            <label for="message">내용</label>
-                            <textarea id="message" placeholder="이메일 내용을 입력하세요...">안녕하세요!
-
-EmailJS 학습 도구에서 보내는 테스트 이메일입니다.
-
-이 메일이 정상적으로 도착했다면 EmailJS 설정이 올바르게 완료된 것입니다.
-
-감사합니다!</textarea>
+                        <div class="form-group optional-field">
+                            <label for="message">내용 <span class="optional-label">(선택사항 - 비워두면 템플릿 기본값 사용)</span></label>
+                            <textarea id="message" placeholder="비워두면 EmailJS 템플릿의 기본 내용이 사용됩니다"></textarea>
                         </div>
 
                         <button class="btn" onclick="sendEmail()" id="sendBtn">
@@ -782,7 +787,7 @@ EmailJS 학습 도구에서 보내는 테스트 이메일입니다.
             const templateId = document.getElementById('templateId').value.trim();
             const toEmail = document.getElementById('toEmail').value.trim();
 
-            // 입력값 검증
+            // 입력값 검증 (이름과 이메일만 필수)
             if (!publicKey || !serviceId || !templateId || !toEmail) {
                 showStatus('configStatus', '모든 필드를 입력해주세요! ⚠️', 'error');
                 return;
@@ -941,9 +946,9 @@ EmailJS 학습 도구에서 보내는 테스트 이메일입니다.
             const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
 
-            // 입력값 검증
-            if (!senderName || !senderEmail || !subject || !message) {
-                showStatus('emailStatus', '모든 필드를 입력해주세요! ⚠️', 'error');
+            // 필수 필드 검증 (이름과 이메일만 필수)
+            if (!senderName || !senderEmail) {
+                showStatus('emailStatus', '보내는 사람 이름과 이메일은 필수입니다! ⚠️', 'error');
                 return;
             }
 
@@ -963,21 +968,50 @@ EmailJS 학습 도구에서 보내는 테스트 이메일입니다.
             sendBtnText.classList.add('hidden');
             sendBtnLoading.classList.remove('hidden');
 
-            // 이메일 데이터 준비
+            // 이메일 데이터 준비 (빈 필드는 제외하여 템플릿 기본값 사용)
             const emailData = {
                 name: senderName,
-                email: senderEmail,
-                subject: subject,
-                message: message
+                email: senderEmail
             };
 
+            // 제목이 입력된 경우에만 추가
+            if (subject) {
+                emailData.subject = subject;
+            }
+
+            // 내용이 입력된 경우에만 추가
+            if (message) {
+                emailData.message = message;
+            }
+
             console.log('이메일 발송 시작:', emailData);
+
+            // 상태 메시지 업데이트
+            let statusMsg = '📧 이메일 발송 중...';
+            if (!subject && !message) {
+                statusMsg += ' (제목과 내용은 템플릿 기본값 사용)';
+            } else if (!subject) {
+                statusMsg += ' (제목은 템플릿 기본값 사용)';
+            } else if (!message) {
+                statusMsg += ' (내용은 템플릿 기본값 사용)';
+            }
+            showStatus('emailStatus', statusMsg, 'info');
 
             // EmailJS로 이메일 발송
             emailjs.send(emailConfig.serviceId, emailConfig.templateId, emailData)
                 .then(function(response) {
                     console.log('이메일 발송 성공!', response);
-                    showStatus('emailStatus', '✅ 이메일이 성공적으로 발송되었습니다!', 'success');
+                    let successMsg = '✅ 이메일이 성공적으로 발송되었습니다!';
+                    
+                    if (!subject && !message) {
+                        successMsg += '\n📝 제목과 내용은 EmailJS 템플릿의 기본값이 사용되었습니다.';
+                    } else if (!subject) {
+                        successMsg += '\n📝 제목은 EmailJS 템플릿의 기본값이 사용되었습니다.';
+                    } else if (!message) {
+                        successMsg += '\n📝 내용은 EmailJS 템플릿의 기본값이 사용되었습니다.';
+                    }
+                    
+                    showStatus('emailStatus', successMsg, 'success');
                     
                     // 3단계 완료 표시
                     document.getElementById('step3').classList.add('completed');
@@ -1013,11 +1047,11 @@ EmailJS 학습 도구에서 보내는 테스트 이메일입니다.
             statusElement.className = `status-message ${type}`;
             statusElement.style.display = 'block';
 
-            // 성공 메시지는 5초 후 숨기기
+            // 성공 메시지는 7초 후 숨기기 (더 긴 메시지를 위해)
             if (type === 'success') {
                 setTimeout(() => {
                     statusElement.style.display = 'none';
-                }, 5000);
+                }, 7000);
             }
         }
 
