@@ -306,6 +306,62 @@
             margin-bottom: 5px;
         }
 
+        .optional-field {
+            position: relative;
+        }
+
+        .optional-label {
+            font-size: 11px;
+            color: #28a745;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+
+        /* 보안 안내 스타일 */
+        .security-notice {
+            background: linear-gradient(135deg, #e8f5e8, #d4edda);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .security-notice::before {
+            content: "🔒";
+            font-size: 24px;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .security-notice h4 {
+            color: #155724;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-left: 35px;
+        }
+
+        .security-notice p {
+            color: #155724;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            margin-left: 35px;
+        }
+
+        .security-notice ul {
+            margin-left: 55px;
+            color: #155724;
+            font-size: 13px;
+        }
+
+        .security-notice li {
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
         /* Footer Styles */
         .footer {
             background-color: #1a1a1a;
@@ -473,17 +529,6 @@
                 height: 120px;
             }
         }
-
-        .optional-field {
-            position: relative;
-        }
-
-        .optional-label {
-            font-size: 11px;
-            color: #28a745;
-            font-weight: 500;
-            margin-left: 5px;
-        }
     </style>
 </head>
 <body>
@@ -492,6 +537,18 @@
             <div class="header">
                 <h1>📧 EmailJS 학습 도구</h1>
                 <p>EmailJS를 배우고 테스트해보세요</p>
+            </div>
+
+            <!-- 보안 안내 -->
+            <div class="security-notice">
+                <h4>개인정보 보호 안내</h4>
+                <p><strong>이 웹사이트는 사용자의 중요한 정보를 저장하지 않습니다.</strong></p>
+                <ul>
+                    <li>입력하신 EmailJS 키와 ID는 서버에 전송되지 않습니다</li>
+                    <li>모든 정보는 브라우저 메모리에서만 임시 사용됩니다</li>
+                    <li>페이지를 새로고침하거나 닫으면 모든 정보가 완전히 삭제됩니다</li>
+                    <li>안전한 학습 환경을 위해 설계되었습니다</li>
+                </ul>
             </div>
 
             <div class="steps-container">
@@ -535,8 +592,9 @@
                     <div id="configStatus" class="status-message"></div>
                     
                     <div id="configDisplay" class="config-display hidden">
-                        <strong>저장된 설정:</strong>
+                        <strong>현재 세션 설정:</strong>
                         <pre id="configText"></pre>
+                        <small style="color: #6c757d; font-size: 11px;">* 페이지 새로고침 시 모든 정보가 삭제됩니다</small>
                     </div>
 
                     <div id="debugInfo" class="debug-info hidden">
@@ -731,7 +789,6 @@
             // EmailJS 라이브러리 로드 대기
             setTimeout(() => {
                 checkEmailJSLibrary();
-                loadSavedConfig();
             }, 500);
         });
 
@@ -747,31 +804,8 @@
                 document.getElementById('troubleshoot').classList.remove('hidden');
                 return false;
             } else {
-                debugText.innerHTML = '✅ EmailJS 라이브러리 로드 완료<br>준비 상태: 정상';
+                debugText.innerHTML = '✅ EmailJS 라이브러리 로드 완료<br>준비 상태: 정상<br>🔒 보안: 모든 정보는 메모리에서만 처리됩니다';
                 return true;
-            }
-        }
-
-        // 저장된 설정 불러오기
-        function loadSavedConfig() {
-            const saved = localStorage.getItem('emailjs_learning_config');
-            if (saved) {
-                try {
-                    emailConfig = JSON.parse(saved);
-                    
-                    // 폼에 값 채우기
-                    document.getElementById('publicKey').value = emailConfig.publicKey || '';
-                    document.getElementById('serviceId').value = emailConfig.serviceId || '';
-                    document.getElementById('templateId').value = emailConfig.templateId || '';
-                    document.getElementById('toEmail').value = emailConfig.toEmail || '';
-                    
-                    if (isConfigComplete(emailConfig)) {
-                        // 자동으로 초기화 시도
-                        initializeEmailJS();
-                    }
-                } catch (e) {
-                    console.log('저장된 설정을 불러오는데 실패했습니다.');
-                }
             }
         }
 
@@ -787,7 +821,7 @@
             const templateId = document.getElementById('templateId').value.trim();
             const toEmail = document.getElementById('toEmail').value.trim();
 
-            // 입력값 검증 (이름과 이메일만 필수)
+            // 입력값 검증
             if (!publicKey || !serviceId || !templateId || !toEmail) {
                 showStatus('configStatus', '모든 필드를 입력해주세요! ⚠️', 'error');
                 return;
@@ -807,9 +841,8 @@
                 return;
             }
 
-            // 설정 저장
+            // 설정을 메모리에만 저장 (localStorage 사용 안함)
             emailConfig = { publicKey, serviceId, templateId, toEmail };
-            localStorage.setItem('emailjs_learning_config', JSON.stringify(emailConfig));
             
             // EmailJS 초기화
             initializeEmailJS();
@@ -847,9 +880,9 @@
 
         // 설정 성공 표시
         function showConfigSuccess() {
-            showStatus('configStatus', '✅ 설정이 저장되고 EmailJS가 초기화되었습니다!', 'success');
+            showStatus('configStatus', '✅ 설정이 저장되고 EmailJS가 초기화되었습니다! (메모리에서만 처리됨)', 'success');
             
-            // 설정 표시
+            // 설정 표시 (보안을 위해 키는 일부만 표시)
             document.getElementById('configDisplay').classList.remove('hidden');
             document.getElementById('configText').textContent = 
                 `Public Key: ${emailConfig.publicKey.substring(0, 10)}...\n` +
@@ -899,7 +932,6 @@
                 .then(function(response) {
                     console.log('연결 테스트 성공!', response);
                     emailConfig.connectionTested = true;
-                    localStorage.setItem('emailjs_learning_config', JSON.stringify(emailConfig));
                     
                     showConnectionSuccess();
                     enableStep3();
@@ -1055,14 +1087,14 @@
             }
         }
 
-        // 전체 설정 초기화 (개발자 도구에서 사용)
-        function resetAllConfig() {
-            localStorage.removeItem('emailjs_learning_config');
-            location.reload();
-        }
-
-        // 전역 함수로 설정
-        window.resetEmailJSLearning = resetAllConfig;
+        // 페이지 새로고침 시 경고 (선택사항)
+        window.addEventListener('beforeunload', function(e) {
+            if (emailConfig) {
+                const confirmationMessage = '페이지를 새로고침하면 입력한 모든 설정이 삭제됩니다.';
+                e.returnValue = confirmationMessage;
+                return confirmationMessage;
+            }
+        });
     </script>
 </body>
 </html>
