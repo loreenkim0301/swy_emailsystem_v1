@@ -100,18 +100,32 @@ app.get('/api/subscribers', (req, res) => {
     const offset = (page - 1) * limit;
     const status = req.query.status || 'active';
     
-    const query = `
-        SELECT id, email, subscribed_at, source, status, created_at
-        FROM subscribers 
-        WHERE status = ?
-        ORDER BY subscribed_at DESC 
-        LIMIT ? OFFSET ?
-    `;
+    let query, countQuery, params;
     
-    const countQuery = `SELECT COUNT(*) as total FROM subscribers WHERE status = ?`;
+    if (status === 'all') {
+        query = `
+            SELECT id, email, subscribed_at, source, status, created_at
+            FROM subscribers 
+            ORDER BY subscribed_at DESC 
+            LIMIT ? OFFSET ?
+        `;
+        countQuery = `SELECT COUNT(*) as total FROM subscribers`;
+        params = [limit, offset];
+    } else {
+        query = `
+            SELECT id, email, subscribed_at, source, status, created_at
+            FROM subscribers 
+            WHERE status = ?
+            ORDER BY subscribed_at DESC 
+            LIMIT ? OFFSET ?
+        `;
+        countQuery = `SELECT COUNT(*) as total FROM subscribers WHERE status = ?`;
+        params = [status, limit, offset];
+    }
     
     // 총 개수 조회
-    db.get(countQuery, [status], (err, countResult) => {
+    const countParams = status === 'all' ? [] : [status];
+    db.get(countQuery, countParams, (err, countResult) => {
         if (err) {
             console.error('구독자 수 조회 실패:', err.message);
             return res.status(500).json({
@@ -121,7 +135,7 @@ app.get('/api/subscribers', (req, res) => {
         }
         
         // 구독자 목록 조회
-        db.all(query, [status, limit, offset], (err, subscribers) => {
+        db.all(query, params, (err, subscribers) => {
             if (err) {
                 console.error('구독자 목록 조회 실패:', err.message);
                 res.status(500).json({
@@ -195,6 +209,7 @@ app.post('/api/subscribe', (req, res) => {
                             });
                         }
                         
+                        console.log(`✅ 구독자 재활성화: ${email}`);
                         res.json({
                             success: true,
                             message: '다시 구독해주셔서 감사합니다! 바이브코드제로 클럽의 최신 소식을 받아보세요.',
@@ -282,6 +297,7 @@ app.post('/api/unsubscribe', (req, res) => {
                 message: '해당 구독 정보를 찾을 수 없습니다.'
             });
         } else {
+            console.log(`✅ 구독 취소: ${email || '토큰 기반'}`);
             res.json({
                 success: true,
                 message: '구독이 성공적으로 취소되었습니다.'
@@ -312,6 +328,8 @@ app.get('/api/admin/backup', (req, res) => {
                 total_records: subscribers.length,
                 data: subscribers
             });
+            
+            console.log(`✅ 백업 생성: ${subscribers.length}개 레코드`);
         }
     });
 });
@@ -335,5 +353,6 @@ app.listen(PORT, () => {
     console.log(`📧 구독 API: http://localhost:${PORT}/api/subscribe`);
     console.log(`📊 구독자 목록: http://localhost:${PORT}/api/subscribers`);
     console.log(`📈 구독자 통계: http://localhost:${PORT}/api/subscribers/stats`);
+    console.log(`🔧 관리자 대시보드: http://localhost:${PORT}/admin.html`);
     console.log(`💾 데이터베이스: ${dbPath}`);
 });

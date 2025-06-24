@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 대시보드 - EmailJS 학습 도구</title>
+    <!-- Google Fonts 추가 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .subscribers-table {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .table-header h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn.success {
+            background: #28a745;
+        }
+
+        .btn.danger {
+            background: #dc3545;
+        }
+
+        .btn.secondary {
+            background: #6c757d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-unsubscribed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .pagination button:hover {
+            background: #f8f9fa;
+        }
+
+        .pagination button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .export-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .export-buttons {
+                flex-direction: column;
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 관리자 대시보드</h1>
+            <p>EmailJS 학습 도구 구독자 관리 시스템</p>
+        </div>
+
+        <!-- 알림 메시지 -->
+        <div id="alertContainer"></div>
+
+        <!-- 통계 대시보드 -->
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>📊 전체 구독자</h3>
+                <div class="stat-number" id="totalSubscribers">-</div>
+                <div class="stat-label">총 구독자 수</div>
+            </div>
+            
+            <div class="card">
+                <h3>✅ 활성 구독자</h3>
+                <div class="stat-number" id="activeSubscribers">-</div>
+                <div class="stat-label">현재 활성 상태</div>
+            </div>
+            
+            <div class="card">
+                <h3>📅 오늘 신규</h3>
+                <div class="stat-number" id="todaySubscribers">-</div>
+                <div class="stat-label">오늘 가입한 구독자</div>
+            </div>
+            
+            <div class="card">
+                <h3>📈 이번 주</h3>
+                <div class="stat-number" id="weekSubscribers">-</div>
+                <div class="stat-label">최근 7일간 신규</div>
+            </div>
+        </div>
+
+        <!-- 구독자 목록 -->
+        <div class="subscribers-table">
+            <div class="table-header">
+                <h3>📋 구독자 목록</h3>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="refreshData()">
+                        🔄 새로고침
+                    </button>
+                    <select id="statusFilter" onchange="filterByStatus()" style="padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                        <option value="active">활성 구독자</option>
+                        <option value="unsubscribed">구독 취소</option>
+                        <option value="all">전체</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="이메일 주소로 검색..." onkeyup="searchSubscribers()">
+            </div>
+
+            <div id="tableContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    데이터를 불러오는 중...
+                </div>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+        </div>
+
+        <!-- 데이터 내보내기 -->
+        <div class="export-section">
+            <h3>📤 데이터 관리</h3>
+            <p style="margin-bottom: 20px; color: #666;">구독자 데이터를 다양한 형식으로 내보내거나 백업할 수 있습니다.</p>
+            
+            <div class="export-buttons">
+                <button class="btn success" onclick="exportToCSV()">
+                    📊 CSV로 내보내기
+                </button>
+                <button class="btn secondary" onclick="exportToJSON()">
+                    📄 JSON으로 내보내기
+                </button>
+                <button class="btn" onclick="createBackup()">
+                    💾 데이터베이스 백업
+                </button>
+                <a href="/" class="btn" style="text-decoration: none;">
+                    🏠 메인 페이지로
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let currentStatus = 'active';
+        let currentSearch = '';
+        let subscribersData = [];
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+            loadSubscribers();
+        });
+
+        // 통계 데이터 로드
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/subscribers/stats');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const stats = data.stats;
+                    document.getElementById('totalSubscribers').textContent = stats.total_subscribers;
+                    document.getElementById('activeSubscribers').textContent = stats.active_subscribers;
+                    document.getElementById('todaySubscribers').textContent = stats.today_subscribers;
+                    document.getElementById('weekSubscribers').textContent = stats.week_subscribers;
+                }
+            } catch (error) {
+                console.error('통계 로드 실패:', error);
+                showAlert('통계 데이터를 불러오는데 실패했습니다.', 'error');
+            }
+        }
+
+        // 구독자 목록 로드
+        async function loadSubscribers(page = 1) {
+            try {
+                const params = new URLSearchParams({
+                    page: page,
+                    limit: 20,
+                    status: currentStatus
+                });
+
+                const response = await fetch(`/api/subscribers?${params}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    subscribersData = data.data.subscribers;
+                    renderTable(subscribersData);
+                    renderPagination(data.data.pagination);
+                    currentPage = page;
+                } else {
+                    showAlert('구독자 목록을 불러오는데 실패했습니다.', 'error');
+                }
+            } catch (error) {
+                console.error('구독자 목록 로드 실패:', error);
+                showAlert('서버 연결에 실패했습니다.', 'error');
+            }
+        }
+
+        // 테이블 렌더링
+        function renderTable(subscribers) {
+            const container = document.getElementById('tableContainer');
+            
+            if (subscribers.length === 0) {
+                container.innerHTML = '<div class="loading">📝 구독자가 없습니다.</div>';
+                return;
+            }
+
+            const table = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>이메일</th>
+                            <th>구독일</th>
+                            <th>소스</th>
+                            <th>상태</th>
+                            <th>작업</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${subscribers.map(sub => `
+                            <tr>
+                                <td>${sub.email}</td>
+                                <td>${new Date(sub.subscribed_at).toLocaleString('ko-KR')}</td>
+                                <td>${sub.source}</td>
+                                <td>
+                                    <span class="status-badge status-${sub.status}">
+                                        ${sub.status === 'active' ? '✅ 활성' : '❌ 취소'}
+                                    </span>
+                                </td>
+                                <td>
+                                    ${sub.status === 'active' ? 
+                                        `<button class="btn danger" style="padding: 6px 12px; font-size: 12px;" onclick="unsubscribeUser('${sub.email}')">구독 취소</button>` :
+                                        `<button class="btn success" style="padding: 6px 12px; font-size: 12px;" onclick="resubscribeUser('${sub.email}')">재구독</button>`
+                                    }
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = table;
+        }
+
+        // 페이지네이션 렌더링
+        function renderPagination(pagination) {
+            const container = document.getElementById('pagination');
+            const { current_page, total_pages, total_count } = pagination;
+            
+            let paginationHTML = `
+                <span style="margin-right: 20px; color: #666;">
+                    총 ${total_count}개 (${current_page}/${total_pages} 페이지)
+                </span>
+            `;
+            
+            // 이전 페이지
+            paginationHTML += `
+                <button onclick="loadSubscribers(${current_page - 1})" ${current_page <= 1 ? 'disabled' : ''}>
+                    ◀ 이전
+                </button>
+            `;
+            
+            // 페이지 번호들
+            const startPage = Math.max(1, current_page - 2);
+            const endPage = Math.min(total_pages, current_page + 2);
+            
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHTML += `
+                    <button onclick="loadSubscribers(${i})" ${i === current_page ? 'class="active"' : ''}>
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // 다음 페이지
+            paginationHTML += `
+                <button onclick="loadSubscribers(${current_page + 1})" ${current_page >= total_pages ? 'disabled' : ''}>
+                    다음 ▶
+                </button>
+            `;
+            
+            container.innerHTML = paginationHTML;
+        }
+
+        // 상태별 필터링
+        function filterByStatus() {
+            currentStatus = document.getElementById('statusFilter').value;
+            currentPage = 1;
+            loadSubscribers(1);
+        }
+
+        // 검색 기능
+        function searchSubscribers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            currentSearch = searchTerm;
+            
+            if (searchTerm === '') {
+                renderTable(subscribersData);
+            } else {
+                const filtered = subscribersData.filter(sub => 
+                    sub.email.toLowerCase().includes(searchTerm)
+                );
+                renderTable(filtered);
+            }
+        }
+
+        // 구독 취소
+        async function unsubscribeUser(email) {
+            if (!confirm(`${email} 구독자를 정말 취소하시겠습니까?`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/unsubscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('구독이 취소되었습니다.', 'success');
+                    refreshData();
+                } else {
+                    showAlert(data.message, 'error');
+                }
+            } catch (error) {
+                showAlert('구독 취소 처리 중 오류가 발생했습니다.', 'error');
+            }
+        }
+
+        // 재구독
+        async function resubscribeUser(email) {
+            if (!confirm(`${email} 구독자를 다시 활성화하시겠습니까?`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('구독이 재활성화되었습니다.', 'success');
+                    refreshData();
+                } else {
+                    showAlert(data.message, 'error');
+                }
+            } catch (error) {
+                showAlert('재구독 처리 중 오류가 발생했습니다.', 'error');
+            }
+        }
+
+        // CSV 내보내기
+        function exportToCSV() {
+            const csvContent = [
+                ['이메일', '구독일', '소스', '상태'].join(','),
+                ...subscribersData.map(sub => [
+                    sub.email,
+                    new Date(sub.subscribed_at).toISOString(),
+                    sub.source,
+                    sub.status
+                ].join(','))
+            ].join('\n');
+            
+            downloadFile(csvContent, 'subscribers.csv', 'text/csv');
+            showAlert('CSV 파일이 다운로드되었습니다.', 'success');
+        }
+
+        // JSON 내보내기
+        function exportToJSON() {
+            const jsonContent = JSON.stringify(subscribersData, null, 2);
+            downloadFile(jsonContent, 'subscribers.json', 'application/json');
+            showAlert('JSON 파일이 다운로드되었습니다.', 'success');
+        }
+
+        // 백업 생성
+        async function createBackup() {
+            try {
+                const response = await fetch('/api/admin/backup');
+                const blob = await response.blob();
+                
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `subscribers_backup_${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                showAlert('백업 파일이 다운로드되었습니다.', 'success');
+            } catch (error) {
+                showAlert('백업 생성 중 오류가 발생했습니다.', 'error');
+            }
+        }
+
+        // 파일 다운로드 헬퍼
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // 데이터 새로고침
+        function refreshData() {
+            loadStats();
+            loadSubscribers(currentPage);
+        }
+
+        // 알림 메시지 표시
+        function showAlert(message, type) {
+            const container = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            
+            container.appendChild(alert);
+            
+            setTimeout(() => {
+                container.removeChild(alert);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
