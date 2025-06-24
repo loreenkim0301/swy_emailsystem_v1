@@ -24,6 +24,9 @@ export function initializeSupabase() {
     }
 }
 
+// Supabase 클라이언트 내보내기 (다른 모듈에서 사용)
+export { supabaseClient };
+
 // 이메일 구독 등록
 export async function subscribeToNewsletter(email) {
     if (!supabaseClient) {
