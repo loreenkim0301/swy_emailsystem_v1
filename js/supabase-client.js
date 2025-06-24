@@ -9,6 +9,7 @@ export function initializeSupabase() {
     
     if (!supabaseUrl || !supabaseAnonKey) {
         console.error('❌ Supabase 환경 변수가 설정되지 않았습니다.');
+        console.error('VITE_SUPABASE_URL과 VITE_SUPABASE_ANON_KEY를 .env 파일에 설정해주세요.');
         return false;
     }
     

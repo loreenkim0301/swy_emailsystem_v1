@@ -59,10 +59,14 @@ EmailJS를 배우고 테스트할 수 있는 단계별 학습 웹 애플리케�
 - **Vanilla JavaScript**: 순수 자바스크립트로 구현
 - **EmailJS SDK**: 이메일 발송 라이브러리
 
-### **백엔드** (구독 기능)
-- **Node.js**: 서버 런타임
-- **Express.js**: 웹 프레임워크
-- **JSON 파일**: 구독자 데이터 저장
+### **백엔드 & 데이터베이스**
+- **Supabase**: 실시간 데이터베이스 및 인증
+- **PostgreSQL**: 구독자 데이터 저장
+- **Row Level Security**: 데이터 보안
+
+### **빌드 도구**
+- **Vite**: 빠른 개발 서버 및 빌드 도구
+- **ES Modules**: 모던 JavaScript 모듈 시스템
 
 ### **폰트 및 디자인**
 - **Pretendard**: 한국어 최적화 메인 폰트
@@ -73,20 +77,33 @@ EmailJS를 배우고 테스트할 수 있는 단계별 학습 웹 애플리케�
 
 - **모바일** (< 768px): 세로 1열 배치
 - **태블릿** (768px - 1024px): 2열 배치
-- **데스크톱** (> 1024px): 3열 배치
+- **데스크톱** (> 1024px): 4열 배치
 
 ## 🔧 개발 및 배포
 
+### **환경 설정**
+
+1. **환경 변수 설정**
+   ```bash
+   # .env.example을 .env로 복사
+   cp .env.example .env
+   
+   # .env 파일에서 Supabase 정보 입력
+   VITE_SUPABASE_URL=your_supabase_project_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+2. **의존성 설치**
+   ```bash
+   npm install
+   ```
+
 ### **로컬 개발**
 ```bash
-# 의존성 설치
-npm install
-
-# 개발 서버 실행 (정적 파일)
+# 개발 서버 실행
 npm run dev
-
-# 백엔드 서버 실행 (구독 기능)
-npm run server
+# 또는
+npm start
 ```
 
 ### **빌드 및 배포**
@@ -100,8 +117,24 @@ npm run preview
 
 ### **서버 포트**
 - **개발 서버**: http://localhost:5173
-- **백엔드 API**: http://localhost:3001
 - **프리뷰**: http://localhost:4173
+
+## 🔒 보안 고려사항
+
+### **환경 변수 관리**
+- `.env` 파일은 **절대 Git에 커밋하지 마세요**
+- `.env.example` 파일로 필요한 환경 변수 가이드 제공
+- Supabase 키는 환경 변수로만 관리
+
+### **Supabase 보안**
+- **Row Level Security (RLS)** 활성화
+- 익명 사용자는 구독만 가능
+- 인증된 사용자만 관리 기능 접근
+
+### **클라이언트 보안**
+- EmailJS 키는 브라우저 메모리에서만 처리
+- 페이지 새로고침 시 모든 정보 삭제
+- 서버에 민감 정보 전송 안함
 
 ## 📝 EmailJS 템플릿 설정 가이드
 
@@ -154,6 +187,11 @@ EmailJS 학습 도구에서 발송됨
    - 이메일 서비스 활성화 상태 확인
    - API 사용량 제한 확인
 
+4. **Supabase 연결 실패**
+   - 환경 변수 설정 확인
+   - Supabase 프로젝트 상태 확인
+   - RLS 정책 확인
+
 ### **디버깅 도구**
 - 브라우저 개발자 도구 콘솔 확인
 - 실시간 상태 메시지 모니터링
@@ -162,9 +200,9 @@ EmailJS 학습 도구에서 발송됨
 ## 🌟 추가 기능
 
 ### **바이브코드제로 클럽 구독**
-- 이메일 구독 기능
-- 서버 사이드 데이터 저장
-- 구독자 관리 API
+- Supabase 기반 이메일 구독 시스템
+- 실시간 데이터베이스 저장
+- 구독자 관리 기능
 
 ### **보안 기능**
 - 클라이언트 사이드 데이터만 처리
@@ -176,7 +214,7 @@ EmailJS 학습 도구에서 발송됨
 **AI코딩하는 김로린 기획자**
 - 기획자와 디자이너도 할 수 있는 AI코딩의 가능성을 보여주는 프로젝트
 - Instagram: [@loreenkim.ceo](https://www.instagram.com/loreenkim.ceo/)
-- Brunch: [loreenkim](https://brunch.co.kr/loreenkim)
+- Brunch: [@loreenkim](https://brunch.co.kr/@loreenkim/)
 
 ## 📄 라이선스
 
@@ -190,3 +228,12 @@ MIT License - 자유롭게 사용, 수정, 배포 가능
 ---
 
 **📧 EmailJS 학습 도구로 이메일 발송 기능을 마스터하세요!**
+
+## ⚠️ 보안 주의사항
+
+**중요**: 이 프로젝트를 사용할 때는 반드시 다음 보안 수칙을 지켜주세요:
+
+1. **환경 변수 사용**: API 키나 토큰을 코드에 직접 작성하지 마세요
+2. **Git 관리**: `.env` 파일은 절대 Git에 커밋하지 마세요
+3. **키 관리**: Supabase 키가 노출되면 즉시 재생성하세요
+4. **접근 제한**: 프로덕션에서는 도메인 제한을 설정하세요
