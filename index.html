@@ -438,6 +438,119 @@
             line-height: 1.4;
         }
 
+        /* 다음 단계 섹션 스타일 */
+        .next-steps-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 1200px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .next-steps-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .next-steps-header h2 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .next-steps-header p {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #666;
+            letter-spacing: -0.01em;
+        }
+
+        .next-steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .next-steps-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .next-step-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .next-step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: #667eea;
+        }
+
+        .next-step-card h3 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .next-step-card p {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            letter-spacing: -0.005em;
+        }
+
+        .next-step-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .next-step-links li {
+            margin-bottom: 12px;
+        }
+
+        .next-step-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #333;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            letter-spacing: -0.005em;
+        }
+
+        .next-step-links a:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateX(5px);
+        }
+
         /* Footer Styles */
         .footer {
             background-color: #1a1a1a;
@@ -454,7 +567,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -702,15 +815,9 @@
             letter-spacing: -0.005em;
         }
 
-        @media (min-width: 768px) {
+        @media (max-width: 1024px) {
             .footer-content {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .footer-content {
-                grid-template-columns: repeat(6, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -721,6 +828,22 @@
 
             .header p {
                 font-size: 16px;
+            }
+
+            .next-steps-header h2 {
+                font-size: 24px;
+            }
+
+            .next-steps-header p {
+                font-size: 16px;
+            }
+
+            .next-step-card {
+                padding: 20px;
+            }
+
+            .next-step-card h3 {
+                font-size: 20px;
             }
 
             .footer-content {
@@ -918,6 +1041,54 @@
         </div>
     </div>
 
+    <!-- 다음 단계 섹션 -->
+    <div class="next-steps-section">
+        <div class="next-steps-header">
+            <h2>🚀 다음 단계로 나아가기</h2>
+            <p>EmailJS를 마스터했다면, 더 많은 AI 코딩 도구들을 탐험해보세요!</p>
+        </div>
+        
+        <div class="next-steps-grid">
+            <!-- 학습 도구 카드 -->
+            <div class="next-step-card">
+                <h3>🛠️ 더 많은 학습 도구</h3>
+                <p>다양한 AI 코딩 도구들로 실력을 확장해보세요. 각 도구는 실무에서 바로 활용할 수 있는 실전 예제들로 구성되어 있습니다.</p>
+                
+                <ul class="next-step-links">
+                    <li>
+                        <a href="https://lustrous-elf-a790e5.netlify.app/" target="_blank">
+                            🎨 CSS 애니메이션 학습 도구
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://vibecodezero-openai.netlify.app/" target="_blank">
+                            🤖 OpenAI API 학습 도구
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 연관된 글 읽기 카드 -->
+            <div class="next-step-card">
+                <h3>📚 바이브코딩 인사이트</h3>
+                <p>AI 코딩의 철학과 실전 노하우를 담은 글들입니다. 기획자와 디자이너도 할 수 있는 AI 코딩의 가능성을 확인해보세요.</p>
+                
+                <ul class="next-step-links">
+                    <li>
+                        <a href="https://brunch.co.kr/@loreenkim/45" target="_blank">
+                            📝 Bolt.new로 웹사이트 만들기
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://brunch.co.kr/@loreenkim/38" target="_blank">
+                            💡 AI 코딩의 미래와 가능성
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
@@ -948,45 +1119,7 @@
                     </div>
                 </div>
                 
-                <!-- 세 번째 그리드: 학습 도구 -->
-                <div class="footer-section">
-                    <h3>🛠️ 학습 도구</h3>
-                    <p>더 많은 AI 코딩 학습 도구들</p>
-                    
-                    <ul class="footer-links">
-                        <li>
-                            <a href="https://lustrous-elf-a790e5.netlify.app/" target="_blank">
-                                🎨 CSS 애니메이션 학습 도구
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://vibecodezero-openai.netlify.app/" target="_blank">
-                                🤖 OpenAI API 학습 도구
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- 네 번째 그리드: 연관된 글 읽기 -->
-                <div class="footer-section">
-                    <h3>📚 연관된 글 읽기</h3>
-                    <p>바이브코딩과 AI 개발에 대한 인사이트</p>
-                    
-                    <ul class="footer-links">
-                        <li>
-                            <a href="https://brunch.co.kr/@loreenkim/45" target="_blank">
-                                📝 Bolt.new로 웹사이트 만들기
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://brunch.co.kr/@loreenkim/38" target="_blank">
-                                💡 AI 코딩의 미래와 가능성
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- 다섯 번째 그리드: 제작자 정보 -->
+                <!-- 세 번째 그리드: 제작자 정보 -->
                 <div class="footer-section">
                     <h3>👩‍💻 제작자 정보</h3>
                     <p><strong>AI코딩하는 김로린 기획자</strong></p>
@@ -1008,7 +1141,7 @@
                     </div>
                 </div>
                 
-                <!-- 여섯 번째 그리드: 바이브코드제로 클럽 -->
+                <!-- 네 번째 그리드: 바이브코드제로 클럽 -->
                 <div class="footer-section">
                     <h3>🚀 바이브코드제로 클럽</h3>
                     <p>더 많은 Bolt.new 및 바이브코딩 자료를 보내드릴까요?</p>
