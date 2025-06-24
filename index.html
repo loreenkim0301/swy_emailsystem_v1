@@ -454,7 +454,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -702,9 +702,15 @@
             letter-spacing: -0.005em;
         }
 
-        @media (max-width: 1024px) {
+        @media (min-width: 768px) {
             .footer-content {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(6, 1fr);
             }
         }
 
@@ -942,7 +948,45 @@
                     </div>
                 </div>
                 
-                <!-- 세 번째 그리드: 제작자 정보 -->
+                <!-- 세 번째 그리드: 학습 도구 -->
+                <div class="footer-section">
+                    <h3>🛠️ 학습 도구</h3>
+                    <p>더 많은 AI 코딩 학습 도구들</p>
+                    
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://lustrous-elf-a790e5.netlify.app/" target="_blank">
+                                🎨 CSS 애니메이션 학습 도구
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://vibecodezero-openai.netlify.app/" target="_blank">
+                                🤖 OpenAI API 학습 도구
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 네 번째 그리드: 연관된 글 읽기 -->
+                <div class="footer-section">
+                    <h3>📚 연관된 글 읽기</h3>
+                    <p>바이브코딩과 AI 개발에 대한 인사이트</p>
+                    
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://brunch.co.kr/@loreenkim/45" target="_blank">
+                                📝 Bolt.new로 웹사이트 만들기
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://brunch.co.kr/@loreenkim/38" target="_blank">
+                                💡 AI 코딩의 미래와 가능성
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 다섯 번째 그리드: 제작자 정보 -->
                 <div class="footer-section">
                     <h3>👩‍💻 제작자 정보</h3>
                     <p><strong>AI코딩하는 김로린 기획자</strong></p>
@@ -964,7 +1008,7 @@
                     </div>
                 </div>
                 
-                <!-- 네 번째 그리드: 바이브코드제로 클럽 -->
+                <!-- 여섯 번째 그리드: 바이브코드제로 클럽 -->
                 <div class="footer-section">
                     <h3>🚀 바이브코드제로 클럽</h3>
                     <p>더 많은 Bolt.new 및 바이브코딩 자료를 보내드릴까요?</p>
