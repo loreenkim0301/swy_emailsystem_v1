@@ -2,7 +2,7 @@
 let supabaseClient = null;
 
 // Supabase 클라이언트 초기화
-function initializeSupabase() {
+export function initializeSupabase() {
     // 환경 변수에서 Supabase 설정 가져오기
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -24,7 +24,7 @@ function initializeSupabase() {
 }
 
 // 이메일 구독 등록
-async function subscribeToNewsletter(email) {
+export async function subscribeToNewsletter(email) {
     if (!supabaseClient) {
         throw new Error('Supabase 클라이언트가 초기화되지 않았습니다.');
     }
@@ -95,7 +95,7 @@ async function subscribeToNewsletter(email) {
 }
 
 // 구독 취소
-async function unsubscribeFromNewsletter(email) {
+export async function unsubscribeFromNewsletter(email) {
     if (!supabaseClient) {
         throw new Error('Supabase 클라이언트가 초기화되지 않았습니다.');
     }
@@ -133,7 +133,7 @@ async function unsubscribeFromNewsletter(email) {
 }
 
 // 구독자 통계 조회 (관리자용)
-async function getSubscriberStats() {
+export async function getSubscriberStats() {
     if (!supabaseClient) {
         throw new Error('Supabase 클라이언트가 초기화되지 않았습니다.');
     }
@@ -187,7 +187,7 @@ async function getSubscriberStats() {
 }
 
 // 구독자 목록 조회 (관리자용)
-async function getSubscribers(page = 1, limit = 50, status = 'active') {
+export async function getSubscribers(page = 1, limit = 50, status = 'active') {
     if (!supabaseClient) {
         throw new Error('Supabase 클라이언트가 초기화되지 않았습니다.');
     }

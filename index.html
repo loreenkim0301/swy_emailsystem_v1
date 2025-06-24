@@ -905,10 +905,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- EmailJS 라이브러리 로드 -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <!-- Supabase 클라이언트 로드 -->
-    <script src="js/supabase-client.js"></script>
     
-    <script>
+    <script type="module">
+        import { initializeSupabase, subscribeToNewsletter } from './js/supabase-client.js';
+        
         let emailConfig = null;
         let isEmailJSInitialized = false;
         let isSupabaseInitialized = false;
@@ -957,7 +957,7 @@
         }
 
         // 설정 저장 및 초기화
-        function saveAndTestConfig() {
+        window.saveAndTestConfig = function() {
             const publicKey = document.getElementById('publicKey').value.trim();
             const serviceId = document.getElementById('serviceId').value.trim();
             const templateId = document.getElementById('templateId').value.trim();
@@ -1048,7 +1048,7 @@
         }
 
         // 연결 테스트
-        function testConnection() {
+        window.testConnection = function() {
             if (!isEmailJSInitialized) {
                 showStatus('testStatus', '❌ EmailJS가 초기화되지 않았습니다. 1단계를 다시 완료해주세요.', 'error');
                 return;
@@ -1114,7 +1114,7 @@
         }
 
         // 이메일 발송
-        function sendEmail() {
+        window.sendEmail = function() {
             const senderName = document.getElementById('senderName').value.trim();
             const senderEmail = document.getElementById('senderEmail').value.trim();
             const subject = document.getElementById('subject').value.trim();
@@ -1215,7 +1215,7 @@
         }
 
         // 뉴스레터 구독 함수 (Supabase 사용)
-        async function handleSubscription() {
+        window.handleSubscription = async function() {
             const email = document.getElementById('subscriptionEmail').value.trim();
             const subscribeBtn = document.getElementById('subscribeBtn');
             const subscribeBtnText = document.getElementById('subscribeBtnText');
