@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS 학습 도구</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emailjs-com/3.2.0/email.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .steps-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .steps-container {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-card.active {
+            border: 3px solid #667eea;
+            transform: translateY(-5px);
+        }
+
+        .step-card.completed {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border: 3px solid #28a745;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+
+        .step-card.completed .step-number {
+            background: #28a745;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .step-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn.success {
+            background: #28a745;
+        }
+
+        .btn.danger {
+            background: #dc3545;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status-message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .config-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #495057;
+        }
+
+        .config-display pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        .tutorial-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .tutorial-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📧 EmailJS 학습 도구</h1>
+            <p>EmailJS를 배우고 테스트해보세요</p>
+        </div>
+
+        <div class="steps-container">
+            <!-- Step 1: 설정 입력 -->
+            <div class="step-card active" id="step1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">EmailJS 설정</div>
+                </div>
+                <div class="step-description">
+                    EmailJS 계정에서 발급받은 정보를 입력하세요.
+                    <br><a href="https://www.emailjs.com/" target="_blank" class="tutorial-link">EmailJS 가입하기 →</a>
+                </div>
+
+                <div class="form-group">
+                    <label for="publicKey">Public Key</label>
+                    <input type="text" id="publicKey" placeholder="예: user_xxxxxxxxxx">
+                    <div class="help-text">EmailJS Dashboard → Account → General에서 확인</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="serviceId">Service ID</label>
+                    <input type="text" id="serviceId" placeholder="예: service_xxxxxxx">
+                    <div class="help-text">EmailJS Dashboard → Email Services에서 확인</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="templateId">Template ID</label>
+                    <input type="text" id="templateId" placeholder="예: template_xxxxxxx">
+                    <div class="help-text">EmailJS Dashboard → Email Templates에서 확인</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="toEmail">받을 이메일 주소</label>
+                    <input type="email" id="toEmail" placeholder="test@example.com">
+                    <div class="help-text">테스트 이메일을 받을 주소</div>
+                </div>
+
+                <button class="btn" onclick="saveAndTestConfig()">설정 저장 및 테스트</button>
+                
+                <div id="configStatus" class="status-message"></div>
+                
+                <div id="configDisplay" class="config-display hidden">
+                    <strong>저장된 설정:</strong>
+                    <pre id="configText"></pre>
+                </div>
+            </div>
+
+            <!-- Step 2: 연결 테스트 -->
+            <div class="step-card" id="step2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">연결 테스트</div>
+                </div>
+                <div class="step-description">
+                    입력한 설정으로 EmailJS 연결을 테스트합니다.
+                </div>
+
+                <div id="connectionTest" class="hidden">
+                    <button class="btn" onclick="testConnection()">연결 테스트 실행</button>
+                    <div id="testStatus" class="status-message"></div>
+                </div>
+
+                <div id="connectionWaiting">
+                    <p style="color: #6c757d; text-align: center; padding: 20px;">
+                        먼저 1단계에서 설정을 완료해주세요.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 3: 이메일 발송 -->
+            <div class="step-card" id="step3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">이메일 발송</div>
+                </div>
+                <div class="step-description">
+                    실제 이메일을 작성하고 발송해보세요.
+                </div>
+
+                <div id="emailForm" class="hidden">
+                    <div class="form-group">
+                        <label for="senderName">보내는 사람 이름</label>
+                        <input type="text" id="senderName" placeholder="홍길동">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="senderEmail">보내는 사람 이메일</label>
+                        <input type="email" id="senderEmail" placeholder="sender@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">제목</label>
+                        <input type="text" id="subject" placeholder="테스트 이메일입니다">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">내용</label>
+                        <textarea id="message" placeholder="이메일 내용을 입력하세요..."></textarea>
+                    </div>
+
+                    <button class="btn" onclick="sendEmail()" id="sendBtn">
+                        <span id="sendBtnText">이메일 보내기</span>
+                        <span id="sendBtnLoading" class="loading hidden">
+                            <div class="spinner"></div>
+                            전송 중...
+                        </span>
+                    </button>
+                </div>
+
+                <div id="emailWaiting">
+                    <p style="color: #6c757d; text-align: center; padding: 20px;">
+                        먼저 1, 2단계를 완료해주세요.
+                    </p>
+                </div>
+
+                <div id="emailStatus" class="status-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let emailConfig = null;
+        let isEmailJSInitialized = false;
+
+        // 페이지 로드 시 저장된 설정 확인
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedConfig();
+        });
+
+        // 저장된 설정 불러오기
+        function loadSavedConfig() {
+            const saved = localStorage.getItem('emailjs_learning_config');
+            if (saved) {
+                try {
+                    emailConfig = JSON.parse(saved);
+                    
+                    // 폼에 값 채우기
+                    document.getElementById('publicKey').value = emailConfig.publicKey || '';
+                    document.getElementById('serviceId').value = emailConfig.serviceId || '';
+                    document.getElementById('templateId').value = emailConfig.templateId || '';
+                    document.getElementById('toEmail').value = emailConfig.toEmail || '';
+                    
+                    if (isConfigComplete(emailConfig)) {
+                        showConfigSuccess();
+                        enableStep2();
+                        
+                        if (emailConfig.connectionTested) {
+                            showConnectionSuccess();
+                            enableStep3();
+                        }
+                    }
+                } catch (e) {
+                    console.log('저장된 설정을 불러오는데 실패했습니다.');
+                }
+            }
+        }
+
+        // 설정 완성도 확인
+        function isConfigComplete(config) {
+            return config && config.publicKey && config.serviceId && config.templateId && config.toEmail;
+        }
+
+        // 설정 저장 및 테스트
+        function saveAndTestConfig() {
+            const publicKey = document.getElementById('publicKey').value.trim();
+            const serviceId = document.getElementById('serviceId').value.trim();
+            const templateId = document.getElementById('templateId').value.trim();
+            const toEmail = document.getElementById('toEmail').value.trim();
+
+            // 입력값 검증
+            if (!publicKey || !serviceId || !templateId || !toEmail) {
+                showStatus('configStatus', '모든 필드를 입력해주세요! ⚠️', 'error');
+                return;
+            }
+
+            // 이메일 형식 검증
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(toEmail)) {
+                showStatus('configStatus', '올바른 이메일 주소를 입력해주세요! ⚠️', 'error');
+                return;
+            }
+
+            // 설정 저장
+            emailConfig = { publicKey, serviceId, templateId, toEmail };
+            localStorage.setItem('emailjs_learning_config', JSON.stringify(emailConfig));
+            
+            showConfigSuccess();
+            enableStep2();
+            
+            // EmailJS 초기화
+            initEmailJS();
+        }
+
+        // 설정 성공 표시
+        function showConfigSuccess() {
+            showStatus('configStatus', '✅ 설정이 저장되었습니다!', 'success');
+            
+            // 설정 표시
+            document.getElementById('configDisplay').classList.remove('hidden');
+            document.getElementById('configText').textContent = 
+                `Public Key: ${emailConfig.publicKey.substring(0, 10)}...\n` +
+                `Service ID: ${emailConfig.serviceId}\n` +
+                `Template ID: ${emailConfig.templateId}\n` +
+                `To Email: ${emailConfig.toEmail}`;
+            
+            // 1단계 완료 표시
+            document.getElementById('step1').classList.add('completed');
+            document.getElementById('step1').classList.remove('active');
+        }
+
+        // 2단계 활성화
+        function enableStep2() {
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('connectionWaiting').classList.add('hidden');
+            document.getElementById('connectionTest').classList.remove('hidden');
+        }
+
+        // EmailJS 초기화
+        function initEmailJS() {
+            if (typeof emailjs !== 'undefined' && emailConfig) {
+                try {
+                    emailjs.init(emailConfig.publicKey);
+                    isEmailJSInitialized = true;
+                    console.log('EmailJS 초기화 완료');
+                } catch (error) {
+                    console.error('EmailJS 초기화 실패:', error);
+                    showStatus('configStatus', '❌ EmailJS 초기화에 실패했습니다: ' + error.message, 'error');
+                }
+            }
+        }
+
+        // 연결 테스트
+        function testConnection() {
+            if (!isEmailJSInitialized) {
+                initEmailJS();
+            }
+
+            if (!isEmailJSInitialized) {
+                showStatus('testStatus', '❌ EmailJS가 초기화되지 않았습니다.', 'error');
+                return;
+            }
+
+            showStatus('testStatus', '🔄 연결을 테스트하는 중...', 'info');
+
+            // 테스트용 더미 데이터로 연결 확인
+            const testData = {
+                name: 'Test User',
+                email: 'test@example.com',
+                subject: 'Connection Test',
+                message: 'This is a connection test from EmailJS Learning Tool.',
+                to_email: emailConfig.toEmail
+            };
+
+            emailjs.send(emailConfig.serviceId, emailConfig.templateId, testData)
+                .then(function(response) {
+                    console.log('연결 테스트 성공!', response);
+                    emailConfig.connectionTested = true;
+                    localStorage.setItem('emailjs_learning_config', JSON.stringify(emailConfig));
+                    
+                    showConnectionSuccess();
+                    enableStep3();
+                })
+                .catch(function(error) {
+                    console.error('연결 테스트 실패:', error);
+                    showStatus('testStatus', '❌ 연결 테스트 실패: ' + (error.text || error.message || '알 수 없는 오류'), 'error');
+                });
+        }
+
+        // 연결 성공 표시
+        function showConnectionSuccess() {
+            showStatus('testStatus', '✅ 연결 테스트 성공! EmailJS가 정상적으로 작동합니다.', 'success');
+            
+            // 2단계 완료 표시
+            document.getElementById('step2').classList.add('completed');
+            document.getElementById('step2').classList.remove('active');
+        }
+
+        // 3단계 활성화
+        function enableStep3() {
+            document.getElementById('step3').classList.add('active');
+            document.getElementById('emailWaiting').classList.add('hidden');
+            document.getElementById('emailForm').classList.remove('hidden');
+        }
+
+        // 이메일 발송
+        function sendEmail() {
+            const senderName = document.getElementById('senderName').value.trim();
+            const senderEmail = document.getElementById('senderEmail').value.trim();
+            const subject = document.getElementById('subject').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // 입력값 검증
+            if (!senderName || !senderEmail || !subject || !message) {
+                showStatus('emailStatus', '모든 필드를 입력해주세요! ⚠️', 'error');
+                return;
+            }
+
+            // 이메일 형식 검증
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(senderEmail)) {
+                showStatus('emailStatus', '올바른 이메일 주소를 입력해주세요! ⚠️', 'error');
+                return;
+            }
+
+            // 버튼 상태 변경
+            const sendBtn = document.getElementById('sendBtn');
+            const sendBtnText = document.getElementById('sendBtnText');
+            const sendBtnLoading = document.getElementById('sendBtnLoading');
+            
+            sendBtn.disabled = true;
+            sendBtnText.classList.add('hidden');
+            sendBtnLoading.classList.remove('hidden');
+
+            // 이메일 데이터 준비
+            const emailData = {
+                name: senderName,
+                email: senderEmail,
+                subject: subject,
+                message: message,
+                to_email: emailConfig.toEmail
+            };
+
+            console.log('이메일 발송 시작:', { ...emailData, to_email: '[보안상 숨김]' });
+
+            // EmailJS로 이메일 발송
+            emailjs.send(emailConfig.serviceId, emailConfig.templateId, emailData)
+                .then(function(response) {
+                    console.log('이메일 발송 성공!', response);
+                    showStatus('emailStatus', '✅ 이메일이 성공적으로 발송되었습니다!', 'success');
+                    
+                    // 3단계 완료 표시
+                    document.getElementById('step3').classList.add('completed');
+                    
+                    // 폼 초기화
+                    document.getElementById('senderName').value = '';
+                    document.getElementById('senderEmail').value = '';
+                    document.getElementById('subject').value = '';
+                    document.getElementById('message').value = '';
+                })
+                .catch(function(error) {
+                    console.error('이메일 발송 실패:', error);
+                    showStatus('emailStatus', '❌ 이메일 발송 실패: ' + (error.text || error.message || '알 수 없는 오류'), 'error');
+                })
+                .finally(function() {
+                    // 버튼 상태 복원
+                    sendBtn.disabled = false;
+                    sendBtnText.classList.remove('hidden');
+                    sendBtnLoading.classList.add('hidden');
+                });
+        }
+
+        // 상태 메시지 표시
+        function showStatus(elementId, message, type) {
+            const statusElement = document.getElementById(elementId);
+            statusElement.textContent = message;
+            statusElement.className = `status-message ${type}`;
+            statusElement.style.display = 'block';
+
+            // 에러가 아닌 경우 5초 후 숨기기
+            if (type !== 'error') {
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // 전체 설정 초기화 (개발자 도구에서 사용)
+        function resetAllConfig() {
+            localStorage.removeItem('emailjs_learning_config');
+            location.reload();
+        }
+
+        // 전역 함수로 설정
+        window.resetEmailJSLearning = resetAllConfig;
+    </script>
+</body>
+</html>
