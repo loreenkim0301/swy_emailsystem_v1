@@ -445,7 +445,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
             margin-bottom: 2rem;
         }
@@ -514,6 +514,47 @@
 
         .social-links a:hover {
             color: #ffffff;
+        }
+
+        /* 기술 스택 스타일 */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .tech-item {
+            background-color: #2a2a2a;
+            border-radius: 0.375rem;
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background-color: #333333;
+        }
+
+        .tech-icon {
+            font-size: 1.2rem;
+        }
+
+        .tech-name {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #ffffff;
+            letter-spacing: -0.005em;
+        }
+
+        .tech-category {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.75rem;
+            color: #999999;
+            font-weight: 400;
         }
 
         /* 구독 폼 스타일 */
@@ -659,6 +700,16 @@
 
             .subscription-btn {
                 width: 100%;
+            }
+
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -849,7 +900,58 @@
                     </ul>
                 </div>
                 
-                <!-- 두 번째 그리드: 제작자 정보 -->
+                <!-- 두 번째 그리드: 개발 스택 -->
+                <div class="footer-section">
+                    <h3>⚡ 개발 스택</h3>
+                    <p>이 프로젝트에서 사용된 기술들</p>
+                    
+                    <div class="tech-stack">
+                        <div class="tech-item">
+                            <span class="tech-icon">🌐</span>
+                            <div>
+                                <div class="tech-name">HTML5 & CSS3</div>
+                                <div class="tech-category">Frontend</div>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">⚡</span>
+                            <div>
+                                <div class="tech-name">Vanilla JavaScript</div>
+                                <div class="tech-category">Frontend</div>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">📧</span>
+                            <div>
+                                <div class="tech-name">EmailJS</div>
+                                <div class="tech-category">Email Service</div>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">🗄️</span>
+                            <div>
+                                <div class="tech-name">Supabase</div>
+                                <div class="tech-category">Database</div>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">🚀</span>
+                            <div>
+                                <div class="tech-name">Vite</div>
+                                <div class="tech-category">Build Tool</div>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon">🎨</span>
+                            <div>
+                                <div class="tech-name">Pretendard Font</div>
+                                <div class="tech-category">Typography</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 세 번째 그리드: 제작자 정보 -->
                 <div class="footer-section">
                     <h3>👩‍💻 제작자 정보</h3>
                     <p><strong>AI코딩하는 김로린 기획자</strong></p>
@@ -861,7 +963,7 @@
                                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                             </svg>
                         </a>
-                        <a href="https://brunch.co.kr/loreenkim" target="_blank" title="Brunch">
+                        <a href="https://brunch.co.kr/@loreenkim/" target="_blank" title="Brunch">
                             <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                             </svg>
@@ -869,7 +971,7 @@
                     </div>
                 </div>
                 
-                <!-- 세 번째 그리드: 바이브코드제로 클럽 -->
+                <!-- 네 번째 그리드: 바이브코드제로 클럽 -->
                 <div class="footer-section">
                     <h3>🚀 바이브코드제로 클럽</h3>
                     <p>더 많은 Bolt.new 및 바이브코딩 자료를 보내드릴까요?</p>
