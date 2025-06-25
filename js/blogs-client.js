@@ -23,7 +23,11 @@ export async function getAllBlogs(options = {}) {
         }
         
         if (status !== 'all') {
-            query = query.eq('status', status);
+            if (Array.isArray(status)) {
+                query = query.in('status', status);
+            } else {
+                query = query.eq('status', status);
+            }
         }
         
         if (featured !== null) {
