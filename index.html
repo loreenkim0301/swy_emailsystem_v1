@@ -261,6 +261,53 @@
             border: 1px solid #93c5fd;
         }
 
+        /* 구독 섹션 */
+        .newsletter-section {
+            background: var(--background-card);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin: 60px 0;
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .newsletter-section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .newsletter-section p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .newsletter-form button {
+            padding: 12px 24px;
+            white-space: nowrap;
+        }
+
         /* 관련 콘텐츠 섹션 */
         .related-content {
             background: #1a1a2e;
@@ -427,53 +474,6 @@
             text-align: center;
             color: #ef4444;
             padding: 40px;
-        }
-
-        /* 구독 섹션 */
-        .newsletter-section {
-            background: var(--background-card);
-            border-radius: var(--border-radius);
-            padding: 40px;
-            margin: 60px 0;
-            box-shadow: var(--shadow-soft);
-            text-align: center;
-            border: 1px solid var(--border-light);
-        }
-
-        .newsletter-section h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .newsletter-section p {
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 12px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid var(--border-light);
-            border-radius: 8px;
-            font-size: 14px;
-        }
-
-        .newsletter-form button {
-            padding: 12px 24px;
-            white-space: nowrap;
         }
 
         /* 모달 스타일 */
@@ -682,8 +682,8 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <h1>🚀 다음 단계로 나아가기</h1>
-                <p>더 많은 학습 도구와 바이브코드제로 인사이트를 확인해보세요</p>
+                <h1>📧 EmailJS 학습 도구</h1>
+                <p>단계별 가이드로 EmailJS를 배우고 실제 이메일 발송을 테스트해보세요</p>
             </div>
         </div>
     </header>
