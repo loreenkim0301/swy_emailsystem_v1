@@ -23,11 +23,7 @@ export async function getAllBlogs(options = {}) {
         }
         
         if (status !== 'all') {
-            if (Array.isArray(status)) {
-                query = query.in('status', status);
-            } else {
-                query = query.eq('status', status);
-            }
+            query = query.eq('status', status);
         }
         
         if (featured !== null) {
@@ -94,34 +90,13 @@ export async function getWebsitesWithComingSoon(limit = 6) {
     }
 }
 
-// 블로그 포스트 조회 (오른쪽 섹션용) - 공개됨과 준비중 모두 포함
+// 블로그 포스트 조회 (오른쪽 섹션용)
 export async function getBlogPosts(limit = 6) {
-    try {
-        let query = supabaseClient
-            .from('blogs')
-            .select('*')
-            .eq('category', 'blog')
-            .in('status', ['published', 'preparing'])
-            .order('created_at', { ascending: false });
-
-        if (limit > 0) {
-            query = query.limit(limit);
-        }
-
-        const { data, error } = await query;
-
-        if (error) throw error;
-
-        return {
-            success: true,
-            blogs: data || [],
-            count: data?.length || 0
-        };
-
-    } catch (error) {
-        console.error('블로그 포스트 조회 중 오류:', error);
-        throw new Error('블로그 포스트를 불러오는데 실패했습니다.');
-    }
+    return await getAllBlogs({
+        category: 'blog',
+        status: 'published',
+        limit
+    });
 }
 
 // 추천 게시글 조회
@@ -326,14 +301,6 @@ export async function getBlogStats() {
 
         if (comingSoonError) throw comingSoonError;
 
-        // 준비중 게시글 수
-        const { count: preparingCount, error: preparingError } = await supabaseClient
-            .from('blogs')
-            .select('*', { count: 'exact', head: true })
-            .eq('status', 'preparing');
-
-        if (preparingError) throw preparingError;
-
         // 추천 게시글 수
         const { count: featuredCount, error: featuredError } = await supabaseClient
             .from('blogs')
@@ -348,7 +315,6 @@ export async function getBlogStats() {
             blog_count: blogCount || 0,
             published_blogs: publishedCount || 0,
             coming_soon_blogs: comingSoonCount || 0,
-            preparing_blogs: preparingCount || 0,
             featured_blogs: featuredCount || 0
         };
 
