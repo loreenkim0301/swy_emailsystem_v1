@@ -438,179 +438,373 @@
             line-height: 1.4;
         }
 
-        /* 더 많은 콘텐츠 섹션 스타일 */
-        .more-content {
+        /* 더 많은 도구 섹션 스타일 */
+        .more-tools-section {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 40px;
-            margin-top: 50px;
+            padding: 30px;
+            margin-top: 40px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .more-content h2 {
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
             color: white;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 15px;
-            letter-spacing: -0.02em;
         }
 
-        .more-content .subtitle {
-            color: rgba(255, 255, 255, 0.9);
+        .section-header h2 {
             font-family: 'Pretendard', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
-            text-align: center;
-            margin-bottom: 40px;
+            font-size: 24px;
+            font-weight: 700;
+            margin-left: 10px;
             letter-spacing: -0.01em;
         }
 
-        .content-grid {
+        .tools-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
 
-        @media (min-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr 1fr;
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
             }
         }
 
-        .content-section {
+        .tools-column {
             background: white;
-            border-radius: 16px;
-            padding: 30px;
+            border-radius: 15px;
+            padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .content-section h3 {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
+        .column-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            letter-spacing: -0.01em;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
         }
 
-        .content-section h3::before {
-            font-size: 24px;
+        .column-header h3 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-left: 10px;
+            letter-spacing: -0.005em;
         }
 
-        .content-section h3.tools::before {
-            content: "🛠️";
-        }
-
-        .content-section h3.insights::before {
-            content: "📚";
-        }
-
-        .content-list {
+        .tool-item {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .content-item {
-            background: #f8f9fa;
+            align-items: flex-start;
+            padding: 15px;
+            margin-bottom: 15px;
             border-radius: 12px;
-            padding: 20px;
+            background: #f8f9fa;
             transition: all 0.3s ease;
-            border: 2px solid transparent;
             cursor: pointer;
-        }
-
-        .content-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            border-color: #667eea;
-        }
-
-        .content-item.coming-soon {
-            opacity: 0.7;
-            cursor: default;
             position: relative;
         }
 
-        .content-item.coming-soon::after {
-            content: "출시 예정";
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: #ffc107;
-            color: #856404;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-family: 'Pretendard', sans-serif;
+        .tool-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .content-item.coming-soon:hover {
-            transform: none;
-            box-shadow: none;
-            border-color: transparent;
+        .tool-item.coming-soon {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 1px solid #ffc107;
         }
 
-        .content-item h4 {
+        .tool-item.preparing {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            border: 1px solid #17a2b8;
+        }
+
+        .tool-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .tool-content {
+            flex: 1;
+        }
+
+        .tool-title {
             font-family: 'Pretendard', sans-serif;
             font-size: 16px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             letter-spacing: -0.005em;
         }
 
-        .content-item p {
+        .tool-description {
             font-family: 'Pretendard', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
+            font-size: 13px;
             color: #666;
-            line-height: 1.5;
-            margin-bottom: 12px;
+            line-height: 1.4;
             letter-spacing: -0.005em;
         }
 
-        .content-tags {
+        .tool-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 5px;
+            margin-top: 8px;
         }
 
-        .content-tag {
+        .tool-tag {
             background: #e9ecef;
             color: #495057;
+            padding: 2px 8px;
+            border-radius: 12px;
             font-family: 'Pretendard', sans-serif;
             font-size: 11px;
             font-weight: 500;
-            padding: 4px 8px;
-            border-radius: 12px;
             letter-spacing: -0.005em;
         }
 
-        .content-tag.primary {
-            background: #667eea;
+        .status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+        }
+
+        .status-badge.coming-soon {
+            background: #ffc107;
+            color: #856404;
+        }
+
+        .status-badge.preparing {
+            background: #17a2b8;
             color: white;
         }
 
         .loading-state {
             text-align: center;
             padding: 40px;
-            color: #666;
+            color: white;
             font-family: 'Pretendard', sans-serif;
         }
 
         .error-state {
             text-align: center;
             padding: 40px;
-            color: #dc3545;
+            color: #ff6b6b;
             font-family: 'Pretendard', sans-serif;
+        }
+
+        /* 모달 스타일 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .modal-subtitle {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+            letter-spacing: -0.005em;
+        }
+
+        .modal-content {
+            margin-bottom: 30px;
+        }
+
+        .modal-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .modal-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .modal-status {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 13px;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .modal-status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .modal-status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .modal-benefits {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .modal-benefits h4 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            letter-spacing: -0.005em;
+        }
+
+        .modal-benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-benefits li {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.4;
+            letter-spacing: -0.005em;
+        }
+
+        .modal-benefits li::before {
+            content: "✨";
+            position: absolute;
+            left: 0;
+            top: 0;
         }
 
         /* Footer Styles */
@@ -908,6 +1102,18 @@
             .subscription-btn {
                 width: 100%;
             }
+
+            .modal {
+                padding: 30px 20px;
+            }
+
+            .modal-form {
+                flex-direction: column;
+            }
+
+            .modal-btn {
+                width: 100%;
+            }
         }
 
         /* 코드 블록 전용 폰트 */
@@ -1085,33 +1291,81 @@
                 </div>
             </div>
 
-            <!-- 더 많은 콘텐츠 섹션 -->
-            <div class="more-content">
-                <h2>🚀 더 많은 콘텐츠 나아가기</h2>
-                <p class="subtitle">더 많은 학습 도구와 바이브코딩 인사이트를 확인해보세요</p>
-                
-                <div class="content-grid">
-                    <!-- 왼쪽: 더 많은 학습 도구 (웹사이트 링크) -->
-                    <div class="content-section">
-                        <h3 class="tools">더 많은 학습 도구</h3>
-                        <div id="websiteList" class="content-list">
+            <!-- 더 많은 도구 섹션 -->
+            <div class="more-tools-section">
+                <div class="section-header">
+                    <span>🚀</span>
+                    <h2>더 많은 단계로 나아가기</h2>
+                </div>
+                <p style="color: rgba(255,255,255,0.9); text-align: center; margin-bottom: 30px; font-size: 16px;">
+                    더 많은 학습 도구와 바이브코딩 인사이트를 확인해보세요
+                </p>
+
+                <div class="tools-grid">
+                    <!-- 왼쪽: 더 많은 학습 도구 -->
+                    <div class="tools-column">
+                        <div class="column-header">
+                            <span>🛠️</span>
+                            <h3>더 많은 학습 도구</h3>
+                        </div>
+                        <div id="websitesList">
                             <div class="loading-state">
                                 <div class="spinner" style="border-color: #667eea; border-top-color: transparent; margin: 0 auto 10px;"></div>
                                 학습 도구를 불러오는 중...
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- 오른쪽: 바이브코딩 인사이트 (블로그 포스트) -->
-                    <div class="content-section">
-                        <h3 class="insights">바이브코딩 인사이트</h3>
-                        <div id="blogList" class="content-list">
+
+                    <!-- 오른쪽: 바이브코딩 인사이트 -->
+                    <div class="tools-column">
+                        <div class="column-header">
+                            <span>📚</span>
+                            <h3>바이브코딩 인사이트</h3>
+                        </div>
+                        <div id="blogsList">
                             <div class="loading-state">
                                 <div class="spinner" style="border-color: #667eea; border-top-color: transparent; margin: 0 auto 10px;"></div>
                                 블로그 포스트를 불러오는 중...
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 준비중 모달 -->
+    <div class="modal-overlay" id="preparingModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closePreparingModal()">&times;</button>
+            
+            <div class="modal-header">
+                <div class="modal-icon">⏳</div>
+                <h3 class="modal-title">아직 준비중이에요!</h3>
+                <p class="modal-subtitle">빠른 소식을 원하시면 이메일 주소를 남겨주세요</p>
+            </div>
+
+            <div class="modal-content">
+                <div class="modal-form">
+                    <input type="email" id="modalSubscriptionEmail" class="modal-input" placeholder="이메일 주소를 입력하세요">
+                    <button class="modal-btn" onclick="handleModalSubscription()" id="modalSubscribeBtn">
+                        <span id="modalSubscribeBtnText">구독하기</span>
+                        <span id="modalSubscribeBtnLoading" class="loading hidden">
+                            <div class="spinner"></div>
+                        </span>
+                    </button>
+                </div>
+                
+                <div id="modalSubscriptionStatus" class="modal-status"></div>
+
+                <div class="modal-benefits">
+                    <h4>📬 구독하시면 받을 수 있는 소식</h4>
+                    <ul>
+                        <li>새로운 학습 도구 출시 알림</li>
+                        <li>Bolt.new 활용 팁과 노하우</li>
+                        <li>AI 코딩 실전 프로젝트 가이드</li>
+                        <li>바이브코딩 커뮤니티 소식</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -1233,80 +1487,203 @@
         // 블로그 데이터 로드 함수
         async function loadBlogData() {
             try {
-                // 웹사이트 목록 로드 (왼쪽 섹션)
+                // 웹사이트 목록 로드 (왼쪽)
                 const websitesResult = await getWebsitesWithComingSoon(6);
                 renderWebsites(websitesResult.blogs);
 
-                // 블로그 포스트 로드 (오른쪽 섹션)
+                // 블로그 포스트 로드 (오른쪽)
                 const blogsResult = await getBlogPosts(6);
                 renderBlogs(blogsResult.blogs);
 
             } catch (error) {
                 console.error('블로그 데이터 로드 실패:', error);
-                showErrorState('websiteList', '학습 도구를 불러오는데 실패했습니다.');
-                showErrorState('blogList', '블로그 포스트를 불러오는데 실패했습니다.');
+                showError('websitesList', '학습 도구를 불러오는데 실패했습니다.');
+                showError('blogsList', '블로그 포스트를 불러오는데 실패했습니다.');
             }
         }
 
         // 웹사이트 목록 렌더링
         function renderWebsites(websites) {
-            const container = document.getElementById('websiteList');
+            const container = document.getElementById('websitesList');
             
             if (!websites || websites.length === 0) {
-                container.innerHTML = '<div class="error-state">표시할 학습 도구가 없습니다.</div>';
+                container.innerHTML = '<div class="error-state">학습 도구가 없습니다.</div>';
                 return;
             }
 
-            container.innerHTML = websites.map(website => {
-                const isComingSoon = website.status === 'coming-soon';
-                const tags = website.keywords || [];
-                
-                return `
-                    <div class="content-item ${isComingSoon ? 'coming-soon' : ''}" 
-                         ${!isComingSoon && website.url ? `onclick="window.open('${website.url}', '_blank')"` : ''}>
-                        <h4>${website.title}</h4>
-                        <p>${website.description}</p>
-                        <div class="content-tags">
-                            ${tags.slice(0, 3).map((tag, index) => 
-                                `<span class="content-tag ${index === 0 ? 'primary' : ''}">${tag}</span>`
-                            ).join('')}
+            container.innerHTML = websites.map(website => `
+                <div class="tool-item ${website.status === 'coming-soon' ? 'coming-soon' : ''}" 
+                     onclick="handleWebsiteClick('${website.url}', '${website.status}')">
+                    ${website.status === 'coming-soon' ? '<div class="status-badge coming-soon">출시 예정</div>' : ''}
+                    <div class="tool-icon">🛠️</div>
+                    <div class="tool-content">
+                        <div class="tool-title">${website.title}</div>
+                        <div class="tool-description">${website.description}</div>
+                        <div class="tool-tags">
+                            ${website.keywords ? website.keywords.map(tag => `<span class="tool-tag">${tag}</span>`).join('') : ''}
                         </div>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         }
 
         // 블로그 포스트 렌더링
         function renderBlogs(blogs) {
-            const container = document.getElementById('blogList');
+            const container = document.getElementById('blogsList');
             
             if (!blogs || blogs.length === 0) {
-                container.innerHTML = '<div class="error-state">표시할 블로그 포스트가 없습니다.</div>';
+                container.innerHTML = '<div class="error-state">블로그 포스트가 없습니다.</div>';
                 return;
             }
 
-            container.innerHTML = blogs.map(blog => {
-                const tags = blog.keywords || [];
-                
-                return `
-                    <div class="content-item" ${blog.url ? `onclick="window.open('${blog.url}', '_blank')"` : ''}>
-                        <h4>${blog.title}</h4>
-                        <p>${blog.description}</p>
-                        <div class="content-tags">
-                            ${tags.slice(0, 3).map((tag, index) => 
-                                `<span class="content-tag ${index === 0 ? 'primary' : ''}">${tag}</span>`
-                            ).join('')}
+            container.innerHTML = blogs.map(blog => `
+                <div class="tool-item ${blog.status === 'preparing' ? 'preparing' : ''}" 
+                     onclick="handleBlogClick('${blog.url}', '${blog.status}')">
+                    ${blog.status === 'preparing' ? '<div class="status-badge preparing">준비중</div>' : ''}
+                    <div class="tool-icon">📚</div>
+                    <div class="tool-content">
+                        <div class="tool-title">${blog.title}</div>
+                        <div class="tool-description">${blog.description}</div>
+                        <div class="tool-tags">
+                            ${blog.keywords ? blog.keywords.map(tag => `<span class="tool-tag">${tag}</span>`).join('') : ''}
                         </div>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         }
 
         // 에러 상태 표시
-        function showErrorState(containerId, message) {
+        function showError(containerId, message) {
             const container = document.getElementById(containerId);
             container.innerHTML = `<div class="error-state">${message}</div>`;
         }
+
+        // 웹사이트 클릭 처리
+        window.handleWebsiteClick = function(url, status) {
+            if (status === 'coming-soon' || !url) {
+                // 출시 예정인 경우 아무 동작 안함 (또는 별도 처리)
+                return;
+            }
+            
+            // 발행된 웹사이트는 새 탭에서 열기
+            window.open(url, '_blank');
+        }
+
+        // 블로그 클릭 처리
+        window.handleBlogClick = function(url, status) {
+            if (status === 'preparing') {
+                // 준비중인 경우 모달 표시
+                showPreparingModal();
+                return;
+            }
+            
+            if (url) {
+                // 발행된 블로그는 새 탭에서 열기
+                window.open(url, '_blank');
+            }
+        }
+
+        // 준비중 모달 표시
+        window.showPreparingModal = function() {
+            const modal = document.getElementById('preparingModal');
+            modal.classList.add('show');
+            
+            // 이메일 입력 필드 초기화
+            document.getElementById('modalSubscriptionEmail').value = '';
+            document.getElementById('modalSubscriptionStatus').style.display = 'none';
+        }
+
+        // 준비중 모달 닫기
+        window.closePreparingModal = function() {
+            const modal = document.getElementById('preparingModal');
+            modal.classList.remove('show');
+        }
+
+        // 모달 외부 클릭 시 닫기
+        document.getElementById('preparingModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePreparingModal();
+            }
+        });
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePreparingModal();
+            }
+        });
+
+        // 모달에서 구독 처리
+        window.handleModalSubscription = async function() {
+            const email = document.getElementById('modalSubscriptionEmail').value.trim();
+            const subscribeBtn = document.getElementById('modalSubscribeBtn');
+            const subscribeBtnText = document.getElementById('modalSubscribeBtnText');
+            const subscribeBtnLoading = document.getElementById('modalSubscribeBtnLoading');
+
+            // 이메일 유효성 검사
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                showModalSubscriptionStatus('올바른 이메일 주소를 입력해주세요.', 'error');
+                return;
+            }
+
+            // Supabase 연결 확인
+            if (!isSupabaseInitialized) {
+                showModalSubscriptionStatus('구독 서비스에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.', 'error');
+                return;
+            }
+
+            // 버튼 상태 변경
+            subscribeBtn.disabled = true;
+            subscribeBtnText.classList.add('hidden');
+            subscribeBtnLoading.classList.remove('hidden');
+
+            try {
+                const result = await subscribeToNewsletter(email);
+                
+                if (result.success) {
+                    showModalSubscriptionStatus(result.message, 'success');
+                    document.getElementById('modalSubscriptionEmail').value = '';
+                    
+                    // 3초 후 모달 닫기
+                    setTimeout(() => {
+                        closePreparingModal();
+                    }, 3000);
+                } else {
+                    showModalSubscriptionStatus(result.message, 'error');
+                }
+            } catch (error) {
+                console.error('모달 구독 처리 중 오류:', error);
+                showModalSubscriptionStatus(error.message, 'error');
+            } finally {
+                // 버튼 상태 복원
+                subscribeBtn.disabled = false;
+                subscribeBtnText.classList.remove('hidden');
+                subscribeBtnLoading.classList.add('hidden');
+            }
+        }
+
+        // 모달 구독 상태 메시지 표시
+        function showModalSubscriptionStatus(message, type) {
+            const statusElement = document.getElementById('modalSubscriptionStatus');
+            statusElement.textContent = message;
+            statusElement.className = `modal-status ${type}`;
+            statusElement.style.display = 'block';
+
+            // 에러 메시지는 5초 후 숨기기
+            if (type === 'error') {
+                setTimeout(() => {
+                    statusElement.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // 모달 이메일 입력에서 Enter 키 처리
+        document.getElementById('modalSubscriptionEmail').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleModalSubscription();
+            }
+        });
 
         // EmailJS 라이브러리 확인
         function checkEmailJSLibrary() {
