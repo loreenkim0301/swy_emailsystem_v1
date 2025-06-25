@@ -438,145 +438,136 @@
             line-height: 1.4;
         }
 
-        /* 다음 단계 섹션 스타일 */
-        .next-steps-section {
-            background: white;
+        /* 더 많은 콘텐츠 섹션 스타일 */
+        .more-content {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 40px;
-            margin-top: 40px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .next-steps-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .next-steps-header h2 {
+        .more-content h2 {
+            color: white;
             font-family: 'Pretendard', sans-serif;
             font-size: 28px;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
+            text-align: center;
+            margin-bottom: 15px;
             letter-spacing: -0.02em;
         }
 
-        .next-steps-header p {
+        .more-content .subtitle {
+            color: rgba(255, 255, 255, 0.9);
             font-family: 'Pretendard', sans-serif;
             font-size: 16px;
             font-weight: 400;
-            color: #666;
-            letter-spacing: -0.005em;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: -0.01em;
         }
 
-        .next-steps-categories {
+        .content-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 40px;
+            gap: 30px;
         }
 
-        @media (min-width: 768px) {
-            .next-steps-categories {
+        @media (min-width: 1024px) {
+            .content-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
-        .category-section h3 {
+        .content-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section h3 {
             font-family: 'Pretendard', sans-serif;
             font-size: 20px;
             font-weight: 600;
             color: #333;
             margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             letter-spacing: -0.01em;
         }
 
-        .next-steps-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+        .content-section h3::before {
+            font-size: 24px;
         }
 
-        .next-step-card {
+        .content-section h3.tools::before {
+            content: "🛠️";
+        }
+
+        .content-section h3.insights::before {
+            content: "📚";
+        }
+
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .content-item {
             background: #f8f9fa;
-            border: 2px solid #e9ecef;
             border-radius: 12px;
             padding: 20px;
             transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            display: block;
+            border: 2px solid transparent;
+            cursor: pointer;
         }
 
-        .next-step-card:hover {
+        .content-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             border-color: #667eea;
-            text-decoration: none;
-            color: inherit;
         }
 
-        .next-step-card.published {
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-color: #28a745;
-        }
-
-        .next-step-card.published:hover {
-            border-color: #28a745;
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.15);
-        }
-
-        .next-step-card.coming-soon {
-            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-            border-color: #ffc107;
-            opacity: 0.8;
+        .content-item.coming-soon {
+            opacity: 0.7;
             cursor: default;
+            position: relative;
         }
 
-        .next-step-card.coming-soon:hover {
+        .content-item.coming-soon::after {
+            content: "출시 예정";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #ffc107;
+            color: #856404;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .content-item.coming-soon:hover {
             transform: none;
             box-shadow: none;
-            border-color: #ffc107;
+            border-color: transparent;
         }
 
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .published .card-icon {
-            background: linear-gradient(135deg, #28a745, #20c997);
-        }
-
-        .coming-soon .card-icon {
-            background: linear-gradient(135deg, #ffc107, #fd7e14);
-        }
-
-        .card-title {
+        .content-item h4 {
             font-family: 'Pretendard', sans-serif;
             font-size: 16px;
             font-weight: 600;
             color: #333;
-            margin: 0;
+            margin-bottom: 8px;
             letter-spacing: -0.005em;
-            line-height: 1.3;
         }
 
-        .card-description {
+        .content-item p {
             font-family: 'Pretendard', sans-serif;
             font-size: 14px;
             font-weight: 400;
@@ -586,75 +577,40 @@
             letter-spacing: -0.005em;
         }
 
-        .card-meta {
+        .content-tags {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 12px;
-        }
-
-        .card-tags {
-            display: flex;
-            gap: 6px;
             flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .card-tag {
-            background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
+        .content-tag {
+            background: #e9ecef;
+            color: #495057;
             font-family: 'Pretendard', sans-serif;
             font-size: 11px;
             font-weight: 500;
-            padding: 2px 8px;
-            border-radius: 12px;
-            letter-spacing: -0.005em;
-        }
-
-        .published .card-tag {
-            background: rgba(40, 167, 69, 0.1);
-            color: #28a745;
-        }
-
-        .coming-soon .card-tag {
-            background: rgba(255, 193, 7, 0.2);
-            color: #856404;
-        }
-
-        .card-status {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 11px;
-            font-weight: 600;
             padding: 4px 8px;
             border-radius: 12px;
             letter-spacing: -0.005em;
         }
 
-        .status-published {
-            background: #d4edda;
-            color: #155724;
+        .content-tag.primary {
+            background: #667eea;
+            color: white;
         }
 
-        .status-coming-soon {
-            background: #fff3cd;
-            color: #856404;
+        .loading-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-family: 'Pretendard', sans-serif;
         }
 
-        .card-arrow {
-            color: #667eea;
-            font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .next-step-card:hover .card-arrow {
-            transform: translateX(4px);
-        }
-
-        .coming-soon .card-arrow {
-            color: #856404;
-        }
-
-        .coming-soon:hover .card-arrow {
-            transform: none;
+        .error-state {
+            text-align: center;
+            padding: 40px;
+            color: #dc3545;
+            font-family: 'Pretendard', sans-serif;
         }
 
         /* Footer Styles */
@@ -952,10 +908,6 @@
             .subscription-btn {
                 width: 100%;
             }
-
-            .next-steps-categories {
-                grid-template-columns: 1fr;
-            }
         }
 
         /* 코드 블록 전용 폰트 */
@@ -1133,27 +1085,31 @@
                 </div>
             </div>
 
-            <!-- 다음 단계 섹션 -->
-            <div class="next-steps-section">
-                <div class="next-steps-header">
-                    <h2>🚀 다음 단계로 나아가기</h2>
-                    <p>더 많은 학습 도구와 바이브코딩 인사이트를 확인해보세요</p>
-                </div>
-
-                <div class="next-steps-categories">
-                    <!-- 학습 도구 카테고리 -->
-                    <div class="category-section">
-                        <h3>🛠️ 더 많은 학습 도구</h3>
-                        <div class="next-steps-grid" id="learningToolsGrid">
-                            <!-- 동적으로 로드됨 -->
+            <!-- 더 많은 콘텐츠 섹션 -->
+            <div class="more-content">
+                <h2>🚀 더 많은 콘텐츠 나아가기</h2>
+                <p class="subtitle">더 많은 학습 도구와 바이브코딩 인사이트를 확인해보세요</p>
+                
+                <div class="content-grid">
+                    <!-- 왼쪽: 더 많은 학습 도구 (웹사이트 링크) -->
+                    <div class="content-section">
+                        <h3 class="tools">더 많은 학습 도구</h3>
+                        <div id="websiteList" class="content-list">
+                            <div class="loading-state">
+                                <div class="spinner" style="border-color: #667eea; border-top-color: transparent; margin: 0 auto 10px;"></div>
+                                학습 도구를 불러오는 중...
+                            </div>
                         </div>
                     </div>
-
-                    <!-- 바이브코딩 인사이트 카테고리 -->
-                    <div class="category-section">
-                        <h3>📚 바이브코딩 인사이트</h3>
-                        <div class="next-steps-grid" id="tutorialGrid">
-                            <!-- 동적으로 로드됨 -->
+                    
+                    <!-- 오른쪽: 바이브코딩 인사이트 (블로그 포스트) -->
+                    <div class="content-section">
+                        <h3 class="insights">바이브코딩 인사이트</h3>
+                        <div id="blogList" class="content-list">
+                            <div class="loading-state">
+                                <div class="spinner" style="border-color: #667eea; border-top-color: transparent; margin: 0 auto 10px;"></div>
+                                블로그 포스트를 불러오는 중...
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1252,7 +1208,7 @@
     
     <script type="module">
         import { initializeSupabase, subscribeToNewsletter } from './js/supabase-client.js';
-        import { getLearningToolBlogs, getTutorialBlogs, incrementViewCount } from './js/blogs-client.js';
+        import { getWebsitesWithComingSoon, getBlogPosts } from './js/blogs-client.js';
         
         let emailConfig = null;
         let isEmailJSInitialized = false;
@@ -1277,123 +1233,79 @@
         // 블로그 데이터 로드 함수
         async function loadBlogData() {
             try {
-                // 학습 도구 블로그 로드
-                const learningToolsResult = await getLearningToolBlogs();
-                if (learningToolsResult.success) {
-                    renderBlogCards('learningToolsGrid', learningToolsResult.blogs);
-                }
+                // 웹사이트 목록 로드 (왼쪽 섹션)
+                const websitesResult = await getWebsitesWithComingSoon(6);
+                renderWebsites(websitesResult.blogs);
 
-                // 튜토리얼 블로그 로드
-                const tutorialResult = await getTutorialBlogs();
-                if (tutorialResult.success) {
-                    renderBlogCards('tutorialGrid', tutorialResult.blogs);
-                }
+                // 블로그 포스트 로드 (오른쪽 섹션)
+                const blogsResult = await getBlogPosts(6);
+                renderBlogs(blogsResult.blogs);
+
             } catch (error) {
                 console.error('블로그 데이터 로드 실패:', error);
-                // 에러 시 기본 데이터 표시
-                renderFallbackData();
+                showErrorState('websiteList', '학습 도구를 불러오는데 실패했습니다.');
+                showErrorState('blogList', '블로그 포스트를 불러오는데 실패했습니다.');
             }
         }
 
-        // 블로그 카드 렌더링 함수
-        function renderBlogCards(containerId, blogs) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+        // 웹사이트 목록 렌더링
+        function renderWebsites(websites) {
+            const container = document.getElementById('websiteList');
+            
+            if (!websites || websites.length === 0) {
+                container.innerHTML = '<div class="error-state">표시할 학습 도구가 없습니다.</div>';
+                return;
+            }
 
-            container.innerHTML = blogs.map(blog => {
-                const statusClass = blog.status === 'published' ? 'published' : 'coming-soon';
-                const statusText = blog.status === 'published' ? '이용 가능' : '준비 중';
-                const icon = getIconForBlog(blog);
-                const isClickable = blog.status === 'published' && blog.url !== '#';
-
+            container.innerHTML = websites.map(website => {
+                const isComingSoon = website.status === 'coming-soon';
+                const tags = website.keywords || [];
+                
                 return `
-                    <${isClickable ? 'a href="' + blog.url + '" target="_blank"' : 'div'} 
-                     class="next-step-card ${statusClass}" 
-                     ${isClickable ? 'onclick="handleBlogClick(\'' + blog.id + '\')"' : ''}>
-                        <div class="card-header">
-                            <div class="card-icon">${icon}</div>
-                            <h4 class="card-title">${blog.title}</h4>
+                    <div class="content-item ${isComingSoon ? 'coming-soon' : ''}" 
+                         ${!isComingSoon && website.url ? `onclick="window.open('${website.url}', '_blank')"` : ''}>
+                        <h4>${website.title}</h4>
+                        <p>${website.description}</p>
+                        <div class="content-tags">
+                            ${tags.slice(0, 3).map((tag, index) => 
+                                `<span class="content-tag ${index === 0 ? 'primary' : ''}">${tag}</span>`
+                            ).join('')}
                         </div>
-                        <p class="card-description">${blog.description}</p>
-                        <div class="card-meta">
-                            <div class="card-tags">
-                                ${blog.keywords ? blog.keywords.slice(0, 3).map(keyword => 
-                                    `<span class="card-tag">${keyword}</span>`
-                                ).join('') : ''}
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span class="card-status status-${blog.status.replace('-', '-')}">${statusText}</span>
-                                ${isClickable ? '<span class="card-arrow">→</span>' : ''}
-                            </div>
-                        </div>
-                    </${isClickable ? 'a' : 'div'}>
+                    </div>
                 `;
             }).join('');
         }
 
-        // 블로그별 아이콘 반환 함수
-        function getIconForBlog(blog) {
-            if (blog.title.includes('EmailJS')) return '📧';
-            if (blog.title.includes('OpenAI')) return '🤖';
-            if (blog.title.includes('랜딩페이지')) return '🎨';
-            if (blog.title.includes('이벤트')) return '📝';
-            if (blog.title.includes('대시보드')) return '📊';
-            if (blog.title.includes('CRUD')) return '🗄️';
-            if (blog.title.includes('게시판')) return '💬';
-            return '🚀';
+        // 블로그 포스트 렌더링
+        function renderBlogs(blogs) {
+            const container = document.getElementById('blogList');
+            
+            if (!blogs || blogs.length === 0) {
+                container.innerHTML = '<div class="error-state">표시할 블로그 포스트가 없습니다.</div>';
+                return;
+            }
+
+            container.innerHTML = blogs.map(blog => {
+                const tags = blog.keywords || [];
+                
+                return `
+                    <div class="content-item" ${blog.url ? `onclick="window.open('${blog.url}', '_blank')"` : ''}>
+                        <h4>${blog.title}</h4>
+                        <p>${blog.description}</p>
+                        <div class="content-tags">
+                            ${tags.slice(0, 3).map((tag, index) => 
+                                `<span class="content-tag ${index === 0 ? 'primary' : ''}">${tag}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        // 블로그 클릭 핸들러
-        window.handleBlogClick = async function(blogId) {
-            try {
-                await incrementViewCount(blogId);
-            } catch (error) {
-                console.error('조회수 증가 실패:', error);
-            }
-        };
-
-        // 폴백 데이터 렌더링 (Supabase 연결 실패 시)
-        function renderFallbackData() {
-            const learningToolsData = [
-                {
-                    id: 'fallback-1',
-                    title: 'EmailJS 학습 도구',
-                    url: 'https://vibecodezero-emailjs.netlify.app/',
-                    description: 'EmailJS를 배우고 테스트할 수 있는 단계별 학습 웹 애플리케이션입니다.',
-                    keywords: ['EmailJS', 'JavaScript'],
-                    status: 'published'
-                },
-                {
-                    id: 'fallback-2',
-                    title: 'OpenAI API 학습 도구',
-                    url: 'https://vibecodezero-openai.netlify.app/',
-                    description: 'OpenAI API를 활용한 AI 기능 구현을 실습할 수 있는 학습 도구입니다.',
-                    keywords: ['OpenAI', 'API'],
-                    status: 'published'
-                }
-            ];
-
-            const tutorialData = [
-                {
-                    id: 'fallback-3',
-                    title: 'Bolt.new로 랜딩페이지 디자인하기',
-                    url: '#',
-                    description: 'Bolt.new를 활용하여 전문적인 랜딩페이지를 디자인하고 개발하는 방법을 배웁니다.',
-                    keywords: ['Bolt.new', '랜딩페이지'],
-                    status: 'coming-soon'
-                },
-                {
-                    id: 'fallback-4',
-                    title: 'Bolt.new로 이벤트 신청서 제작하기',
-                    url: '#',
-                    description: '이벤트나 세미나 신청을 받을 수 있는 동적 폼을 Bolt.new로 제작하는 방법을 학습합니다.',
-                    keywords: ['Bolt.new', '폼'],
-                    status: 'coming-soon'
-                }
-            ];
-
-            renderBlogCards('learningToolsGrid', learningToolsData);
-            renderBlogCards('tutorialGrid', tutorialData);
+        // 에러 상태 표시
+        function showErrorState(containerId, message) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `<div class="error-state">${message}</div>`;
         }
 
         // EmailJS 라이브러리 확인

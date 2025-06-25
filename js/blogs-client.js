@@ -51,6 +51,54 @@ export async function getAllBlogs(options = {}) {
     }
 }
 
+// 웹사이트 목록 조회 (왼쪽 섹션용)
+export async function getWebsites(limit = 6) {
+    return await getAllBlogs({
+        category: 'website',
+        status: 'published',
+        limit
+    });
+}
+
+// 예정된 웹사이트 포함 조회
+export async function getWebsitesWithComingSoon(limit = 6) {
+    try {
+        let query = supabaseClient
+            .from('blogs')
+            .select('*')
+            .eq('category', 'website')
+            .in('status', ['published', 'coming-soon'])
+            .order('created_at', { ascending: false });
+
+        if (limit > 0) {
+            query = query.limit(limit);
+        }
+
+        const { data, error } = await query;
+
+        if (error) throw error;
+
+        return {
+            success: true,
+            blogs: data || [],
+            count: data?.length || 0
+        };
+
+    } catch (error) {
+        console.error('웹사이트 목록 조회 중 오류:', error);
+        throw new Error('웹사이트 목록을 불러오는데 실패했습니다.');
+    }
+}
+
+// 블로그 포스트 조회 (오른쪽 섹션용)
+export async function getBlogPosts(limit = 6) {
+    return await getAllBlogs({
+        category: 'blog',
+        status: 'published',
+        limit
+    });
+}
+
 // 추천 게시글 조회
 export async function getFeaturedBlogs(limit = 4) {
     return await getAllBlogs({
@@ -69,14 +117,14 @@ export async function getBlogsByCategory(category, limit = 6) {
     });
 }
 
-// 학습 도구 게시글 조회
+// 학습 도구 게시글 조회 (하위 호환성을 위해 유지, 이제 웹사이트 조회로 리다이렉트)
 export async function getLearningToolBlogs() {
-    return await getBlogsByCategory('learning-tool');
+    return await getWebsites();
 }
 
-// 튜토리얼 게시글 조회
+// 튜토리얼 게시글 조회 (하위 호환성을 위해 유지, 이제 블로그 포스트 조회로 리다이렉트)
 export async function getTutorialBlogs() {
-    return await getBlogsByCategory('tutorial');
+    return await getBlogPosts();
 }
 
 // 게시글 조회수 증가
@@ -221,6 +269,22 @@ export async function getBlogStats() {
 
         if (totalError) throw totalError;
 
+        // 웹사이트 수
+        const { count: websiteCount, error: websiteError } = await supabaseClient
+            .from('blogs')
+            .select('*', { count: 'exact', head: true })
+            .eq('category', 'website');
+
+        if (websiteError) throw websiteError;
+
+        // 블로그 포스트 수
+        const { count: blogCount, error: blogError } = await supabaseClient
+            .from('blogs')
+            .select('*', { count: 'exact', head: true })
+            .eq('category', 'blog');
+
+        if (blogError) throw blogError;
+
         // 발행된 게시글 수
         const { count: publishedCount, error: publishedError } = await supabaseClient
             .from('blogs')
@@ -247,6 +311,8 @@ export async function getBlogStats() {
 
         return {
             total_blogs: totalCount || 0,
+            website_count: websiteCount || 0,
+            blog_count: blogCount || 0,
             published_blogs: publishedCount || 0,
             coming_soon_blogs: comingSoonCount || 0,
             featured_blogs: featuredCount || 0
