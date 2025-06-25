@@ -23,7 +23,11 @@ export async function getAllBlogs(options = {}) {
         }
         
         if (status !== 'all') {
-            query = query.eq('status', status);
+            if (Array.isArray(status)) {
+                query = query.in('status', status);
+            } else {
+                query = query.eq('status', status);
+            }
         }
         
         if (featured !== null) {
@@ -90,13 +94,34 @@ export async function getWebsitesWithComingSoon(limit = 6) {
     }
 }
 
-// 블로그 포스트 조회 (오른쪽 섹션용)
+// 블로그 포스트 조회 (오른쪽 섹션용) - 공개됨과 출시예정 모두 포함
 export async function getBlogPosts(limit = 6) {
-    return await getAllBlogs({
-        category: 'blog',
-        status: 'published',
-        limit
-    });
+    try {
+        let query = supabaseClient
+            .from('blogs')
+            .select('*')
+            .eq('category', 'blog')
+            .in('status', ['published', 'coming-soon'])
+            .order('created_at', { ascending: false });
+
+        if (limit > 0) {
+            query = query.limit(limit);
+        }
+
+        const { data, error } = await query;
+
+        if (error) throw error;
+
+        return {
+            success: true,
+            blogs: data || [],
+            count: data?.length || 0
+        };
+
+    } catch (error) {
+        console.error('블로그 포스트 조회 중 오류:', error);
+        throw new Error('블로그 포스트를 불러오는데 실패했습니다.');
+    }
 }
 
 // 추천 게시글 조회
