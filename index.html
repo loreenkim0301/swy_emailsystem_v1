@@ -418,22 +418,11 @@
             color: var(--text-primary);
         }
 
+        /* 카드 세로 배치 - 1열에 1개씩 */
         .related-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .related-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .related-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
         }
 
         .related-card {
