@@ -1,15 +1,16 @@
 /**
- * 연관 콘텐츠 카드 컴포넌트
+ * 콘텐츠 카드 컴포넌트
  * 재사용 가능한 카드 UI 컴포넌트
  */
-export class RelatedContentCard {
+export class ContentCard {
     constructor(data, options = {}) {
         this.data = data;
         this.options = {
-            showStatus: true,
+            showTags: true,
             showDescription: true,
-            showLink: true,
+            showStatus: true,
             onClick: null,
+            className: 'content-item',
             ...options
         };
     }
@@ -19,29 +20,43 @@ export class RelatedContentCard {
      * @returns {string} HTML 문자열
      */
     render() {
-        const { id, title, description, status, url } = this.data;
+        const { id, title, description, status, url, keywords = [] } = this.data;
         const hasLink = url && url.trim() !== '';
         const cardStatus = hasLink ? status : 'coming-soon';
         
         return `
-            <div class="related-card" data-card-id="${id}" data-card-status="${cardStatus}">
-                <div class="related-card__content">
-                    <h4 class="related-card__title">${this.escapeHtml(title || '제목 없음')}</h4>
-                    ${this.options.showDescription ? `
-                        <p class="related-card__description">${this.escapeHtml(description || '설명이 없습니다.')}</p>
-                    ` : ''}
-                </div>
-                <div class="related-card__footer">
+            <div class="${this.options.className}" data-card-id="${id}" data-card-status="${cardStatus}">
+                <div class="content-item__header">
+                    <h4 class="content-item__title">${this.escapeHtml(title || '제목 없음')}</h4>
                     ${this.options.showStatus ? `
-                        <span class="related-card__status related-card__status--${cardStatus}">
+                        <span class="content-item__status content-item__status--${cardStatus}">
                             ${this.getStatusText(cardStatus)}
                         </span>
                     ` : ''}
-                    ${this.options.showLink && hasLink ? `
-                        <a href="${url}" class="related-card__link" target="_blank" rel="noopener noreferrer">
+                </div>
+                
+                ${this.options.showDescription ? `
+                    <p class="content-item__description">${this.escapeHtml(description || '설명이 없습니다.')}</p>
+                ` : ''}
+                
+                ${this.options.showTags && keywords.length > 0 ? `
+                    <div class="content-item__tags">
+                        ${keywords.slice(0, 3).map(tag => `
+                            <span class="content-item__tag">${this.escapeHtml(tag)}</span>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                <div class="content-item__footer">
+                    ${hasLink ? `
+                        <a href="${url}" class="content-item__link" target="_blank" rel="noopener noreferrer">
                             자세히 보기
                         </a>
-                    ` : ''}
+                    ` : `
+                        <span class="content-item__link content-item__link--disabled">
+                            출시 예정
+                        </span>
+                    `}
                 </div>
             </div>
         `;
@@ -69,7 +84,7 @@ export class RelatedContentCard {
     bindEvents(cardElement) {
         cardElement.addEventListener('click', (e) => {
             // 링크 클릭은 제외
-            if (e.target.classList.contains('related-card__link')) {
+            if (e.target.classList.contains('content-item__link') && !e.target.classList.contains('content-item__link--disabled')) {
                 return;
             }
             
@@ -83,11 +98,11 @@ export class RelatedContentCard {
 
         // 호버 효과를 위한 클래스 추가
         cardElement.addEventListener('mouseenter', () => {
-            cardElement.classList.add('related-card--hover');
+            cardElement.classList.add('content-item--hover');
         });
 
         cardElement.addEventListener('mouseleave', () => {
-            cardElement.classList.remove('related-card--hover');
+            cardElement.classList.remove('content-item--hover');
         });
     }
 
@@ -98,7 +113,7 @@ export class RelatedContentCard {
         const { id, title, status, url } = this.data;
         
         // 로그 출력
-        console.log(`🔗 연관 게시글 클릭됨:`, {
+        console.log(`🔗 콘텐츠 카드 클릭됨:`, {
             id,
             title,
             status,
@@ -179,4 +194,14 @@ export class RelatedContentCard {
     updateOptions(newOptions) {
         this.options = { ...this.options, ...newOptions };
     }
+}
+
+/**
+ * 팩토리 함수 - 간편한 카드 생성
+ * @param {Object} data 카드 데이터
+ * @param {Object} options 옵션
+ * @returns {ContentCard} 카드 인스턴스
+ */
+export function createContentCard(data, options = {}) {
+    return new ContentCard(data, options);
 }

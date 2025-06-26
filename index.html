@@ -28,8 +28,8 @@
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <!-- 연관 콘텐츠 컴포넌트 스타일 -->
-    <link rel="stylesheet" href="./components/related-content/styles.css">
+    <!-- ContentCard 컴포넌트 스타일 -->
+    <link rel="stylesheet" href="./components/ContentCard/ContentCard.css">
     
     <style>
         :root {
@@ -338,6 +338,9 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            justify-content: center;
+            padding: 40px;
+            color: var(--text-secondary);
         }
 
         .loading::after {
@@ -352,6 +355,24 @@
 
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Error State */
+        .error-state {
+            text-align: center;
+            padding: 40px;
+            color: #721c24;
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            border-radius: 12px;
+            border: 1px solid #f5c6cb;
         }
 
         /* Newsletter Section */
@@ -395,6 +416,67 @@
         @media (max-width: 768px) {
             .newsletter-form {
                 flex-direction: column;
+            }
+        }
+
+        /* Content Sections */
+        .more-content {
+            margin: 80px 0;
+        }
+
+        .more-content h2 {
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--text-primary);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
+        }
+
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .content-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-section h3 .icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        #websiteList,
+        #blogList {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            #websiteList,
+            #blogList {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            #websiteList,
+            #blogList {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -481,6 +563,24 @@
                 padding: 30px 20px;
                 margin: 40px 0;
             }
+
+            .more-content {
+                margin: 40px 0;
+            }
+
+            .more-content h2 {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .content-grid {
+                gap: 40px;
+            }
+
+            .content-section h3 {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
         }
 
         /* Accessibility */
@@ -508,7 +608,8 @@
                 display: none;
             }
             
-            .step-card {
+            .step-card,
+            .content-item {
                 break-inside: avoid;
                 box-shadow: none;
                 border: 1px solid #ccc;
@@ -631,9 +732,29 @@
                 <div id="subscribeStatus"></div>
             </section>
 
-            <!-- Related Content Section (모듈화된 컴포넌트) -->
-            <section id="related-content-container">
-                <!-- 모듈화된 연관 콘텐츠 컴포넌트가 여기에 렌더링됩니다 -->
+            <!-- More Content Section -->
+            <section class="more-content">
+                <h2>🔗 연관 콘텐츠</h2>
+                <div class="content-grid">
+                    <div class="content-section">
+                        <h3>
+                            <span class="icon">🔧</span>
+                            <span>더 많은 학습 도구</span>
+                        </h3>
+                        <div id="websiteList">
+                            <!-- ContentCard 컴포넌트로 렌더링됩니다 -->
+                        </div>
+                    </div>
+                    <div class="content-section">
+                        <h3>
+                            <span class="icon">📚</span>
+                            <span>바이브코딩 인사이트</span>
+                        </h3>
+                        <div id="blogList">
+                            <!-- ContentCard 컴포넌트로 렌더링됩니다 -->
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -674,17 +795,17 @@
     <!-- JavaScript -->
     <script type="module">
         import { initializeSupabase, subscribeToNewsletter } from './js/supabase-client.js';
-        import { initializeRelatedContent } from './js/related-content-integration.js';
+        import { initializeContentCards } from './js/content-integration.js';
 
         // 전역 변수
         let emailjsInitialized = false;
         let emailjsConfig = {};
 
-        // Supabase 및 연관 콘텐츠 초기화
+        // Supabase 및 콘텐츠 카드 초기화
         document.addEventListener('DOMContentLoaded', async () => {
             const supabaseInitialized = initializeSupabase();
             if (supabaseInitialized) {
-                await initializeRelatedContent();
+                await initializeContentCards();
             }
         });
 
