@@ -495,11 +495,6 @@
             letter-spacing: 0.5px;
         }
 
-        .card-status.published {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            color: #155724;
-        }
-
         .card-status.coming-soon {
             background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
             color: #856404;
@@ -1063,7 +1058,7 @@
             }
         }
 
-        // 연관 카드 렌더링 함수 - 수정된 상태 결정 로직
+        // 연관 카드 렌더링 함수 - 이전 디자인으로 복원
         function renderRelatedCards(containerId, items, type) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -1076,33 +1071,17 @@
                 card.setAttribute('data-blog-id', item.id);
                 card.setAttribute('data-blog-type', type);
                 
-                // 🔧 수정된 상태 결정 로직
-                let displayStatus = '';
-                let statusClass = '';
-                let hasLink = false;
+                // 링크가 있는지 확인
+                const hasLink = item.url && item.url.trim() !== '';
                 
-                if (item.status === 'published' && item.url && item.url.trim() !== '') {
-                    // (1) DB status='published' + url 존재 → "공개됨" (초록 배지 + 링크)
-                    displayStatus = '공개됨';
-                    statusClass = 'published';
-                    hasLink = true;
-                } else if (item.status === 'published' || item.status === 'coming-soon') {
-                    // (2) DB status='published' + url 없음 OR status='coming-soon' → "출시 예정" (노랑 배지 + 링크 없음)
-                    displayStatus = '출시 예정';
-                    statusClass = 'coming-soon';
-                    hasLink = false;
-                } else {
-                    // 기타 상태 (draft, archived 등)는 표시하지 않음
-                    return;
-                }
+                // 출시 예정 배지는 링크가 없는 경우에만 표시
+                const showComingSoonBadge = !hasLink;
                 
                 card.innerHTML = `
                     <h4>${item.title || '제목 없음'}</h4>
                     <p>${item.description || '설명이 없습니다.'}</p>
                     <div class="card-footer">
-                        <span class="card-status ${statusClass}">
-                            ${displayStatus}
-                        </span>
+                        ${showComingSoonBadge ? '<span class="card-status coming-soon">출시 예정</span>' : '<span></span>'}
                         ${hasLink ? `<a href="${item.url}" class="card-link" target="_blank">자세히 보기</a>` : ''}
                     </div>
                 `;
