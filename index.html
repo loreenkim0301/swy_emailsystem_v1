@@ -22,6 +22,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
+    <!-- Related Content Component Styles -->
+    <link rel="stylesheet" href="./components/related-content/design-system.css">
+    
     <!-- EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
@@ -395,140 +398,6 @@
             }
         }
 
-        /* Related Content Section */
-        .related-content {
-            margin: 80px 0;
-        }
-
-        .related-content h2 {
-            font-size: 28px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 50px;
-            color: var(--text-primary);
-        }
-
-        .related-sections {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 60px;
-        }
-
-        @media (min-width: 1024px) {
-            .related-sections {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .related-section h3 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .related-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .related-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .related-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        .related-card {
-            background: var(--background-card);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-soft);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-light);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .related-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .related-card h4 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-            line-height: 1.4;
-        }
-
-        .related-card p {
-            color: var(--text-secondary);
-            font-size: 13px;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        .related-card .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .card-status {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .card-status.published {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            color: #155724;
-        }
-
-        .card-status.coming-soon {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            color: #856404;
-        }
-
-        .card-link {
-            color: #667eea;
-            font-size: 12px;
-            font-weight: 500;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            transition: color 0.3s ease;
-        }
-
-        .card-link:hover {
-            color: #764ba2;
-        }
-
-        .card-link::after {
-            content: '→';
-            transition: transform 0.3s ease;
-        }
-
-        .card-link:hover::after {
-            transform: translateX(2px);
-        }
-
         /* Footer */
         .footer {
             background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
@@ -606,10 +475,6 @@
             
             .step-card {
                 padding: 30px 20px;
-            }
-            
-            .related-content {
-                margin: 40px 0;
             }
             
             .newsletter-section {
@@ -766,23 +631,9 @@
                 <div id="subscribeStatus"></div>
             </section>
 
-            <!-- Related Content Section -->
-            <section class="related-content">
-                <h2>🔗 연관 콘텐츠</h2>
-                <div class="related-sections">
-                    <div class="related-section">
-                        <h3>🔧 더 많은 학습 도구</h3>
-                        <div class="related-grid" id="websites-grid">
-                            <!-- 웹사이트 카드들이 여기에 동적으로 추가됩니다 -->
-                        </div>
-                    </div>
-                    <div class="related-section">
-                        <h3>📚 바이브코딩 인사이트</h3>
-                        <div class="related-grid" id="blogs-grid">
-                            <!-- 블로그 카드들이 여기에 동적으로 추가됩니다 -->
-                        </div>
-                    </div>
-                </div>
+            <!-- Related Content Section (새로운 컴포넌트 시스템 사용) -->
+            <section class="related-content" id="related-content-container">
+                <!-- 컴포넌트가 여기에 렌더링됩니다 -->
             </section>
         </div>
     </main>
@@ -823,17 +674,21 @@
     <!-- JavaScript -->
     <script type="module">
         import { initializeSupabase, subscribeToNewsletter } from './js/supabase-client.js';
-        import { getWebsitesWithComingSoon, getBlogPosts, incrementViewCount } from './js/blogs-client.js';
+        import { initializeRelatedContent } from './js/related-content-integration.js';
 
         // 전역 변수
         let emailjsInitialized = false;
         let emailjsConfig = {};
 
-        // Supabase 초기화
+        // Supabase 및 Related Content 초기화
         document.addEventListener('DOMContentLoaded', async () => {
             const supabaseInitialized = initializeSupabase();
             if (supabaseInitialized) {
-                await loadRelatedContent();
+                // 새로운 컴포넌트 시스템으로 Related Content 초기화
+                const container = document.getElementById('related-content-container');
+                if (container) {
+                    await initializeRelatedContent();
+                }
             }
         });
 
@@ -1042,100 +897,6 @@
                 resetButton('subscribeBtnText', 'subscribeBtn', '구독하기');
             }
         };
-
-        // 연관 콘텐츠 로드 함수
-        async function loadRelatedContent() {
-            try {
-                // 웹사이트 목록 로드
-                const websitesResult = await getWebsitesWithComingSoon(6);
-                if (websitesResult.success) {
-                    renderRelatedCards('websites-grid', websitesResult.blogs, 'website');
-                }
-
-                // 블로그 포스트 로드
-                const blogsResult = await getBlogPosts(6);
-                if (blogsResult.success) {
-                    renderRelatedCards('blogs-grid', blogsResult.blogs, 'blog');
-                }
-
-            } catch (error) {
-                console.error('연관 콘텐츠 로드 중 오류:', error);
-            }
-        }
-
-        // 연관 카드 렌더링 함수
-        function renderRelatedCards(containerId, items, type) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-
-            container.innerHTML = '';
-
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'related-card';
-                card.setAttribute('data-blog-id', item.id);
-                card.setAttribute('data-blog-type', type);
-                
-                // 링크가 있는지 확인
-                const hasLink = item.url && item.url.trim() !== '';
-                const status = hasLink ? item.status : 'coming-soon';
-                
-                card.innerHTML = `
-                    <h4>${item.title || '제목 없음'}</h4>
-                    <p>${item.description || '설명이 없습니다.'}</p>
-                    <div class="card-footer">
-                        <span class="card-status ${status}">
-                            ${status === 'published' ? '공개됨' : '출시 예정'}
-                        </span>
-                        ${hasLink ? `<a href="${item.url}" class="card-link" target="_blank">자세히 보기</a>` : ''}
-                    </div>
-                `;
-
-                // 클릭 이벤트 추가
-                card.addEventListener('click', (e) => {
-                    // 링크 클릭은 제외
-                    if (e.target.classList.contains('card-link')) {
-                        return;
-                    }
-                    
-                    handleCardClick(item, type);
-                });
-
-                container.appendChild(card);
-            });
-        }
-
-        // 카드 클릭 핸들러
-        function handleCardClick(item, type) {
-            // 1. 로그에 게시글 번호 출력
-            console.log(`🔗 연관 게시글 클릭됨:`, {
-                id: item.id,
-                title: item.title,
-                type: type,
-                status: item.status,
-                hasUrl: !!(item.url && item.url.trim() !== ''),
-                url: item.url || null
-            });
-
-            // 2. 조회수 증가 (비동기)
-            if (item.id) {
-                incrementViewCount(item.id).then(result => {
-                    if (result.success) {
-                        console.log(`📈 조회수 증가: 게시글 ID ${item.id}`);
-                    }
-                }).catch(error => {
-                    console.warn(`조회수 증가 실패: 게시글 ID ${item.id}`, error);
-                });
-            }
-
-            // 3. 링크가 있으면 새 탭에서 열기
-            if (item.url && item.url.trim() !== '') {
-                window.open(item.url, '_blank');
-            } else {
-                // 링크가 없으면 출시 예정 메시지
-                showStatus('', 'info', '🚀 이 콘텐츠는 곧 출시될 예정입니다!');
-            }
-        }
 
         // 유틸리티 함수들
         function showStatus(elementId, type, message) {
