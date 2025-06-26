@@ -586,6 +586,162 @@
             font-size: 13px;
         }
 
+        /* Design System Guide */
+        .design-system {
+            background: #1a202c;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid #4a5568;
+        }
+
+        .design-system h3 {
+            color: #63b3ed;
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .design-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .design-tab {
+            background: #2d3748;
+            color: #a0aec0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid #4a5568;
+        }
+
+        .design-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .design-tab:hover {
+            background: #4a5568;
+            color: white;
+        }
+
+        .design-content {
+            display: none;
+        }
+
+        .design-content.active {
+            display: block;
+        }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .design-item {
+            background: #2d3748;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #4a5568;
+        }
+
+        .design-item h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .design-item p {
+            color: #a0aec0;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .design-item code {
+            background: #1a202c;
+            color: #63b3ed;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: var(--font-code);
+            font-size: 11px;
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 40px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #4a5568;
+        }
+
+        .gradient-swatch {
+            width: 100%;
+            height: 40px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #4a5568;
+        }
+
+        .font-preview {
+            padding: 12px;
+            background: #1a202c;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #4a5568;
+        }
+
+        .shadow-preview {
+            width: 100%;
+            height: 40px;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .component-preview {
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .usage-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-used {
+            background: #48bb78;
+            color: white;
+        }
+
+        .status-unused {
+            background: #ed8936;
+            color: white;
+        }
+
+        .status-partial {
+            background: #4299e1;
+            color: white;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header {
@@ -616,6 +772,18 @@
                 padding: 30px 20px;
                 margin: 40px 0;
             }
+
+            .design-system {
+                padding: 20px;
+            }
+
+            .design-tabs {
+                justify-content: center;
+            }
+
+            .design-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Accessibility */
@@ -630,7 +798,8 @@
         /* Focus Styles */
         .btn:focus,
         input:focus,
-        textarea:focus {
+        textarea:focus,
+        .design-tab:focus {
             outline: 2px solid #667eea;
             outline-offset: 2px;
         }
@@ -639,7 +808,8 @@
         @media print {
             .header,
             .footer,
-            .newsletter-section {
+            .newsletter-section,
+            .design-system {
                 display: none;
             }
             
@@ -789,6 +959,280 @@
 
     <footer class="footer">
         <div class="container">
+            <!-- Design System Guide -->
+            <div class="design-system">
+                <h3>🎨 디자인 시스템 가이드</h3>
+                <p style="color: #a0aec0; margin-bottom: 20px;">개발자를 위한 디자인 요소 및 사용 현황</p>
+                
+                <div class="design-tabs">
+                    <div class="design-tab active" onclick="showDesignTab('colors')">컬러</div>
+                    <div class="design-tab" onclick="showDesignTab('typography')">타이포그래피</div>
+                    <div class="design-tab" onclick="showDesignTab('components')">컴포넌트</div>
+                    <div class="design-tab" onclick="showDesignTab('layout')">레이아웃</div>
+                    <div class="design-tab" onclick="showDesignTab('effects')">이펙트</div>
+                </div>
+
+                <!-- Colors Tab -->
+                <div id="colors" class="design-content active">
+                    <h4 style="color: white; margin-bottom: 16px;">🎨 컬러 팔레트</h4>
+                    <div class="design-grid">
+                        <div class="design-item">
+                            <h4>Primary Gradient <span class="usage-status status-used">사용중</span></h4>
+                            <div class="gradient-swatch" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                            <code>--primary-gradient</code>
+                            <p>헤더, 주요 버튼, 단계 번호</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Secondary Gradient <span class="usage-status status-used">사용중</span></h4>
+                            <div class="gradient-swatch" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                            <code>--secondary-gradient</code>
+                            <p>보조 버튼 (연결 테스트)</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Success Gradient <span class="usage-status status-unused">미사용</span></h4>
+                            <div class="gradient-swatch" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                            <code>--success-gradient</code>
+                            <p>성공 상태 표시용 (예약)</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Warning Gradient <span class="usage-status status-unused">미사용</span></h4>
+                            <div class="gradient-swatch" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                            <code>--warning-gradient</code>
+                            <p>경고 상태 표시용 (예약)</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Error Gradient <span class="usage-status status-unused">미사용</span></h4>
+                            <div class="gradient-swatch" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                            <code>--error-gradient</code>
+                            <p>에러 상태 표시용 (예약)</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Text Primary <span class="usage-status status-used">사용중</span></h4>
+                            <div class="color-swatch" style="background: #333;"></div>
+                            <code>--text-primary</code>
+                            <p>제목, 주요 텍스트</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Text Secondary <span class="usage-status status-used">사용중</span></h4>
+                            <div class="color-swatch" style="background: #666;"></div>
+                            <code>--text-secondary</code>
+                            <p>설명 텍스트, 부제목</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Text Muted <span class="usage-status status-used">사용중</span></h4>
+                            <div class="color-swatch" style="background: #999;"></div>
+                            <code>--text-muted</code>
+                            <p>도움말 텍스트</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typography Tab -->
+                <div id="typography" class="design-content">
+                    <h4 style="color: white; margin-bottom: 16px;">📝 타이포그래피</h4>
+                    <div class="design-grid">
+                        <div class="design-item">
+                            <h4>Main Font <span class="usage-status status-used">사용중</span></h4>
+                            <div class="font-preview" style="font-family: 'Pretendard', sans-serif; color: white;">
+                                Pretendard 한글 폰트 Aa
+                            </div>
+                            <code>--font-main</code>
+                            <p>모든 UI 텍스트</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Code Font <span class="usage-status status-used">사용중</span></h4>
+                            <div class="font-preview" style="font-family: 'JetBrains Mono', monospace; color: white;">
+                                JetBrains Mono Code
+                            </div>
+                            <code>--font-code</code>
+                            <p>코드 블록, 인라인 코드</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>H1 스타일 <span class="usage-status status-used">사용중</span></h4>
+                            <div class="font-preview" style="font-size: 36px; font-weight: 700; color: white;">
+                                제목 스타일
+                            </div>
+                            <code>36px / 700</code>
+                            <p>메인 헤더</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>H2 스타일 <span class="usage-status status-used">사용중</span></h4>
+                            <div class="font-preview" style="font-size: 20px; font-weight: 600; color: white;">
+                                섹션 제목
+                            </div>
+                            <code>20px / 600</code>
+                            <p>카드 제목, 섹션 헤더</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Body 스타일 <span class="usage-status status-used">사용중</span></h4>
+                            <div class="font-preview" style="font-size: 14px; font-weight: 400; color: white;">
+                                본문 텍스트 스타일
+                            </div>
+                            <code>14px / 400</code>
+                            <p>일반 텍스트, 설명</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Small 스타일 <span class="usage-status status-used">사용중</span></h4>
+                            <div class="font-preview" style="font-size: 12px; font-weight: 400; color: white;">
+                                작은 텍스트
+                            </div>
+                            <code>12px / 400</code>
+                            <p>도움말, 캡션</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Components Tab -->
+                <div id="components" class="design-content">
+                    <h4 style="color: white; margin-bottom: 16px;">🧩 컴포넌트</h4>
+                    <div class="design-grid">
+                        <div class="design-item">
+                            <h4>Primary Button <span class="usage-status status-used">사용중</span></h4>
+                            <div class="component-preview">
+                                <button class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;">버튼 예시</button>
+                            </div>
+                            <code>.btn-primary</code>
+                            <p>주요 액션 버튼</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Secondary Button <span class="usage-status status-used">사용중</span></h4>
+                            <div class="component-preview">
+                                <button class="btn btn-secondary" style="font-size: 12px; padding: 8px 16px;">버튼 예시</button>
+                            </div>
+                            <code>.btn-secondary</code>
+                            <p>보조 액션 버튼</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Step Card <span class="usage-status status-used">사용중</span></h4>
+                            <div class="component-preview">
+                                <div style="background: white; padding: 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                                    <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; margin-bottom: 8px;">1</div>
+                                    <h4 style="font-size: 14px; margin-bottom: 4px;">단계 제목</h4>
+                                    <p style="font-size: 11px; color: #666;">단계 설명</p>
+                                </div>
+                            </div>
+                            <code>.step-card</code>
+                            <p>학습 단계 카드</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Related Card <span class="usage-status status-used">사용중</span></h4>
+                            <div class="component-preview">
+                                <div style="background: white; padding: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <h4 style="font-size: 12px; margin-bottom: 4px;">카드 제목</h4>
+                                    <p style="font-size: 10px; color: #666; margin-bottom: 8px;">카드 설명</p>
+                                    <span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 8px; font-size: 9px;">공개됨</span>
+                                </div>
+                            </div>
+                            <code>.related-card</code>
+                            <p>연관 콘텐츠 카드</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Status Messages <span class="usage-status status-used">사용중</span></h4>
+                            <div class="component-preview">
+                                <div style="background: #d4edda; color: #155724; padding: 8px 12px; border-radius: 6px; font-size: 11px; margin-bottom: 4px;">✅ 성공 메시지</div>
+                                <div style="background: #f8d7da; color: #721c24; padding: 8px 12px; border-radius: 6px; font-size: 11px;">❌ 에러 메시지</div>
+                            </div>
+                            <code>.status-message</code>
+                            <p>상태 알림 메시지</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Form Elements <span class="usage-status status-used">사용중</span></h4>
+                            <div class="component-preview">
+                                <input type="text" placeholder="입력 필드" style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px;">
+                            </div>
+                            <code>.form-group input</code>
+                            <p>입력 폼 요소</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layout Tab -->
+                <div id="layout" class="design-content">
+                    <h4 style="color: white; margin-bottom: 16px;">📐 레이아웃</h4>
+                    <div class="design-grid">
+                        <div class="design-item">
+                            <h4>Container <span class="usage-status status-used">사용중</span></h4>
+                            <p>최대 너비: 1200px</p>
+                            <code>.container</code>
+                            <p>메인 컨테이너</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Steps Grid <span class="usage-status status-used">사용중</span></h4>
+                            <p>모바일: 1열, 데스크톱: 3열</p>
+                            <code>.steps-grid</code>
+                            <p>학습 단계 그리드</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Related Grid <span class="usage-status status-used">사용중</span></h4>
+                            <p>모바일: 1열, 태블릿: 2열, 데스크톱: 3열</p>
+                            <code>.related-grid</code>
+                            <p>연관 콘텐츠 그리드</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Related Sections <span class="usage-status status-used">사용중</span></h4>
+                            <p>모바일: 1열, 데스크톱: 2열</p>
+                            <code>.related-sections</code>
+                            <p>연관 섹션 레이아웃</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Newsletter Form <span class="usage-status status-used">사용중</span></h4>
+                            <p>플렉스 레이아웃, 모바일에서 세로 배치</p>
+                            <code>.newsletter-form</code>
+                            <p>구독 폼 레이아웃</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Footer Content <span class="usage-status status-used">사용중</span></h4>
+                            <p>모바일: 1열, 데스크톱: 3열</p>
+                            <code>.footer-content</code>
+                            <p>푸터 그리드 레이아웃</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Effects Tab -->
+                <div id="effects" class="design-content">
+                    <h4 style="color: white; margin-bottom: 16px;">✨ 이펙트</h4>
+                    <div class="design-grid">
+                        <div class="design-item">
+                            <h4>Soft Shadow <span class="usage-status status-used">사용중</span></h4>
+                            <div class="shadow-preview" style="box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);"></div>
+                            <code>--shadow-soft</code>
+                            <p>카드, 섹션 기본 그림자</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Hover Shadow <span class="usage-status status-used">사용중</span></h4>
+                            <div class="shadow-preview" style="box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);"></div>
+                            <code>--shadow-hover</code>
+                            <p>호버 시 강화된 그림자</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Card Hover <span class="usage-status status-used">사용중</span></h4>
+                            <p>Y축 -8px 이동 + 그림자 강화</p>
+                            <code>transform: translateY(-8px)</code>
+                            <p>카드 호버 애니메이션</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Button Hover <span class="usage-status status-used">사용중</span></h4>
+                            <p>Y축 -2px 이동 + 컬러 그림자</p>
+                            <code>transform: translateY(-2px)</code>
+                            <p>버튼 호버 애니메이션</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Loading Animation <span class="usage-status status-used">사용중</span></h4>
+                            <p>회전 애니메이션</p>
+                            <code>@keyframes spin</code>
+                            <p>로딩 스피너</p>
+                        </div>
+                        <div class="design-item">
+                            <h4>Transition <span class="usage-status status-used">사용중</span></h4>
+                            <p>0.3초 ease 전환</p>
+                            <code>transition: all 0.3s ease</code>
+                            <p>모든 상호작용 전환</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>EmailJS 학습 도구</h3>
@@ -836,6 +1280,17 @@
                 await loadRelatedContent();
             }
         });
+
+        // 디자인 시스템 탭 전환 함수
+        window.showDesignTab = function(tabName) {
+            // 모든 탭과 콘텐츠 비활성화
+            document.querySelectorAll('.design-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.design-content').forEach(content => content.classList.remove('active'));
+            
+            // 선택된 탭과 콘텐츠 활성화
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        };
 
         // EmailJS 초기화 함수
         window.initializeEmailJS = async function() {
