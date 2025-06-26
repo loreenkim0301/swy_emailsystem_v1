@@ -3,1687 +3,1296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmailJS 학습 도구</title>
     
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WQ4N8WB9');</script>
-    <!-- End Google Tag Manager -->
+    <!-- 기본 SEO 메타태그 -->
+    <title>EmailJS 학습 도구 - 단계별 가이드로 EmailJS 배우기 | 바이브코드제로</title>
+    <meta name="description" content="EmailJS를 배우고 테스트할 수 있는 단계별 학습 웹 애플리케이션. 보안을 우선으로 설계된 안전한 학습 환경에서 JavaScript 이메일 발송 기능을 마스터하세요.">
+    <meta name="keywords" content="EmailJS, JavaScript, 이메일 발송, 웹 개발, 튜토리얼, 학습 도구, 바이브코드제로, AI 코딩, 기획자 코딩">
+    <meta name="author" content="김로린 (AI코딩하는 기획자) - 바이브코드제로">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Korean">
+    <meta name="revisit-after" content="7 days">
     
-    <!-- Google Fonts 추가 -->
+    <!-- Open Graph (Facebook, LinkedIn 등) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="EmailJS 학습 도구 - 단계별 가이드로 EmailJS 배우기">
+    <meta property="og:description" content="EmailJS를 배우고 테스트할 수 있는 단계별 학습 웹 애플리케이션. 보안을 우선으로 설계된 안전한 학습 환경에서 JavaScript 이메일 발송 기능을 마스터하세요.">
+    <meta property="og:image" content="https://fuydyfeeskrzpmeqdiah.supabase.co/storage/v1/object/public/public-imgs/vibecoding%20thumnails.jpeg">
+    <meta property="og:image:alt" content="EmailJS 학습 도구 - 바이브코드제로">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://vibecodezero-emailjs.netlify.app/">
+    <meta property="og:site_name" content="바이브코드제로 - EmailJS 학습 도구">
+    <meta property="og:locale" content="ko_KR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="EmailJS 학습 도구 - 단계별 가이드로 EmailJS 배우기">
+    <meta name="twitter:description" content="EmailJS를 배우고 테스트할 수 있는 단계별 학습 웹 애플리케이션. 보안을 우선으로 설계된 안전한 학습 환경에서 JavaScript 이메일 발송 기능을 마스터하세요.">
+    <meta name="twitter:image" content="https://fuydyfeeskrzpmeqdiah.supabase.co/storage/v1/object/public/public-imgs/vibecoding%20thumnails.jpeg">
+    <meta name="twitter:image:alt" content="EmailJS 학습 도구 - 바이브코드제로">
+    <meta name="twitter:creator" content="@loreenkim_ceo">
+    <meta name="twitter:site" content="@vibecodezero">
+    
+    <!-- 추가 SEO 메타태그 -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="application-name" content="EmailJS 학습 도구">
+    
+    <!-- 정규 URL -->
+    <link rel="canonical" href="https://vibecodezero-emailjs.netlify.app/">
+    
+    <!-- 파비콘 -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- 구조화된 데이터 (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "EmailJS 학습 도구",
+        "description": "EmailJS를 배우고 테스트할 수 있는 단계별 학습 웹 애플리케이션",
+        "url": "https://vibecodezero-emailjs.netlify.app/",
+        "image": "https://fuydyfeeskrzpmeqdiah.supabase.co/storage/v1/object/public/public-imgs/vibecoding%20thumnails.jpeg",
+        "author": {
+            "@type": "Person",
+            "name": "김로린",
+            "jobTitle": "AI코딩하는 기획자",
+            "url": "https://brunch.co.kr/@loreenkim/",
+            "sameAs": [
+                "https://www.instagram.com/loreenkim.ceo/",
+                "https://brunch.co.kr/@loreenkim/"
+            ]
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "바이브코드제로",
+            "url": "https://vibecodezero-emailjs.netlify.app/",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://fuydyfeeskrzpmeqdiah.supabase.co/storage/v1/object/public/public-imgs/vibecoding%20thumnails.jpeg"
+            }
+        },
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "KRW"
+        },
+        "featureList": [
+            "EmailJS 단계별 학습",
+            "실시간 연결 테스트",
+            "안전한 이메일 발송 실습",
+            "보안 우선 설계",
+            "반응형 디자인"
+        ],
+        "inLanguage": "ko-KR",
+        "datePublished": "2024-12-26",
+        "dateModified": "2024-12-26"
+    }
+    </script>
+    
+    <!-- 교육 콘텐츠 구조화된 데이터 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "EmailJS 학습 도구 - 단계별 가이드",
+        "description": "JavaScript와 EmailJS를 사용한 이메일 발송 기능 구현 방법을 단계별로 학습",
+        "provider": {
+            "@type": "Organization",
+            "name": "바이브코드제로",
+            "url": "https://vibecodezero-emailjs.netlify.app/"
+        },
+        "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "online",
+            "courseWorkload": "PT30M",
+            "instructor": {
+                "@type": "Person",
+                "name": "김로린",
+                "jobTitle": "AI코딩하는 기획자"
+            }
+        },
+        "educationalLevel": "Beginner to Intermediate",
+        "teaches": [
+            "EmailJS 설정 방법",
+            "JavaScript 이메일 발송",
+            "웹 보안 기초",
+            "API 연동 방법"
+        ],
+        "inLanguage": "ko-KR",
+        "isAccessibleForFree": true
+    }
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            page_title: 'EmailJS 학습 도구 - 홈페이지',
+            page_location: window.location.href,
+            content_group1: '메인페이지',
+            custom_map: {
+                'custom_parameter_1': 'emailjs_learning_tool'
+            }
+        });
+        
+        // 사용자 정의 이벤트 추적
+        function trackLearningStep(step) {
+            gtag('event', 'learning_progress', {
+                event_category: 'Education',
+                event_label: step,
+                value: 1
+            });
+        }
+        
+        function trackEmailSent() {
+            gtag('event', 'email_sent', {
+                event_category: 'Engagement',
+                event_label: 'EmailJS Success',
+                value: 1
+            });
+        }
+        
+        function trackNewsletterSignup() {
+            gtag('event', 'newsletter_signup', {
+                event_category: 'Conversion',
+                event_label: 'Newsletter',
+                value: 1
+            });
+        }
+    </script>
+    
+    <!-- 폰트 사전 로딩 및 최적화 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
     
+    <!-- 디자인 시스템 CSS -->
     <style>
+        /* 디자인 시스템 v2.1.5 - EmailJS 학습 도구 */
+        /* 생성일: 2024-12-26 */
+        /* 특징: 뉴스레터 구독 + 다크 테마 푸터 + 완전한 디자인 토큰 시스템 */
+
+        /* 디자인 토큰 시스템 */
+        :root {
+            /* 컬러 시스템 */
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary-color: #667eea;
+            --primary-color-dark: #5a67d8;
+            
+            /* 텍스트 컬러 */
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-muted: #999999;
+            --text-white: #ffffff;
+            
+            /* 배경 컬러 */
+            --background-primary: #ffffff;
+            --background-secondary: #f8fafc;
+            --background-light: #f1f5f9;
+            
+            /* 테두리 및 구분선 */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e0;
+            --border-dark: #a0aec0;
+            
+            /* 그림자 시스템 */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 15px 35px rgba(0, 0, 0, 0.1);
+            --shadow-button: 0 4px 12px rgba(102, 126, 234, 0.3);
+            
+            /* 다크 테마 컬러 */
+            --dark-bg-primary: #1a202c;
+            --dark-bg-secondary: #2d3748;
+            --dark-bg-tertiary: #4a5568;
+            --dark-text-primary: #e2e8f0;
+            --dark-text-secondary: #a0aec0;
+            --dark-text-muted: #718096;
+            --dark-border: #4a5568;
+            
+            /* 간격 시스템 (8px 기반) */
+            --spacing-0: 0;
+            --spacing-1: 0.25rem;  /* 4px */
+            --spacing-2: 0.5rem;   /* 8px */
+            --spacing-3: 0.75rem;  /* 12px */
+            --spacing-4: 1rem;     /* 16px */
+            --spacing-5: 1.25rem;  /* 20px */
+            --spacing-6: 1.5rem;   /* 24px */
+            --spacing-8: 2rem;     /* 32px */
+            --spacing-10: 2.5rem;  /* 40px */
+            --spacing-12: 3rem;    /* 48px */
+            --spacing-16: 4rem;    /* 64px */
+            --spacing-20: 5rem;    /* 80px */
+            --spacing-24: 6rem;    /* 96px */
+            
+            /* 타이포그래피 시스템 */
+            --font-family-primary: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+            
+            /* 폰트 크기 스케일 */
+            --font-size-xs: 0.75rem;    /* 12px */
+            --font-size-sm: 0.875rem;   /* 14px */
+            --font-size-base: 1rem;     /* 16px */
+            --font-size-lg: 1.125rem;   /* 18px */
+            --font-size-xl: 1.25rem;    /* 20px */
+            --font-size-2xl: 1.5rem;    /* 24px */
+            --font-size-3xl: 1.875rem;  /* 30px */
+            --font-size-4xl: 2.25rem;   /* 36px */
+            --font-size-5xl: 3rem;      /* 48px */
+            
+            /* 폰트 두께 */
+            --font-weight-light: 300;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* 줄 간격 */
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* 레이아웃 시스템 */
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            --border-radius-full: 50%;
+            
+            --container-max-width: 1200px;
+            --content-max-width: 800px;
+            
+            /* 애니메이션 시스템 */
+            --transition-fast: 0.15s ease-out;
+            --transition-base: 0.2s ease-out;
+            --transition-slow: 0.3s ease-out;
+            --transition-slower: 0.5s ease-out;
+            
+            --easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
+            --easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
+            --easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+            --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            /* 반응형 중단점 */
+            --breakpoint-sm: 640px;
+            --breakpoint-md: 768px;
+            --breakpoint-lg: 1024px;
+            --breakpoint-xl: 1280px;
+            
+            /* Z-index 시스템 */
+            --z-index-dropdown: 1000;
+            --z-index-sticky: 1020;
+            --z-index-fixed: 1030;
+            --z-index-modal-backdrop: 1040;
+            --z-index-modal: 1050;
+            --z-index-popover: 1060;
+            --z-index-tooltip: 1070;
+        }
+
+        /* 기본 리셋 및 설정 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
-            font-weight: 400;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-normal);
+            color: var(--text-primary);
+            background-color: var(--background-secondary);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .main-content {
-            flex: 1;
-        }
-
+        /* 레이아웃 컴포넌트 */
         .container {
-            max-width: 1200px;
+            max-width: var(--container-max-width);
             margin: 0 auto;
+            padding: 0 var(--spacing-6);
         }
 
+        /* 헤더 컴포넌트 */
         .header {
+            background: var(--primary-gradient);
+            color: var(--text-white);
+            padding: var(--spacing-12) 0;
             text-align: center;
-            color: white;
-            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
         }
 
         .header h1 {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            letter-spacing: -0.02em;
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-4);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: -0.025em;
         }
 
         .header p {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 18px;
-            font-weight: 400;
+            font-size: var(--font-size-lg);
             opacity: 0.9;
-            letter-spacing: -0.01em;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: var(--line-height-relaxed);
         }
 
-        .steps-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
+        /* 메인 콘텐츠 영역 */
+        .main-content {
+            padding: var(--spacing-12) 0;
         }
 
-        @media (min-width: 768px) {
-            .steps-container {
-                grid-template-columns: 1fr 1fr;
-            }
+        /* 단계 카드 컴포넌트 */
+        .step {
+            background: var(--background-primary);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-8);
+            margin-bottom: var(--spacing-8);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all var(--transition-slow);
+            position: relative;
         }
 
-        @media (min-width: 1024px) {
-            .steps-container {
-                grid-template-columns: 1fr 1fr 1fr;
-            }
+        .step:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
         }
 
-        .step-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .step-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .step-card.active {
-            border: 3px solid #667eea;
-            transform: translateY(-5px);
-        }
-
-        .step-card.completed {
-            background: linear-gradient(135deg, #d4edda, #c3e6cb);
-            border: 3px solid #28a745;
-        }
-
-        .step-header {
+        .step h2 {
+            color: var(--text-primary);
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-6);
             display: flex;
             align-items: center;
-            margin-bottom: 20px;
+            gap: var(--spacing-4);
         }
 
         .step-number {
+            background: var(--primary-gradient);
+            color: var(--text-white);
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border-radius: 50%;
+            border-radius: var(--border-radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Pretendard', sans-serif;
-            font-weight: 700;
-            font-size: 18px;
-            margin-right: 15px;
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-lg);
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
         }
 
-        .step-card.completed .step-number {
-            background: #28a745;
+        .step p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-6);
+            line-height: var(--line-height-relaxed);
         }
 
-        .step-title {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            letter-spacing: -0.01em;
-        }
-
-        .step-description {
-            font-family: 'Pretendard', sans-serif;
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            font-weight: 400;
-            letter-spacing: -0.005em;
-        }
-
+        /* 폼 컴포넌트 */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: var(--spacing-6);
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-family: 'Pretendard', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: -0.005em;
+            margin-bottom: var(--spacing-2);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-primary);
+            font-size: var(--font-size-sm);
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            transition: border-color 0.3s ease;
-            letter-spacing: -0.005em;
+            padding: var(--spacing-3) var(--spacing-4);
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-family: var(--font-family-primary);
+            transition: all var(--transition-base);
+            background-color: var(--background-primary);
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
         }
 
         .form-group input::placeholder,
         .form-group textarea::placeholder {
-            color: #999;
-            font-family: 'Pretendard', sans-serif;
-            font-weight: 400;
+            color: var(--text-muted);
         }
 
         .form-group textarea {
-            min-height: 100px;
             resize: vertical;
-            line-height: 1.5;
+            min-height: 100px;
         }
 
-        .btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+        /* 버튼 컴포넌트 */
+        .step-button {
+            background: var(--primary-gradient);
+            color: var(--text-white);
+            padding: var(--spacing-3) var(--spacing-6);
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
+            border-radius: var(--border-radius-md);
             cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            letter-spacing: -0.005em;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            font-family: var(--font-family-primary);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            min-width: 120px;
         }
 
-        .btn:hover {
+        .step-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: var(--shadow-button);
         }
 
-        .btn:disabled {
+        .step-button:active {
+            transform: translateY(0);
+        }
+
+        .step-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
-        .btn.success {
-            background: #28a745;
+        /* 버튼 변형 */
+        .step-button.test-button {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
         }
 
-        .btn.danger {
-            background: #dc3545;
+        .step-button.email-button {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
         }
 
-        .status-message {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            display: none;
-            line-height: 1.5;
-            letter-spacing: -0.005em;
+        /* 관련 콘텐츠 섹션 */
+        .related-content {
+            margin-top: var(--spacing-12);
+            padding: var(--spacing-12) 0;
+            background: var(--background-primary);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
         }
 
-        .status-message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .status-message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .status-message.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-        }
-
-        .config-display {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', 'Courier New', monospace;
-            font-size: 12px;
-            font-weight: 400;
-            color: #495057;
-            line-height: 1.4;
-        }
-
-        .config-display pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-break: break-all;
-            font-family: inherit;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .loading {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Pretendard', sans-serif;
-        }
-
-        .spinner {
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .help-text {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 12px;
-            font-weight: 400;
-            color: #6c757d;
-            margin-top: 5px;
-            line-height: 1.4;
-            letter-spacing: -0.005em;
-        }
-
-        .tutorial-link {
-            color: #667eea;
-            text-decoration: none;
-            font-family: 'Pretendard', sans-serif;
-            font-weight: 500;
-            letter-spacing: -0.005em;
-        }
-
-        .tutorial-link:hover {
-            text-decoration: underline;
-        }
-
-        .debug-info {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 10px;
-            margin-top: 10px;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 12px;
-            font-weight: 400;
-            color: #6c757d;
-            line-height: 1.4;
-        }
-
-        .troubleshoot {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 13px;
-            font-weight: 400;
-            color: #856404;
-            line-height: 1.5;
-        }
-
-        .troubleshoot h4 {
-            margin-bottom: 10px;
-            color: #856404;
-            font-family: 'Pretendard', sans-serif;
-            font-weight: 600;
-            letter-spacing: -0.005em;
-        }
-
-        .troubleshoot ul {
-            margin-left: 20px;
-        }
-
-        .troubleshoot li {
-            margin-bottom: 5px;
-            line-height: 1.5;
-        }
-
-        .optional-field {
-            position: relative;
-        }
-
-        .optional-label {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 11px;
-            color: #28a745;
-            font-weight: 500;
-            margin-left: 5px;
-            letter-spacing: -0.005em;
-        }
-
-        /* 보안 안내 스타일 */
-        .security-notice {
-            background: linear-gradient(135deg, #e8f5e8, #d4edda);
-            border: 2px solid #28a745;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .security-notice::before {
-            content: "🔒";
-            font-size: 24px;
-            position: absolute;
-            top: 15px;
-            left: 15px;
-        }
-
-        .security-notice h4 {
-            color: #155724;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            margin-left: 35px;
-            letter-spacing: -0.01em;
-        }
-
-        .security-notice p {
-            color: #155724;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 13px;
-            font-weight: 400;
-            line-height: 1.5;
-            margin-bottom: 8px;
-            margin-left: 35px;
-            letter-spacing: -0.005em;
-        }
-
-        .security-notice ul {
-            margin-left: 55px;
-            color: #155724;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 13px;
-            font-weight: 400;
-        }
-
-        .security-notice li {
-            margin-bottom: 5px;
-            line-height: 1.4;
-        }
-
-        /* 더 많은 콘텐츠 섹션 스타일 */
-        .more-content {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            margin-top: 50px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .more-content h2 {
-            color: white;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
+        .related-content h2 {
             text-align: center;
-            margin-bottom: 15px;
-            letter-spacing: -0.02em;
-        }
-
-        .more-content .subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            font-family: 'Pretendard', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
-            text-align: center;
-            margin-bottom: 40px;
-            letter-spacing: -0.01em;
+            margin-bottom: var(--spacing-8);
+            color: var(--text-primary);
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-semibold);
         }
 
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-8);
         }
 
-        @media (min-width: 1024px) {
-            .content-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .content-section {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .content-section h3 {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            letter-spacing: -0.01em;
-        }
-
-        .content-section h3::before {
-            font-size: 24px;
-        }
-
-        .content-section h3.tools::before {
-            content: "🛠️";
-        }
-
-        .content-section h3.insights::before {
-            content: "📚";
-        }
-
-        .content-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .content-item {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-
-        .content-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            border-color: #667eea;
-        }
-
-        .content-item.coming-soon {
-            opacity: 0.7;
-            cursor: default;
+        .content-card {
+            background: var(--background-light);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-6);
+            border: 1px solid var(--border-light);
+            transition: all var(--transition-slow);
+            text-decoration: none;
+            color: inherit;
             position: relative;
+            overflow: hidden;
         }
 
-        .content-item.coming-soon::after {
-            content: "출시 예정";
+        .content-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .content-card h3 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-3);
+            color: var(--text-primary);
+        }
+
+        .content-card p {
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+            font-size: var(--font-size-sm);
+        }
+
+        .status-badge {
             position: absolute;
-            top: 10px;
-            right: 15px;
-            background: #ffc107;
-            color: #856404;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-family: 'Pretendard', sans-serif;
+            top: var(--spacing-4);
+            right: var(--spacing-4);
+            background: var(--primary-gradient);
+            color: var(--text-white);
+            padding: var(--spacing-1) var(--spacing-3);
+            border-radius: var(--border-radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
         }
 
-        .content-item.coming-soon:hover {
-            transform: none;
-            box-shadow: none;
-            border-color: transparent;
+        .status-badge.coming-soon {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
         }
 
-        .content-item h4 {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
-            letter-spacing: -0.005em;
+        /* 뉴스레터 구독 섹션 */
+        .newsletter-section {
+            background: var(--background-primary);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-12);
+            margin: var(--spacing-12) 0;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
         }
 
-        .content-item p {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            letter-spacing: -0.005em;
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
         }
 
-        .content-tags {
+        .newsletter-section h2 {
+            color: var(--text-primary);
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .newsletter-section p {
+            color: var(--text-secondary);
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-8);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: var(--line-height-relaxed);
+        }
+
+        .newsletter-form {
             display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .content-tag {
-            background: #e9ecef;
-            color: #495057;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 11px;
-            font-weight: 500;
-            padding: 4px 8px;
-            border-radius: 12px;
-            letter-spacing: -0.005em;
-        }
-
-        .content-tag.primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .loading-state {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-            font-family: 'Pretendard', sans-serif;
-        }
-
-        .error-state {
-            text-align: center;
-            padding: 40px;
-            color: #dc3545;
-            font-family: 'Pretendard', sans-serif;
-        }
-
-        /* Footer Styles */
-        .footer {
-            background-color: #1a1a1a;
-            color: #ffffff;
-            padding: 3rem 0 1rem;
-            margin-top: 4rem;
-        }
-
-        .footer-container {
-            max-width: 1200px;
+            gap: var(--spacing-4);
+            max-width: 400px;
             margin: 0 auto;
-            padding: 0 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: var(--spacing-3) var(--spacing-4);
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-family: var(--font-family-primary);
+            transition: all var(--transition-base);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .newsletter-form button {
+            background: var(--primary-gradient);
+            color: var(--text-white);
+            padding: var(--spacing-3) var(--spacing-6);
+            border: none;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            white-space: nowrap;
+            transition: all var(--transition-base);
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-button);
+        }
+
+        .newsletter-status {
+            margin-top: var(--spacing-4);
+            font-size: var(--font-size-sm);
+        }
+
+        /* 다크 테마 푸터 */
+        .footer {
+            background: var(--dark-bg-primary);
+            color: var(--dark-text-primary);
+            padding: var(--spacing-12) 0 var(--spacing-8) 0;
+            margin-top: var(--spacing-12);
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-8);
+            margin-bottom: var(--spacing-8);
         }
 
         .footer-section h3 {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            letter-spacing: -0.01em;
+            color: var(--dark-text-primary);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-4);
         }
 
-        .footer-section p {
-            color: #cccccc;
-            font-family: 'Pretendard', sans-serif;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: -0.005em;
+        .footer-section p,
+        .footer-section li {
+            color: var(--dark-text-secondary);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: var(--spacing-2);
+            font-size: var(--font-size-sm);
         }
 
-        .footer-links {
+        .footer-section ul {
             list-style: none;
             padding: 0;
         }
 
-        .footer-links li {
-            margin-bottom: 0.5rem;
-            font-family: 'Pretendard', sans-serif;
-            font-weight: 400;
-            line-height: 1.5;
-            letter-spacing: -0.005em;
-            font-size: 0.85rem;
-        }
-
-        .footer-links a {
-            color: #cccccc;
+        .footer-section a {
+            color: var(--dark-text-secondary);
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s ease;
-            font-size: 0.85rem;
-            font-family: 'Pretendard', sans-serif;
+            transition: color var(--transition-base);
         }
 
-        .footer-links a:hover {
-            color: #ffffff;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            color: #cccccc;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            color: #ffffff;
-        }
-
-        /* 기술 스택 스타일 - 심플하게 */
-        .tech-list {
-            margin-top: 1rem;
-        }
-
-        .tech-item {
-            color: #cccccc;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 400;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            letter-spacing: -0.005em;
-            line-height: 1.5;
-        }
-
-        .tech-item:hover {
-            color: #ffffff;
-        }
-
-        /* 연락처 정보 스타일 */
-        .contact-info {
-            margin-top: 1rem;
-        }
-
-        .contact-item {
-            color: #cccccc;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 400;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            letter-spacing: -0.005em;
-            line-height: 1.5;
-        }
-
-        .contact-item a {
-            color: #cccccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            color: #ffffff;
-            text-decoration: underline;
-        }
-
-        .contact-item .label {
-            color: #999999;
-            font-size: 0.8rem;
-            min-width: 60px;
-        }
-
-        /* 구독 폼 스타일 */
-        .subscription-form {
-            background-color: #2a2a2a;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .subscription-form h4 {
-            color: #ffffff;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.005em;
-        }
-
-        .subscription-form p {
-            color: #cccccc;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-            letter-spacing: -0.005em;
-        }
-
-        .subscription-input-group {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .subscription-input {
-            flex: 1;
-            padding: 0.75rem;
-            border: 1px solid #444444;
-            border-radius: 0.375rem;
-            background-color: #333333;
-            color: #ffffff;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 400;
-            letter-spacing: -0.005em;
-        }
-
-        .subscription-input:focus {
-            outline: none;
-            border-color: #667eea;
-            background-color: #3a3a3a;
-        }
-
-        .subscription-input::placeholder {
-            color: #999999;
-            font-family: 'Pretendard', sans-serif;
-            font-weight: 400;
-        }
-
-        .subscription-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            letter-spacing: -0.005em;
-        }
-
-        .subscription-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .subscription-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .subscription-status {
-            font-family: 'Pretendard', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 400;
-            padding: 0.5rem;
-            border-radius: 0.25rem;
-            margin-top: 0.5rem;
-            display: none;
-            line-height: 1.4;
-            letter-spacing: -0.005em;
-        }
-
-        .subscription-status.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .subscription-status.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        .footer-section a:hover {
+            color: var(--dark-text-primary);
         }
 
         .footer-bottom {
-            border-top: 1px solid #333333;
-            padding-top: 1rem;
+            border-top: 1px solid var(--dark-border);
+            padding-top: var(--spacing-6);
             text-align: center;
-            color: #999999;
-            font-family: 'Pretendard', sans-serif;
-            font-size: 0.875rem;
-            font-weight: 400;
-            letter-spacing: -0.005em;
+            color: var(--dark-text-secondary);
+            font-size: var(--font-size-sm);
         }
 
-        @media (max-width: 1024px) {
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .footer-social {
+            display: flex;
+            gap: var(--spacing-3);
+            justify-content: center;
+            margin-bottom: var(--spacing-4);
         }
 
-        @media (max-width: 768px) {
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--dark-bg-secondary);
+            border-radius: var(--border-radius-md);
+            transition: all var(--transition-base);
+            text-decoration: none;
+            font-size: var(--font-size-lg);
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* 상태 메시지 컴포넌트 */
+        .status-message {
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-sm);
+            border-left: 4px solid;
+        }
+
+        .status-success {
+            background-color: #f0fff4;
+            color: #22543d;
+            border-color: #48bb78;
+        }
+
+        .status-error {
+            background-color: #fed7d7;
+            color: #742a2a;
+            border-color: #f56565;
+        }
+
+        .status-info {
+            background-color: #ebf8ff;
+            color: #2a4365;
+            border-color: #4299e1;
+        }
+
+        .status-warning {
+            background-color: #fffbeb;
+            color: #744210;
+            border-color: #ed8936;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 767px) {
             .header h1 {
-                font-size: 28px;
+                font-size: var(--font-size-3xl);
             }
-
-            .header p {
-                font-size: 16px;
+            
+            .container {
+                padding: 0 var(--spacing-4);
             }
-
+            
+            .step {
+                padding: var(--spacing-6);
+            }
+            
+            .step h2 {
+                font-size: var(--font-size-xl);
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--spacing-3);
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-section {
+                padding: var(--spacing-8);
+            }
+            
             .footer-content {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
             
-            .social-links {
+            .footer-social {
                 justify-content: center;
             }
+        }
 
-            .subscription-input-group {
-                flex-direction: column;
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-
-            .subscription-btn {
-                width: 100%;
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        /* 코드 블록 전용 폰트 */
-        code, pre, .config-display, .debug-info code {
-            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', 'Courier New', monospace !important;
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
-        /* 강조 텍스트 */
-        strong, b {
-            font-weight: 600;
+        /* 접근성 개선 */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
         }
 
-        /* 링크 스타일 개선 */
-        a {
-            font-family: inherit;
+        /* 포커스 표시 개선 */
+        *:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        button:focus,
+        input:focus,
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        }
+
+        /* 고대비 모드 지원 */
+        @media (prefers-contrast: high) {
+            :root {
+                --border-light: #000000;
+                --text-secondary: #000000;
+            }
+        }
+
+        /* 성능 최적화 */
+        .step:hover,
+        .content-card:hover,
+        .step-button:hover {
+            will-change: transform;
+        }
+
+        .step:not(:hover),
+        .content-card:not(:hover),
+        .step-button:not(:hover) {
+            will-change: auto;
+        }
+
+        /* GPU 가속 활용 */
+        .step,
+        .content-card,
+        .step-button {
+            transform: translateZ(0);
         }
     </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ4N8WB9"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <div class="main-content">
+    <!-- 헤더 -->
+    <header class="header" id="home">
         <div class="container">
-            <div class="header">
+            <div class="header-content">
                 <h1>📧 EmailJS 학습 도구</h1>
-                <p>EmailJS를 배우고 테스트해보세요</p>
-            </div>
-
-            <!-- 보안 안내 -->
-            <div class="security-notice">
-                <h4>개인정보 보호 안내</h4>
-                <p><strong>이 웹사이트는 사용자의 중요한 정보를 저장하지 않습니다.</strong></p>
-                <ul>
-                    <li>입력하신 EmailJS 키와 ID는 서버에 전송되지 않습니다</li>
-                    <li>모든 정보는 브라우저 메모리에서만 임시 사용됩니다</li>
-                    <li>페이지를 새로고침하거나 닫으면 모든 정보가 완전히 삭제됩니다</li>
-                    <li>안전한 학습 환경을 위해 설계되었습니다</li>
-                </ul>
-            </div>
-
-            <div class="steps-container">
-                <!-- Step 1: 설정 입력 -->
-                <div class="step-card active" id="step1">
-                    <div class="step-header">
-                        <div class="step-number">1</div>
-                        <div class="step-title">EmailJS 설정</div>
-                    </div>
-                    <div class="step-description">
-                        EmailJS 계정에서 발급받은 정보를 입력하세요.
-                        <br><a href="https://www.emailjs.com/" target="_blank" class="tutorial-link">EmailJS 가입하기 →</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="publicKey">Public Key</label>
-                        <input type="text" id="publicKey" placeholder="예: user_xxxxxxxxxx">
-                        <div class="help-text">EmailJS Dashboard → Account → General에서 확인</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="serviceId">Service ID</label>
-                        <input type="text" id="serviceId" placeholder="예: service_xxxxxxx">
-                        <div class="help-text">EmailJS Dashboard → Email Services에서 확인</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="templateId">Template ID</label>
-                        <input type="text" id="templateId" placeholder="예: template_xxxxxxx">
-                        <div class="help-text">EmailJS Dashboard → Email Templates에서 확인</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="toEmail">받을 이메일 주소</label>
-                        <input type="email" id="toEmail" placeholder="test@example.com">
-                        <div class="help-text">테스트 이메일을 받을 주소</div>
-                    </div>
-
-                    <button class="btn" onclick="saveAndTestConfig()">설정 저장 및 초기화</button>
-                    
-                    <div id="configStatus" class="status-message"></div>
-                    
-                    <div id="configDisplay" class="config-display hidden">
-                        <strong>현재 세션 설정:</strong>
-                        <pre id="configText"></pre>
-                        <small style="color: #6c757d; font-size: 11px;">* 페이지 새로고침 시 모든 정보가 삭제됩니다</small>
-                    </div>
-
-                    <div id="debugInfo" class="debug-info hidden">
-                        <strong>시스템 상태:</strong>
-                        <div id="debugText"></div>
-                    </div>
-
-                    <div id="troubleshoot" class="troubleshoot hidden">
-                        <h4>🔧 문제 해결 가이드</h4>
-                        <ul>
-                            <li><strong>EmailJS 템플릿 확인:</strong> 템플릿에 {{name}}, {{email}}, {{subject}}, {{message}} 변수가 있는지 확인</li>
-                            <li><strong>도메인 설정:</strong> EmailJS 대시보드에서 현재 도메인이 허용되어 있는지 확인</li>
-                            <li><strong>서비스 상태:</strong> EmailJS 서비스(Gmail, Outlook 등)가 활성화되어 있는지 확인</li>
-                            <li><strong>API 키 권한:</strong> Public Key가 올바르고 활성화되어 있는지 확인</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Step 2: 연결 테스트 -->
-                <div class="step-card" id="step2">
-                    <div class="step-header">
-                        <div class="step-number">2</div>
-                        <div class="step-title">연결 테스트</div>
-                    </div>
-                    <div class="step-description">
-                        입력한 설정으로 EmailJS 연결을 테스트합니다.
-                    </div>
-
-                    <div id="connectionTest" class="hidden">
-                        <button class="btn" onclick="testConnection()">연결 테스트 실행</button>
-                        <div id="testStatus" class="status-message"></div>
-                    </div>
-
-                    <div id="connectionWaiting">
-                        <p style="color: #6c757d; text-align: center; padding: 20px;">
-                            먼저 1단계에서 설정을 완료해주세요.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Step 3: 이메일 발송 -->
-                <div class="step-card" id="step3">
-                    <div class="step-header">
-                        <div class="step-number">3</div>
-                        <div class="step-title">이메일 발송</div>
-                    </div>
-                    <div class="step-description">
-                        실제 이메일을 작성하고 발송해보세요.
-                    </div>
-
-                    <div id="emailForm" class="hidden">
-                        <div class="form-group">
-                            <label for="senderName">보내는 사람 이름</label>
-                            <input type="text" id="senderName" placeholder="홍길동" value="테스트 사용자">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="senderEmail">보내는 사람 이메일</label>
-                            <input type="email" id="senderEmail" placeholder="sender@example.com" value="test@example.com">
-                        </div>
-
-                        <div class="form-group optional-field">
-                            <label for="subject">제목 <span class="optional-label">(선택사항 - 비워두면 템플릿 기본값 사용)</span></label>
-                            <input type="text" id="subject" placeholder="비워두면 EmailJS 템플릿의 기본 제목이 사용됩니다">
-                        </div>
-
-                        <div class="form-group optional-field">
-                            <label for="message">내용 <span class="optional-label">(선택사항 - 비워두면 템플릿 기본값 사용)</span></label>
-                            <textarea id="message" placeholder="비워두면 EmailJS 템플릿의 기본 내용이 사용됩니다"></textarea>
-                        </div>
-
-                        <button class="btn" onclick="sendEmail()" id="sendBtn">
-                            <span id="sendBtnText">이메일 보내기</span>
-                            <span id="sendBtnLoading" class="loading hidden">
-                                <div class="spinner"></div>
-                                전송 중...
-                            </span>
-                        </button>
-                    </div>
-
-                    <div id="emailWaiting">
-                        <p style="color: #6c757d; text-align: center; padding: 20px;">
-                            먼저 1, 2단계를 완료해주세요.
-                        </p>
-                    </div>
-
-                    <div id="emailStatus" class="status-message"></div>
-                </div>
-            </div>
-
-            <!-- 더 많은 콘텐츠 섹션 -->
-            <div class="more-content">
-                <h2>🚀 더 많은 콘텐츠 나아가기</h2>
-                <p class="subtitle">더 많은 학습 도구와 바이브코딩 인사이트를 확인해보세요</p>
-                
-                <div class="content-grid">
-                    <!-- 왼쪽: 더 많은 학습 도구 (웹사이트 링크) -->
-                    <div class="content-section">
-                        <h3 class="tools">더 많은 학습 도구</h3>
-                        <div id="websiteList" class="content-list">
-                            <div class="loading-state">
-                                <div class="spinner" style="border-color: #667eea; border-top-color: transparent; margin: 0 auto 10px;"></div>
-                                학습 도구를 불러오는 중...
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 오른쪽: 바이브코딩 인사이트 (블로그 포스트) -->
-                    <div class="content-section">
-                        <h3 class="insights">바이브코딩 인사이트</h3>
-                        <div id="blogList" class="content-list">
-                            <div class="loading-state">
-                                <div class="spinner" style="border-color: #667eea; border-top-color: transparent; margin: 0 auto 10px;"></div>
-                                블로그 포스트를 불러오는 중...
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p>단계별 가이드로 EmailJS를 배우고 실제로 테스트해보세요. 보안을 우선으로 설계된 안전한 학습 환경입니다.</p>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Footer -->
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <div class="container">
+            <!-- 1단계: EmailJS 설정 -->
+            <section class="step" id="step1" data-step="step1">
+                <h2>
+                    <span class="step-number">1</span>
+                    EmailJS 설정
+                </h2>
+                <p>EmailJS 계정 정보를 입력하여 서비스를 초기화합니다.</p>
+                
+                <div class="form-group">
+                    <label for="publicKey">Public Key:</label>
+                    <input type="text" id="publicKey" placeholder="EmailJS Public Key를 입력하세요">
+                </div>
+                
+                <div class="form-group">
+                    <label for="serviceId">Service ID:</label>
+                    <input type="text" id="serviceId" placeholder="Service ID를 입력하세요">
+                </div>
+                
+                <div class="form-group">
+                    <label for="templateId">Template ID:</label>
+                    <input type="text" id="templateId" placeholder="Template ID를 입력하세요">
+                </div>
+                
+                <div class="form-group">
+                    <label for="toEmail">받을 이메일 주소:</label>
+                    <input type="email" id="toEmail" placeholder="테스트 이메일을 받을 주소">
+                </div>
+                
+                <button class="step-button" data-step="step1" onclick="initializeEmailJS()">설정 완료</button>
+                <div id="step1-status"></div>
+            </section>
+
+            <!-- 2단계: 연결 테스트 -->
+            <section class="step" id="step2" data-step="step2">
+                <h2>
+                    <span class="step-number">2</span>
+                    연결 테스트
+                </h2>
+                <p>EmailJS 설정이 올바른지 확인합니다.</p>
+                
+                <button class="step-button test-button" data-step="step2" onclick="testConnection()">연결 테스트</button>
+                <div id="step2-status"></div>
+            </section>
+
+            <!-- 3단계: 이메일 발송 -->
+            <section class="step" id="step3" data-step="step3">
+                <h2>
+                    <span class="step-number">3</span>
+                    이메일 발송
+                </h2>
+                <p>실제 이메일을 작성하고 발송해보세요.</p>
+                
+                <div class="form-group">
+                    <label for="fromName">보내는 사람 이름:</label>
+                    <input type="text" id="fromName" placeholder="이름을 입력하세요">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fromEmail">보내는 사람 이메일:</label>
+                    <input type="email" id="fromEmail" placeholder="이메일 주소를 입력하세요">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">제목 (선택사항):</label>
+                    <input type="text" id="subject" placeholder="비워두면 템플릿 기본값 사용">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">내용 (선택사항):</label>
+                    <textarea id="message" rows="4" placeholder="비워두면 템플릿 기본값 사용"></textarea>
+                </div>
+                
+                <button class="step-button email-button" data-step="step3" onclick="sendEmail()">이메일 발송</button>
+                <div id="step3-status"></div>
+            </section>
+
+            <!-- 관련 콘텐츠 섹션 -->
+            <section class="related-content" id="related-content">
+                <div class="container">
+                    <h2>🔧 더 많은 학습 도구와 📚 바이브코딩 인사이트</h2>
+                    <div id="related-content-grid" class="content-grid">
+                        <!-- 동적으로 로드됨 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 뉴스레터 구독 섹션 -->
+            <section class="newsletter-section" id="newsletter">
+                <h2>📬 바이브코드제로 클럽 구독</h2>
+                <p>AI 코딩의 최신 소식과 실무 팁을 받아보세요. 매주 유용한 콘텐츠를 전달해드립니다.</p>
+                
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="이메일 주소를 입력하세요" required>
+                    <button type="submit">구독하기</button>
+                </form>
+                
+                <div id="newsletter-status" class="newsletter-status"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 다크 테마 푸터 -->
     <footer class="footer">
-        <div class="footer-container">
+        <div class="container">
             <div class="footer-content">
-                <!-- 첫 번째 그리드: 누구를 위해 만들었나요? -->
                 <div class="footer-section">
-                    <h3>🎯 누구를 위해 만들었나요?</h3>
-                    <ul class="footer-links">
-                        <li>• Bolt.new를 사용해서 이메일 발송 기능을 개발하고 싶은 분들</li>
-                        <li>• EmailJS(외부 이메일 발송시스템)을 이해하고 테스트해보고 싶은 분들</li>
-                        <li>• 웹 개발 초보자부터 전문가까지 누구나</li>
-                        <li>• 실무에서 바로 사용할 수 있는 이메일 기능이 필요한 분들</li>
+                    <h3>바이브코드제로</h3>
+                    <p>AI와 함께하는 코딩의 새로운 패러다임을 제시합니다. 기획자와 디자이너도 할 수 있는 AI 코딩의 가능성을 보여줍니다.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>학습 도구</h3>
+                    <ul>
+                        <li><a href="#step1">EmailJS 설정</a></li>
+                        <li><a href="#step2">연결 테스트</a></li>
+                        <li><a href="#step3">이메일 발송</a></li>
+                        <li><a href="#related-content">관련 콘텐츠</a></li>
                     </ul>
                 </div>
                 
-                <!-- 두 번째 그리드: 개발 스택 -->
                 <div class="footer-section">
-                    <h3>⚡ 개발 스택</h3>
-                    <p>이 프로젝트에서 사용된 기술들</p>
-                    
-                    <div class="tech-list">
-                        <div class="tech-item">🌐 HTML5 & CSS3</div>
-                        <div class="tech-item">⚡ Vanilla JavaScript</div>
-                        <div class="tech-item">📧 EmailJS</div>
-                        <div class="tech-item">🗄️ Supabase</div>
-                        <div class="tech-item">🚀 Vite</div>
-                        <div class="tech-item">🎨 Pretendard Font</div>
-                    </div>
-                </div>
-                
-                <!-- 세 번째 그리드: 제작자 정보 -->
-                <div class="footer-section">
-                    <h3>👩‍💻 제작자 정보</h3>
-                    <p><strong>AI코딩하는 김로린 기획자</strong></p>
-                    <p style="font-size: 0.75rem; color: #999;">기획자와 디자이너도 할 수 있는 AI코딩의 가능성</p>
-                    
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <span class="label">협업/광고:</span>
-                            <a href="mailto:loreen@selectway.co.kr">loreen@selectway.co.kr</a>
-                        </div>
-                        <div class="contact-item">
-                            <span class="label">인스타그램:</span>
-                            <a href="https://www.instagram.com/loreenkim.ceo/" target="_blank">@loreenkim.ceo</a>
-                        </div>
-                        <div class="contact-item">
-                            <span class="label">브런치:</span>
-                            <a href="https://brunch.co.kr/@loreenkim/" target="_blank">@loreenkim</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 네 번째 그리드: 바이브코드제로 클럽 -->
-                <div class="footer-section">
-                    <h3>🚀 바이브코드제로 클럽</h3>
-                    <p>더 많은 Bolt.new 및 바이브코딩 자료를 보내드릴까요?</p>
-                    
-                    <div class="subscription-form">
-                        <h4>📬 최신 소식 받아보기</h4>
-                        <p>• Bolt.new 활용 팁과 노하우<br>
-                           • 바이브코딩 실전 프로젝트<br>
-                           • AI 코딩 도구 리뷰 및 가이드</p>
-                        
-                        <div class="subscription-input-group">
-                            <input type="email" id="subscriptionEmail" class="subscription-input" placeholder="이메일 주소를 입력하세요">
-                            <button class="subscription-btn" onclick="handleSubscription()" id="subscribeBtn">
-                                <span id="subscribeBtnText">구독하기</span>
-                                <span id="subscribeBtnLoading" class="loading hidden">
-                                    <div class="spinner"></div>
-                                </span>
-                            </button>
-                        </div>
-                        
-                        <div id="subscriptionStatus" class="subscription-status"></div>
-                    </div>
+                    <h3>연결하기</h3>
+                    <ul>
+                        <li><a href="https://www.instagram.com/loreenkim.ceo/" target="_blank">Instagram</a></li>
+                        <li><a href="https://brunch.co.kr/@loreenkim/" target="_blank">Brunch</a></li>
+                        <li><a href="#newsletter">뉴스레터 구독</a></li>
+                    </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 EmailJS 학습 도구. 학습 목적으로 제작된 오픈소스 프로젝트입니다.</p>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/loreenkim.ceo/" target="_blank" aria-label="Instagram">📷</a>
+                    <a href="https://brunch.co.kr/@loreenkim/" target="_blank" aria-label="Brunch">✍️</a>
+                    <a href="#newsletter" aria-label="뉴스레터 구독">📧</a>
+                </div>
+                <p>&copy; 2024 바이브코드제로. AI코딩하는 김로린 기획자. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Supabase 라이브러리 로드 -->
+    <!-- 스크립트 -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- EmailJS 라이브러리 로드 -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="module" src="js/supabase-client.js"></script>
+    <script type="module" src="js/blogs-client.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     
-    <script type="module">
-        import { initializeSupabase, subscribeToNewsletter } from './js/supabase-client.js';
-        import { getWebsitesWithComingSoon, getBlogPosts } from './js/blogs-client.js';
-        
-        let emailConfig = null;
-        let isEmailJSInitialized = false;
-        let isSupabaseInitialized = false;
+    <script>
+        // EmailJS 관련 전역 변수
+        let emailjsInitialized = false;
+        let emailjsConfig = {};
 
-        // 페이지 로드 시 초기화
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('페이지 로드 완료');
+        // 뉴스레터 구독 처리
+        document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            // Supabase 초기화
-            isSupabaseInitialized = initializeSupabase();
+            const email = document.getElementById('newsletter-email').value.trim();
+            const statusDiv = document.getElementById('newsletter-status');
             
-            // EmailJS 라이브러리 로드 대기
-            setTimeout(() => {
-                checkEmailJSLibrary();
-            }, 500);
-
-            // 블로그 데이터 로드
-            loadBlogData();
-        });
-
-        // 블로그 데이터 로드 함수
-        async function loadBlogData() {
+            if (!email) {
+                statusDiv.innerHTML = '<div class="status-message status-error">이메일 주소를 입력해주세요.</div>';
+                return;
+            }
+            
+            statusDiv.innerHTML = '<div class="status-message status-info">구독 처리 중...</div>';
+            
             try {
-                // 웹사이트 목록 로드 (왼쪽 섹션)
-                const websitesResult = await getWebsitesWithComingSoon(6);
-                renderWebsites(websitesResult.blogs);
-
-                // 블로그 포스트 로드 (오른쪽 섹션)
-                const blogsResult = await getBlogPosts(6);
-                renderBlogs(blogsResult.blogs);
-
-            } catch (error) {
-                console.error('블로그 데이터 로드 실패:', error);
-                showErrorState('websiteList', '학습 도구를 불러오는데 실패했습니다.');
-                showErrorState('blogList', '블로그 포스트를 불러오는데 실패했습니다.');
-            }
-        }
-
-        // 웹사이트 목록 렌더링
-        function renderWebsites(websites) {
-            const container = document.getElementById('websiteList');
-            
-            if (!websites || websites.length === 0) {
-                container.innerHTML = '<div class="error-state">표시할 학습 도구가 없습니다.</div>';
-                return;
-            }
-
-            container.innerHTML = websites.map(website => {
-                const isComingSoon = website.status === 'coming-soon';
-                const tags = website.keywords || [];
+                const { subscribeToNewsletter } = await import('./js/supabase-client.js');
+                const result = await subscribeToNewsletter(email);
                 
-                return `
-                    <div class="content-item ${isComingSoon ? 'coming-soon' : ''}" 
-                         ${!isComingSoon && website.url ? `onclick="window.open('${website.url}', '_blank')"` : ''}>
-                        <h4>${website.title}</h4>
-                        <p>${website.description}</p>
-                        <div class="content-tags">
-                            ${tags.slice(0, 3).map((tag, index) => 
-                                `<span class="content-tag ${index === 0 ? 'primary' : ''}">${tag}</span>`
-                            ).join('')}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // 블로그 포스트 렌더링
-        function renderBlogs(blogs) {
-            const container = document.getElementById('blogList');
-            
-            if (!blogs || blogs.length === 0) {
-                container.innerHTML = '<div class="error-state">표시할 블로그 포스트가 없습니다.</div>';
-                return;
-            }
-
-            container.innerHTML = blogs.map(blog => {
-                const tags = blog.keywords || [];
-                
-                return `
-                    <div class="content-item" ${blog.url ? `onclick="window.open('${blog.url}', '_blank')"` : ''}>
-                        <h4>${blog.title}</h4>
-                        <p>${blog.description}</p>
-                        <div class="content-tags">
-                            ${tags.slice(0, 3).map((tag, index) => 
-                                `<span class="content-tag ${index === 0 ? 'primary' : ''}">${tag}</span>`
-                            ).join('')}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // 에러 상태 표시
-        function showErrorState(containerId, message) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = `<div class="error-state">${message}</div>`;
-        }
-
-        // EmailJS 라이브러리 확인
-        function checkEmailJSLibrary() {
-            const debugInfo = document.getElementById('debugInfo');
-            const debugText = document.getElementById('debugText');
-            
-            debugInfo.classList.remove('hidden');
-            
-            if (typeof emailjs === 'undefined') {
-                debugText.innerHTML = '❌ EmailJS 라이브러리 로드 실패<br>네트워크 연결을 확인해주세요.';
-                document.getElementById('troubleshoot').classList.remove('hidden');
-                return false;
-            } else {
-                let statusText = '✅ EmailJS 라이브러리 로드 완료<br>준비 상태: 정상<br>🔒 보안: 모든 정보는 메모리에서만 처리됩니다';
-                
-                if (isSupabaseInitialized) {
-                    statusText += '<br>✅ Supabase 연결 완료 (구독 기능 활성화)';
+                if (result.success) {
+                    statusDiv.innerHTML = `<div class="status-message status-success">${result.message}</div>`;
+                    document.getElementById('newsletter-email').value = '';
+                    
+                    // Google Analytics 이벤트 추적
+                    if (typeof gtag !== 'undefined') {
+                        trackNewsletterSignup();
+                    }
                 } else {
-                    statusText += '<br>⚠️ Supabase 연결 필요 (구독 기능 비활성화)';
+                    statusDiv.innerHTML = `<div class="status-message status-error">${result.message}</div>`;
                 }
                 
-                debugText.innerHTML = statusText;
-                return true;
+            } catch (error) {
+                console.error('구독 처리 중 오류:', error);
+                statusDiv.innerHTML = '<div class="status-message status-error">구독 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</div>';
             }
-        }
+        });
 
-        // 설정 완성도 확인
-        function isConfigComplete(config) {
-            return config && config.publicKey && config.serviceId && config.templateId && config.toEmail;
-        }
-
-        // 설정 저장 및 초기화
-        window.saveAndTestConfig = function() {
+        // EmailJS 초기화 함수
+        function initializeEmailJS() {
             const publicKey = document.getElementById('publicKey').value.trim();
             const serviceId = document.getElementById('serviceId').value.trim();
             const templateId = document.getElementById('templateId').value.trim();
             const toEmail = document.getElementById('toEmail').value.trim();
 
-            // 입력값 검증
             if (!publicKey || !serviceId || !templateId || !toEmail) {
-                showStatus('configStatus', '모든 필드를 입력해주세요! ⚠️', 'error');
-                return;
-            }
-
-            // 이메일 형식 검증
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(toEmail)) {
-                showStatus('configStatus', '올바른 이메일 주소를 입력해주세요! ⚠️', 'error');
-                return;
-            }
-
-            // EmailJS 라이브러리 확인
-            if (typeof emailjs === 'undefined') {
-                showStatus('configStatus', '❌ EmailJS 라이브러리가 로드되지 않았습니다. 페이지를 새로고침해주세요.', 'error');
-                document.getElementById('troubleshoot').classList.remove('hidden');
-                return;
-            }
-
-            // 설정을 메모리에만 저장 (localStorage 사용 안함)
-            emailConfig = { publicKey, serviceId, templateId, toEmail };
-            
-            // EmailJS 초기화
-            initializeEmailJS();
-        }
-
-        // EmailJS 초기화
-        function initializeEmailJS() {
-            if (!emailConfig || typeof emailjs === 'undefined') {
+                showStatus('step1-status', '❌ 모든 필드를 입력해주세요.', 'error');
                 return;
             }
 
             try {
-                // EmailJS 초기화
-                emailjs.init({
-                    publicKey: emailConfig.publicKey,
-                    blockHeadless: true,
-                    limitRate: {
-                        id: 'app',
-                        throttle: 10000,
-                    },
-                });
+                emailjs.init(publicKey);
+                emailjsConfig = { serviceId, templateId, toEmail };
+                emailjsInitialized = true;
                 
-                isEmailJSInitialized = true;
-                console.log('EmailJS 초기화 완료');
+                showStatus('step1-status', '✅ EmailJS 설정이 완료되었습니다!', 'success');
                 
-                showConfigSuccess();
-                enableStep2();
+                // Google Analytics 이벤트 추적
+                if (typeof gtag !== 'undefined') {
+                    trackLearningStep('EmailJS 설정 완료');
+                }
                 
             } catch (error) {
-                console.error('EmailJS 초기화 실패:', error);
-                showStatus('configStatus', '❌ EmailJS 초기화 실패: ' + error.message, 'error');
-                document.getElementById('troubleshoot').classList.remove('hidden');
+                showStatus('step1-status', '❌ 설정 중 오류가 발생했습니다: ' + error.message, 'error');
             }
         }
 
-        // 설정 성공 표시
-        function showConfigSuccess() {
-            showStatus('configStatus', '✅ 설정이 저장되고 EmailJS가 초기화되었습니다! (메모리에서만 처리됨)', 'success');
-            
-            // 설정 표시 (보안을 위해 키는 일부만 표시)
-            document.getElementById('configDisplay').classList.remove('hidden');
-            document.getElementById('configText').textContent = 
-                `Public Key: ${emailConfig.publicKey.substring(0, 10)}...\n` +
-                `Service ID: ${emailConfig.serviceId}\n` +
-                `Template ID: ${emailConfig.templateId}\n` +
-                `To Email: ${emailConfig.toEmail}`;
-            
-            // 1단계 완료 표시
-            document.getElementById('step1').classList.add('completed');
-            document.getElementById('step1').classList.remove('active');
-            
-            // 문제 해결 가이드 숨기기
-            document.getElementById('troubleshoot').classList.add('hidden');
-        }
-
-        // 2단계 활성화
-        function enableStep2() {
-            document.getElementById('step2').classList.add('active');
-            document.getElementById('connectionWaiting').classList.add('hidden');
-            document.getElementById('connectionTest').classList.remove('hidden');
-        }
-
-        // 연결 테스트
-        window.testConnection = function() {
-            if (!isEmailJSInitialized) {
-                showStatus('testStatus', '❌ EmailJS가 초기화되지 않았습니다. 1단계를 다시 완료해주세요.', 'error');
+        // 연결 테스트 함수
+        function testConnection() {
+            if (!emailjsInitialized) {
+                showStatus('step2-status', '❌ 먼저 1단계에서 EmailJS를 설정해주세요.', 'error');
                 return;
             }
 
-            showStatus('testStatus', '🔄 연결을 테스트하는 중...', 'info');
+            showStatus('step2-status', '🔄 연결을 테스트하는 중...', 'info');
 
-            // 테스트용 데이터
-            const testData = {
+            const testParams = {
                 name: '테스트 사용자',
                 email: 'test@example.com',
                 subject: 'EmailJS 연결 테스트',
-                message: 'EmailJS 학습 도구에서 보내는 연결 테스트 메일입니다. 이 메일이 도착했다면 설정이 올바릅니다!'
+                message: '이것은 연결 테스트 메시지입니다.',
+                to_email: emailjsConfig.toEmail
             };
 
-            console.log('연결 테스트 시작:', {
-                serviceId: emailConfig.serviceId,
-                templateId: emailConfig.templateId,
-                data: testData
-            });
-
-            emailjs.send(emailConfig.serviceId, emailConfig.templateId, testData)
-                .then(function(response) {
-                    console.log('연결 테스트 성공!', response);
-                    emailConfig.connectionTested = true;
+            emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, testParams)
+                .then(() => {
+                    showStatus('step2-status', '✅ 연결 테스트 성공! 테스트 이메일이 발송되었습니다.', 'success');
                     
-                    showConnectionSuccess();
-                    enableStep3();
-                })
-                .catch(function(error) {
-                    console.error('연결 테스트 실패:', error);
-                    let errorMessage = '연결 테스트 실패: ';
-                    
-                    if (error.status === 400) {
-                        errorMessage += '잘못된 요청입니다. 템플릿 ID나 서비스 ID를 확인해주세요.';
-                    } else if (error.status === 401) {
-                        errorMessage += '인증 실패입니다. Public Key를 확인해주세요.';
-                    } else if (error.status === 404) {
-                        errorMessage += '템플릿이나 서비스를 찾을 수 없습니다. ID를 확인해주세요.';
-                    } else {
-                        errorMessage += (error.text || error.message || '알 수 없는 오류');
+                    // Google Analytics 이벤트 추적
+                    if (typeof gtag !== 'undefined') {
+                        trackLearningStep('연결 테스트 성공');
                     }
-                    
-                    showStatus('testStatus', '❌ ' + errorMessage, 'error');
-                    document.getElementById('troubleshoot').classList.remove('hidden');
+                })
+                .catch((error) => {
+                    showStatus('step2-status', '❌ 연결 테스트 실패: ' + error.text, 'error');
                 });
         }
 
-        // 연결 성공 표시
-        function showConnectionSuccess() {
-            showStatus('testStatus', '✅ 연결 테스트 성공! EmailJS가 정상적으로 작동합니다.', 'success');
-            
-            // 2단계 완료 표시
-            document.getElementById('step2').classList.add('completed');
-            document.getElementById('step2').classList.remove('active');
-        }
+        // 이메일 발송 함수
+        function sendEmail() {
+            if (!emailjsInitialized) {
+                showStatus('step3-status', '❌ 먼저 1단계에서 EmailJS를 설정해주세요.', 'error');
+                return;
+            }
 
-        // 3단계 활성화
-        function enableStep3() {
-            document.getElementById('step3').classList.add('active');
-            document.getElementById('emailWaiting').classList.add('hidden');
-            document.getElementById('emailForm').classList.remove('hidden');
-        }
-
-        // 이메일 발송
-        window.sendEmail = function() {
-            const senderName = document.getElementById('senderName').value.trim();
-            const senderEmail = document.getElementById('senderEmail').value.trim();
+            const fromName = document.getElementById('fromName').value.trim();
+            const fromEmail = document.getElementById('fromEmail').value.trim();
             const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
 
-            // 필수 필드 검증 (이름과 이메일만 필수)
-            if (!senderName || !senderEmail) {
-                showStatus('emailStatus', '보내는 사람 이름과 이메일은 필수입니다! ⚠️', 'error');
+            if (!fromName || !fromEmail) {
+                showStatus('step3-status', '❌ 보내는 사람 이름과 이메일은 필수입니다.', 'error');
                 return;
             }
 
-            // 이메일 형식 검증
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(senderEmail)) {
-                showStatus('emailStatus', '올바른 이메일 주소를 입력해주세요! ⚠️', 'error');
-                return;
-            }
+            showStatus('step3-status', '📧 이메일을 발송하는 중...', 'info');
 
-            // 버튼 상태 변경
-            const sendBtn = document.getElementById('sendBtn');
-            const sendBtnText = document.getElementById('sendBtnText');
-            const sendBtnLoading = document.getElementById('sendBtnLoading');
-            
-            sendBtn.disabled = true;
-            sendBtnText.classList.add('hidden');
-            sendBtnLoading.classList.remove('hidden');
-
-            // 이메일 데이터 준비 (빈 필드는 제외하여 템플릿 기본값 사용)
-            const emailData = {
-                name: senderName,
-                email: senderEmail
+            const emailParams = {
+                name: fromName,
+                email: fromEmail,
+                subject: subject || '제목 없음',
+                message: message || '내용 없음',
+                to_email: emailjsConfig.toEmail
             };
 
-            // 제목이 입력된 경우에만 추가
-            if (subject) {
-                emailData.subject = subject;
-            }
-
-            // 내용이 입력된 경우에만 추가
-            if (message) {
-                emailData.message = message;
-            }
-
-            console.log('이메일 발송 시작:', emailData);
-
-            // 상태 메시지 업데이트
-            let statusMsg = '📧 이메일 발송 중...';
-            if (!subject && !message) {
-                statusMsg += ' (제목과 내용은 템플릿 기본값 사용)';
-            } else if (!subject) {
-                statusMsg += ' (제목은 템플릿 기본값 사용)';
-            } else if (!message) {
-                statusMsg += ' (내용은 템플릿 기본값 사용)';
-            }
-            showStatus('emailStatus', statusMsg, 'info');
-
-            // EmailJS로 이메일 발송
-            emailjs.send(emailConfig.serviceId, emailConfig.templateId, emailData)
-                .then(function(response) {
-                    console.log('이메일 발송 성공!', response);
-                    let successMsg = '✅ 이메일이 성공적으로 발송되었습니다!';
+            emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, emailParams)
+                .then(() => {
+                    showStatus('step3-status', '✅ 이메일이 성공적으로 발송되었습니다!', 'success');
                     
-                    if (!subject && !message) {
-                        successMsg += '\n📝 제목과 내용은 EmailJS 템플릿의 기본값이 사용되었습니다.';
-                    } else if (!subject) {
-                        successMsg += '\n📝 제목은 EmailJS 템플릿의 기본값이 사용되었습니다.';
-                    } else if (!message) {
-                        successMsg += '\n📝 내용은 EmailJS 템플릿의 기본값이 사용되었습니다.';
+                    // 폼 초기화
+                    document.getElementById('fromName').value = '';
+                    document.getElementById('fromEmail').value = '';
+                    document.getElementById('subject').value = '';
+                    document.getElementById('message').value = '';
+                    
+                    // Google Analytics 이벤트 추적
+                    if (typeof gtag !== 'undefined') {
+                        trackEmailSent();
+                        trackLearningStep('이메일 발송 성공');
                     }
-                    
-                    showStatus('emailStatus', successMsg, 'success');
-                    
-                    // 3단계 완료 표시
-                    document.getElementById('step3').classList.add('completed');
                 })
-                .catch(function(error) {
-                    console.error('이메일 발송 실패:', error);
-                    let errorMessage = '이메일 발송 실패: ';
-                    
-                    if (error.status === 400) {
-                        errorMessage += '잘못된 요청입니다. 입력 내용을 확인해주세요.';
-                    } else if (error.status === 401) {
-                        errorMessage += '인증 실패입니다. 설정을 다시 확인해주세요.';
-                    } else if (error.status === 429) {
-                        errorMessage += '너무 많은 요청입니다. 잠시 후 다시 시도해주세요.';
-                    } else {
-                        errorMessage += (error.text || error.message || '알 수 없는 오류');
-                    }
-                    
-                    showStatus('emailStatus', '❌ ' + errorMessage, 'error');
-                })
-                .finally(function() {
-                    // 버튼 상태 복원
-                    sendBtn.disabled = false;
-                    sendBtnText.classList.remove('hidden');
-                    sendBtnLoading.classList.add('hidden');
+                .catch((error) => {
+                    showStatus('step3-status', '❌ 이메일 발송 실패: ' + error.text, 'error');
                 });
         }
 
-        // 뉴스레터 구독 함수 (Supabase 사용)
-        window.handleSubscription = async function() {
-            const email = document.getElementById('subscriptionEmail').value.trim();
-            const subscribeBtn = document.getElementById('subscribeBtn');
-            const subscribeBtnText = document.getElementById('subscribeBtnText');
-            const subscribeBtnLoading = document.getElementById('subscribeBtnLoading');
-
-            // 이메일 유효성 검사
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!email || !emailRegex.test(email)) {
-                showSubscriptionStatus('올바른 이메일 주소를 입력해주세요.', 'error');
-                return;
-            }
-
-            // Supabase 연결 확인
-            if (!isSupabaseInitialized) {
-                showSubscriptionStatus('Supabase 연결이 필요합니다. 관리자에게 문의해주세요.', 'error');
-                return;
-            }
-
-            // 버튼 상태 변경
-            subscribeBtn.disabled = true;
-            subscribeBtnText.classList.add('hidden');
-            subscribeBtnLoading.classList.remove('hidden');
-
-            try {
-                const result = await subscribeToNewsletter(email);
-                
-                if (result.success) {
-                    showSubscriptionStatus(result.message, 'success');
-                    document.getElementById('subscriptionEmail').value = '';
-                } else {
-                    showSubscriptionStatus(result.message, 'error');
-                }
-            } catch (error) {
-                console.error('구독 처리 중 오류:', error);
-                showSubscriptionStatus(error.message, 'error');
-            } finally {
-                // 버튼 상태 복원
-                subscribeBtn.disabled = false;
-                subscribeBtnText.classList.remove('hidden');
-                subscribeBtnLoading.classList.add('hidden');
-            }
-        }
-
-        // 구독 상태 메시지 표시
-        function showSubscriptionStatus(message, type) {
-            const statusElement = document.getElementById('subscriptionStatus');
-            statusElement.textContent = message;
-            statusElement.className = `subscription-status ${type}`;
-            statusElement.style.display = 'block';
-
-            // 5초 후 숨기기
-            setTimeout(() => {
-                statusElement.style.display = 'none';
-            }, 5000);
-        }
-
-        // 상태 메시지 표시
+        // 상태 메시지 표시 함수
         function showStatus(elementId, message, type) {
-            const statusElement = document.getElementById(elementId);
-            statusElement.textContent = message;
-            statusElement.className = `status-message ${type}`;
-            statusElement.style.display = 'block';
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
+        }
 
-            // 성공 메시지는 7초 후 숨기기 (더 긴 메시지를 위해)
-            if (type === 'success') {
-                setTimeout(() => {
-                    statusElement.style.display = 'none';
-                }, 7000);
+        // 관련 콘텐츠 로드
+        async function loadRelatedContent() {
+            try {
+                const { getWebsitesWithComingSoon, getBlogPosts } = await import('./js/blogs-client.js');
+                
+                const [websitesResult, blogsResult] = await Promise.all([
+                    getWebsitesWithComingSoon(6),
+                    getBlogPosts(6)
+                ]);
+
+                const grid = document.getElementById('related-content-grid');
+                let html = '';
+
+                // 웹사이트 섹션
+                if (websitesResult.success && websitesResult.blogs.length > 0) {
+                    websitesResult.blogs.forEach(item => {
+                        const statusBadge = item.status === 'coming-soon' ? 
+                            '<span class="status-badge coming-soon">출시 예정</span>' : '';
+                        
+                        html += `
+                            <a href="${item.url || '#'}" class="content-card website-card" data-type="website" 
+                               ${!item.url ? 'onclick="return false;"' : 'target="_blank"'}>
+                                <h3>${item.title}</h3>
+                                <p>${item.description}</p>
+                                ${statusBadge}
+                            </a>
+                        `;
+                    });
+                }
+
+                // 블로그 섹션
+                if (blogsResult.success && blogsResult.blogs.length > 0) {
+                    blogsResult.blogs.forEach(item => {
+                        const statusBadge = item.status === 'coming-soon' ? 
+                            '<span class="status-badge coming-soon">출시 예정</span>' : '';
+                        
+                        html += `
+                            <a href="${item.url || '#'}" class="content-card blog-card" data-type="blog"
+                               ${!item.url ? 'onclick="return false;"' : 'target="_blank"'}>
+                                <h3>${item.title}</h3>
+                                <p>${item.description}</p>
+                                ${statusBadge}
+                            </a>
+                        `;
+                    });
+                }
+
+                grid.innerHTML = html;
+
+            } catch (error) {
+                console.error('관련 콘텐츠 로드 실패:', error);
+                document.getElementById('related-content-grid').innerHTML = 
+                    '<p>관련 콘텐츠를 불러오는 중 오류가 발생했습니다.</p>';
             }
         }
 
-        // 페이지 새로고침 시 경고 (선택사항)
-        window.addEventListener('beforeunload', function(e) {
-            if (emailConfig) {
-                const confirmationMessage = '페이지를 새로고침하면 입력한 모든 설정이 삭제됩니다.';
-                e.returnValue = confirmationMessage;
-                return confirmationMessage;
-            }
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            loadRelatedContent();
+            console.log('📧 EmailJS 학습 도구 로드 완료');
         });
 
-        // Enter 키로 구독하기
-        document.getElementById('subscriptionEmail').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                handleSubscription();
-            }
-        });
+        // 서비스 워커 등록 (PWA 준비)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- 메인 페이지 -->
+    <url>
+        <loc>https://vibecodezero-emailjs.netlify.app/</loc>
+        <lastmod>2024-12-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://fuydyfeeskrzpmeqdiah.supabase.co/storage/v1/object/public/public-imgs/vibecoding%20thumnails.jpeg</image:loc>
+            <image:title>EmailJS 학습 도구 - 바이브코드제로</image:title>
+            <image:caption>EmailJS를 배우고 테스트할 수 있는 단계별 학습 웹 애플리케이션</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- 학습 단계별 페이지 (앵커 링크) -->
+    <url>
+        <loc>https://vibecodezero-emailjs.netlify.app/#step1</loc>
+        <lastmod>2024-12-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://vibecodezero-emailjs.netlify.app/#step2</loc>
+        <lastmod>2024-12-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://vibecodezero-emailjs.netlify.app/#step3</loc>
+        <lastmod>2024-12-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- 뉴스레터 구독 페이지 -->
+    <url>
+        <loc>https://vibecodezero-emailjs.netlify.app/#newsletter</loc>
+        <lastmod>2024-12-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- 관련 콘텐츠 섹션 -->
+    <url>
+        <loc>https://vibecodezero-emailjs.netlify.app/#related-content</loc>
+        <lastmod>2024-12-26</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+</urlset>
