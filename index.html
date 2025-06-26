@@ -133,7 +133,7 @@
             <option value="v2.0.0">v2.0.0 - 모던 그라데이션</option>
             <option value="v2.1.0">v2.1.0 - 향상된 카드</option>
             <option value="v2.1.5" selected>v2.1.5 - 뉴스레터+푸터</option>
-            <option value="v2.2.0">v2.2.0 - 완전한 시스템</option>
+            <option value="v2.2.0" disabled>v2.2.0 - 완전한 시스템 (개발중)</option>
         </select>
         <div class="version-controls">
             <button class="version-btn" onclick="openVersionManager()">관리</button>
@@ -327,6 +327,14 @@
         // 디자인 버전 관리
         document.getElementById('version-selector').addEventListener('change', async (e) => {
             const version = e.target.value;
+            
+            // v2.2.0은 아직 개발 중이므로 선택 불가
+            if (version === 'v2.2.0') {
+                alert('v2.2.0은 아직 개발 중입니다. 다른 버전을 선택해주세요.');
+                e.target.value = 'v2.1.5'; // 기본값으로 되돌리기
+                return;
+            }
+            
             try {
                 await window.designSystemManager.switchToVersion(version);
                 document.getElementById('current-version').textContent = version;
@@ -335,6 +343,8 @@
             } catch (error) {
                 console.error('버전 전환 실패:', error);
                 alert(`버전 전환 실패: ${error.message}`);
+                // 실패 시 기본값으로 되돌리기
+                e.target.value = 'v2.1.5';
             }
         });
 
