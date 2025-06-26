@@ -1,6 +1,6 @@
 /* 배포된 웹사이트 디자인 시스템 (v2.1.5 실제 배포 버전) */
 /* 생성일: 2024-12-26 */
-/* 특징: 뉴스레터 구독 섹션, 다크 테마 푸터, 2개 섹션으로 나뉜 관련 콘텐츠 */
+/* 특징: 뉴스레터 구독 섹션, 다크 테마 푸터, 정확한 그리드 레이아웃 */
 
 /* 폰트 로딩 */
 @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -207,7 +207,18 @@ body {
 }
 
 /* 🎯 핵심: 배포된 사이트와 동일한 그리드 시스템 */
-.content-grid {
+
+/* 🔧 더 많은 학습 도구 섹션 - 1열 2개 그리드 (세로 배치) */
+#websites-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 📚 바이브코딩 인사이트 섹션 - 가로 배치 (튜토리얼 파트) */
+#blogs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
@@ -459,8 +470,15 @@ body {
         padding: var(--spacing-md);
     }
     
-    /* 모바일에서 1열 그리드 */
-    .content-grid {
+    /* 🔧 모바일에서 학습 도구는 1열로 */
+    #websites-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        max-width: 100%;
+    }
+    
+    /* 📚 모바일에서 블로그도 1열로 */
+    #blogs-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
         padding: 0;
@@ -497,7 +515,14 @@ body {
 
 /* 🎯 태블릿 중단점 - 배포된 사이트와 동일 */
 @media (min-width: 769px) and (max-width: 1024px) {
-    .content-grid {
+    /* 🔧 태블릿에서 학습 도구는 2열 유지 */
+    #websites-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
+    /* 📚 태블릿에서 블로그는 2열 */
+    #blogs-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.25rem;
     }
@@ -509,7 +534,14 @@ body {
 
 /* 🎯 데스크톱 중단점 - 배포된 사이트와 동일 */
 @media (min-width: 1025px) {
-    .content-grid {
+    /* 🔧 데스크톱에서 학습 도구는 2열 유지 */
+    #websites-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* 📚 데스크톱에서 블로그는 3열 */
+    #blogs-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
     }
@@ -521,7 +553,14 @@ body {
 
 /* 🎯 대형 화면 최적화 */
 @media (min-width: 1400px) {
-    .content-grid {
+    /* 🔧 대형 화면에서도 학습 도구는 2열 유지 */
+    #websites-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
+    }
+    
+    /* 📚 대형 화면에서 블로그는 4열 */
+    #blogs-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 1.75rem;
     }
