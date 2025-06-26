@@ -28,32 +28,66 @@
 - **레이아웃**: 반응형 그리드 시스템
 - **폰트**: JetBrains Mono 코드 폰트 추가
 
-### **v2.2.0 - 현재 버전 (2024-12-26)**
-- **특징**: 완전한 디자인 시스템
-- **색상**: 체계적인 컬러 팔레트
-- **레이아웃**: 모바일 퍼스트 반응형
+### **v2.1.5 - 뉴스레터 + 다크 푸터 (2024-12-26)** ⭐ **실제 배포 버전**
+- **특징**: 뉴스레터 구독 섹션, 다크 테마 푸터
+- **색상**: 다크 테마 색상 변수 추가
+- **레이아웃**: 뉴스레터 폼, 푸터 그리드 시스템
+- **폰트**: 기존 폰트 시스템 유지
+- **새로운 컴포넌트**:
+  - 📬 뉴스레터 구독 섹션
+  - 🌙 다크 테마 푸터
+  - 📱 소셜 링크 버튼
+  - 📧 Supabase 연동 구독 시스템
+
+### **v2.2.0 - 완전한 디자인 시스템 (2024-12-26)**
+- **특징**: 체계적인 컬러 팔레트, 모바일 퍼스트
+- **색상**: 완전한 컬러 시스템
+- **레이아웃**: 최적화된 반응형 그리드
 - **폰트**: 최적화된 폰트 로딩
 
 ---
 
 ## 🎯 현재 활성 버전
 
-**Version: 2.2.0**
-- 파일: `design-system/v2.2.0/styles.css`
-- 상태: ✅ 활성
+**Version: 2.1.5** ⭐ **실제 배포된 버전**
+- 파일: `design-system/v2.1.5/styles.css`
+- 상태: ✅ 활성 (실제 웹사이트와 동일)
 - 마지막 수정: 2024-12-26
+- 배포 URL: https://vibecodezero-emailjs.netlify.app/
+
+### **v2.1.5의 주요 특징**
+1. **뉴스레터 구독 시스템**
+   - Supabase 연동 이메일 구독
+   - 실시간 상태 피드백
+   - 중복 구독 방지
+
+2. **다크 테마 푸터**
+   - 3단 그리드 레이아웃
+   - 소셜 미디어 링크
+   - 반응형 디자인
+
+3. **향상된 사용자 경험**
+   - 호버 애니메이션
+   - 부드러운 전환 효과
+   - 모바일 최적화
 
 ---
 
 ## 🔧 버전 전환 가이드
 
-### 버전 되돌리기
+### 실제 배포 버전으로 되돌리기
+```bash
+# v2.1.5 (실제 배포 버전)으로 되돌리기
+cp design-system/v2.1.5/styles.css ./styles.css
+```
+
+### 다른 버전으로 전환
 ```bash
 # v2.0.0으로 되돌리기
 cp design-system/v2.0.0/styles.css ./styles.css
 
-# v2.1.0으로 되돌리기  
-cp design-system/v2.1.0/styles.css ./styles.css
+# v2.2.0으로 업그레이드
+cp design-system/v2.2.0/styles.css ./styles.css
 ```
 
 ### 새 버전 생성
@@ -71,15 +105,106 @@ cp current-styles.css design-system/v2.3.0/styles.css
 - **v1.0.0**: 기본 `<h1>` 태그
 - **v2.0.0**: 그라데이션 배경 추가
 - **v2.1.0**: 텍스처 오버레이 추가
+- **v2.1.5**: 기존 디자인 유지
 - **v2.2.0**: 반응형 타이포그래피
 
 ### Step Component  
 - **v1.0.0**: 기본 `<section>` 태그
 - **v2.0.0**: 카드 스타일 적용
 - **v2.1.0**: 호버 효과 추가
+- **v2.1.5**: 기존 디자인 유지
 - **v2.2.0**: 단계 번호 원형 배지
 
 ### Related Content Component
 - **v2.0.0**: 기본 그리드 레이아웃
 - **v2.1.0**: 카드 호버 애니메이션
+- **v2.1.5**: 기존 디자인 유지
 - **v2.2.0**: 동적 콘텐츠 로딩
+
+### 🎯 NEW: Newsletter Component (v2.1.5+)
+- **v2.1.5**: 
+  - 뉴스레터 구독 폼 추가
+  - Supabase 연동 구독 시스템
+  - 실시간 상태 피드백
+  - 반응형 폼 레이아웃
+
+### 🎯 NEW: Footer Component (v2.1.5+)
+- **v2.1.5**:
+  - 다크 테마 푸터 추가
+  - 3단 그리드 레이아웃
+  - 소셜 미디어 링크
+  - 반응형 디자인
+  - 다크 색상 변수 시스템
+
+---
+
+## 🚀 실제 배포 버전 (v2.1.5) 특징
+
+### **뉴스레터 구독 섹션**
+```html
+<section class="newsletter-section">
+    <h2>📬 바이브코드제로 클럽 구독</h2>
+    <form class="newsletter-form">
+        <input type="email" placeholder="이메일 주소를 입력하세요">
+        <button type="submit">구독하기</button>
+    </form>
+</section>
+```
+
+### **다크 테마 푸터**
+```html
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">바이브코드제로</div>
+        <div class="footer-section">학습 도구</div>
+        <div class="footer-section">연결하기</div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-social">소셜 링크</div>
+        <p>저작권 정보</p>
+    </div>
+</footer>
+```
+
+### **CSS 변수 시스템**
+```css
+:root {
+    /* 기존 라이트 테마 */
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --background-card: #ffffff;
+    
+    /* 새로운 다크 테마 */
+    --dark-bg: #1a202c;
+    --dark-text: #e2e8f0;
+    --dark-border: #4a5568;
+}
+```
+
+---
+
+## 🔍 버전 비교
+
+### **v2.1.0 vs v2.1.5 주요 차이점**
+
+#### 추가된 기능 ✅
+- 뉴스레터 구독 섹션
+- 다크 테마 푸터
+- 소셜 미디어 링크
+- Supabase 구독 시스템 연동
+- 다크 테마 CSS 변수
+
+#### 유지된 기능 ✅
+- 호버 애니메이션
+- 그림자 시스템
+- JetBrains Mono 폰트
+- 반응형 그리드
+- 카드 레이아웃
+
+#### 개선된 기능 🔄
+- 더 나은 모바일 반응형
+- 향상된 사용자 피드백
+- 실시간 데이터 연동
+
+---
+
+**🎯 결론: v2.1.5는 실제 배포된 웹사이트와 완전히 일치하는 버전입니다!**

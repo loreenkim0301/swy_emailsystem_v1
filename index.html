@@ -26,8 +26,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- 디자인 시스템 로드 -->
-    <link rel="stylesheet" href="design-system/v2.2.0/styles.css" id="design-system-styles">
+    <!-- 디자인 시스템 로드 - 실제 배포된 버전 -->
+    <link rel="stylesheet" href="design-system/v2.1.5/styles.css" id="design-system-styles">
     
     <!-- 디자인 버전 선택기 스타일 -->
     <style>
@@ -94,13 +94,14 @@
             <option value="v1.0.0">v1.0.0 - 기본 HTML</option>
             <option value="v2.0.0">v2.0.0 - 모던 그라데이션</option>
             <option value="v2.1.0">v2.1.0 - 향상된 카드</option>
-            <option value="v2.2.0" selected>v2.2.0 - 완전한 시스템</option>
+            <option value="v2.1.5" selected>v2.1.5 - 뉴스레터+푸터</option>
+            <option value="v2.2.0">v2.2.0 - 완전한 시스템</option>
         </select>
         <div>
             <button class="version-btn" onclick="openVersionManager()">관리</button>
             <button class="version-btn" onclick="showVersionInfo()">정보</button>
         </div>
-        <div class="current-version">현재: <span id="current-version">v2.2.0</span></div>
+        <div class="current-version">현재: <span id="current-version">v2.1.5</span></div>
     </div>
 
     <!-- 헤더 -->
@@ -201,8 +202,61 @@
                     </div>
                 </div>
             </section>
+
+            <!-- 🎯 NEW: 뉴스레터 구독 섹션 -->
+            <section class="newsletter-section" id="newsletter">
+                <h2>📬 바이브코드제로 클럽 구독</h2>
+                <p>AI 코딩의 최신 소식과 실무 팁을 받아보세요. 매주 유용한 콘텐츠를 전달해드립니다.</p>
+                
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" id="newsletter-email" placeholder="이메일 주소를 입력하세요" required>
+                    <button type="submit">구독하기</button>
+                </form>
+                
+                <div id="newsletter-status" class="newsletter-status"></div>
+            </section>
         </div>
     </main>
+
+    <!-- 🎯 NEW: 다크 테마 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>바이브코드제로</h3>
+                    <p>AI와 함께하는 코딩의 새로운 패러다임을 제시합니다. 기획자와 디자이너도 할 수 있는 AI 코딩의 가능성을 보여줍니다.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>학습 도구</h3>
+                    <ul>
+                        <li><a href="#step1">EmailJS 설정</a></li>
+                        <li><a href="#step2">연결 테스트</a></li>
+                        <li><a href="#step3">이메일 발송</a></li>
+                        <li><a href="#related-content">관련 콘텐츠</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>연결하기</h3>
+                    <ul>
+                        <li><a href="https://www.instagram.com/loreenkim.ceo/" target="_blank">Instagram</a></li>
+                        <li><a href="https://brunch.co.kr/@loreenkim/" target="_blank">Brunch</a></li>
+                        <li><a href="#newsletter">뉴스레터 구독</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/loreenkim.ceo/" target="_blank">📷</a>
+                    <a href="https://brunch.co.kr/@loreenkim/" target="_blank">✍️</a>
+                    <a href="#newsletter">📧</a>
+                </div>
+                <p>&copy; 2024 바이브코드제로. AI코딩하는 김로린 기획자. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- 스크립트 -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -245,6 +299,49 @@
                 alert(`현재 버전: ${currentVersion}\n이름: ${versionInfo.name}\n설명: ${versionInfo.description}\n특징: ${versionInfo.features.join(', ')}`);
             }
         };
+
+        // 🎯 NEW: 뉴스레터 구독 처리
+        document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('newsletter-email').value.trim();
+            const statusDiv = document.getElementById('newsletter-status');
+            
+            if (!email) {
+                statusDiv.innerHTML = '<div class="status-message status-error">이메일 주소를 입력해주세요.</div>';
+                return;
+            }
+            
+            statusDiv.innerHTML = '<div class="status-message status-info">구독 처리 중...</div>';
+            
+            try {
+                const { subscribeToNewsletter } = await import('./js/supabase-client.js');
+                const result = await subscribeToNewsletter(email);
+                
+                if (result.success) {
+                    statusDiv.innerHTML = `<div class="status-message status-success">${result.message}</div>`;
+                    document.getElementById('newsletter-email').value = '';
+                    
+                    // GA4 추적
+                    window.trackClick('newsletter_subscribe', {
+                        email_domain: email.split('@')[1],
+                        success: true
+                    });
+                } else {
+                    statusDiv.innerHTML = `<div class="status-message status-error">${result.message}</div>`;
+                }
+                
+            } catch (error) {
+                console.error('구독 처리 중 오류:', error);
+                statusDiv.innerHTML = '<div class="status-message status-error">구독 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</div>';
+                
+                window.trackClick('newsletter_subscribe', {
+                    email_domain: email.split('@')[1],
+                    success: false,
+                    error: error.message
+                });
+            }
+        });
 
         // EmailJS 초기화 함수
         function initializeEmailJS() {

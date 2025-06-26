@@ -23,6 +23,13 @@ class DesignVersionManager {
                 file: 'design-system/v2.1.0/styles.css',
                 features: ['호버 애니메이션', 'JetBrains Mono', '그림자 시스템']
             },
+            'v2.1.5': {
+                name: '뉴스레터 + 다크 푸터',
+                date: '2024-12-26',
+                description: '뉴스레터 구독 섹션, 다크 테마 푸터 추가',
+                file: 'design-system/v2.1.5/styles.css',
+                features: ['뉴스레터 구독 폼', '다크 테마 푸터', '소셜 링크', '반응형 푸터']
+            },
             'v2.2.0': {
                 name: '완전한 디자인 시스템',
                 date: '2024-12-26',
@@ -32,7 +39,7 @@ class DesignVersionManager {
             }
         };
         
-        this.currentVersion = 'v2.2.0';
+        this.currentVersion = 'v2.1.5'; // 실제 배포된 버전으로 변경
     }
 
     // 버전 목록 조회
