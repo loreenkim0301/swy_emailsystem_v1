@@ -39,11 +39,15 @@
             --text-primary: #333;
             --text-secondary: #666;
             --text-muted: #999;
+            --text-disabled: #bbb;
             --background-main: #f8fafc;
             --background-card: #ffffff;
+            --background-disabled: #f5f5f5;
             --border-light: #e2e8f0;
+            --border-disabled: #e0e0e0;
             --shadow-soft: 0 15px 35px rgba(0, 0, 0, 0.1);
             --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --shadow-disabled: 0 5px 15px rgba(0, 0, 0, 0.05);
             
             --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
             --font-code: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
@@ -448,6 +452,7 @@
             }
         }
 
+        /* Related Card Styles - 기본 상태 */
         .related-card {
             background: var(--background-card);
             border-radius: 16px;
@@ -464,9 +469,36 @@
             box-shadow: var(--shadow-hover);
         }
 
-        /* Coming Soon 상태 - 클릭 비활성화만 적용 */
+        /* Coming Soon 상태 - 비활성화 스타일 */
         .related-card.coming-soon {
+            background: var(--background-disabled);
+            border-color: var(--border-disabled);
+            box-shadow: var(--shadow-disabled);
             cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .related-card.coming-soon:hover {
+            transform: none;
+            box-shadow: var(--shadow-disabled);
+        }
+
+        .related-card.coming-soon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            border-radius: 16px;
+            pointer-events: none;
         }
 
         .related-card h4 {
@@ -477,11 +509,19 @@
             line-height: 1.4;
         }
 
+        .related-card.coming-soon h4 {
+            color: var(--text-disabled);
+        }
+
         .related-card p {
             color: var(--text-secondary);
             font-size: 13px;
             line-height: 1.5;
             margin-bottom: 16px;
+        }
+
+        .related-card.coming-soon p {
+            color: var(--text-muted);
         }
 
         .related-card .card-footer {
@@ -532,6 +572,27 @@
 
         .card-link:hover::after {
             transform: translateX(2px);
+        }
+
+        /* Coming Soon 카드의 링크 숨김 */
+        .related-card.coming-soon .card-link {
+            display: none;
+        }
+
+        /* Coming Soon 알림 메시지 */
+        .coming-soon-notice {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 193, 7, 0.9);
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
         }
 
         /* Footer */
@@ -1068,7 +1129,7 @@
             }
         }
 
-        // 연관 카드 렌더링 함수 - 기존 디자인 유지
+        // 연관 카드 렌더링 함수 - 개선된 버전
         function renderRelatedCards(containerId, items, type) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -1085,12 +1146,13 @@
                 const isComingSoon = item.status === 'coming-soon';
                 const isPublished = item.status === 'published';
                 
-                // Coming Soon 상태면 클릭 비활성화 클래스만 추가
+                // Coming Soon 상태면 비활성화 클래스 추가
                 if (isComingSoon) {
                     card.classList.add('coming-soon');
                 }
                 
                 card.innerHTML = `
+                    ${isComingSoon ? '<div class="coming-soon-notice">출시 예정</div>' : ''}
                     <h4>${item.title || '제목 없음'}</h4>
                     <p>${item.description || '설명이 없습니다.'}</p>
                     <div class="card-footer">
