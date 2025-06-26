@@ -150,6 +150,52 @@
             font-size: 0.9rem;
         }
 
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .step-button {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .step-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
         /* 관련 콘텐츠 섹션 */
         .related-content {
             margin-top: var(--spacing-xl);
@@ -189,6 +235,33 @@
             box-shadow: var(--shadow-soft);
             text-decoration: none;
             color: inherit;
+        }
+
+        .content-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--text-primary);
+        }
+
+        .content-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: var(--spacing-xs);
+        }
+
+        .status-badge.coming-soon {
+            background: #fef3c7;
+            color: #92400e;
         }
 
         /* 반응형 디자인 */
@@ -387,7 +460,7 @@
                 showStatus('step1-status', '❌ 설정 중 오류가 발생했습니다: ' + error.message, 'error');
                 window.trackEmailEvent('setup_error', false, error.message);
             }
-        }
+        };
 
         // 연결 테스트 함수
         window.testConnection = function() {
@@ -416,7 +489,7 @@
                     showStatus('step2-status', '❌ 연결 테스트 실패: ' + error.text, 'error');
                     window.trackEmailEvent('connection_test', false, error.text);
                 });
-        }
+        };
 
         // 이메일 발송 함수
         window.sendEmail = function() {
@@ -461,7 +534,7 @@
                     showStatus('step3-status', '❌ 이메일 발송 실패: ' + error.text, 'error');
                     window.trackEmailEvent('email_send', false, error.text);
                 });
-        }
+        };
 
         // 상태 메시지 표시 함수
         function showStatus(elementId, message, type) {
