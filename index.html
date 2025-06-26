@@ -26,84 +26,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- 디자인 시스템 로드 - 실제 배포된 버전 -->
-    <link rel="stylesheet" href="design-system/v2.1.5/styles.css" id="design-system-styles">
-    
-    <!-- 디자인 버전 선택기 스타일 -->
-    <style>
-        .design-version-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            border: 1px solid #e2e8f0;
-        }
-        
-        .design-version-controls h4 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            color: #333;
-        }
-        
-        .version-select {
-            width: 100%;
-            padding: 6px 8px;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
-        
-        .version-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 11px;
-            margin: 2px;
-        }
-        
-        .version-btn:hover {
-            background: #5a67d8;
-        }
-        
-        .current-version {
-            font-size: 11px;
-            color: #666;
-            margin-top: 8px;
-        }
-        
-        @media (max-width: 768px) {
-            .design-version-controls {
-                display: none;
-            }
-        }
-    </style>
+    <!-- 메인 스타일시트 -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- 디자인 버전 컨트롤 패널 -->
-    <div class="design-version-controls">
-        <h4>🎨 디자인 버전</h4>
-        <select class="version-select" id="version-selector">
-            <option value="v1.0.0">v1.0.0 - 기본 HTML</option>
-            <option value="v2.0.0">v2.0.0 - 모던 그라데이션</option>
-            <option value="v2.1.0">v2.1.0 - 향상된 카드</option>
-            <option value="v2.1.5" selected>v2.1.5 - 뉴스레터+푸터</option>
-            <option value="v2.2.0">v2.2.0 - 완전한 시스템</option>
-        </select>
-        <div>
-            <button class="version-btn" onclick="openVersionManager()">관리</button>
-            <button class="version-btn" onclick="showVersionInfo()">정보</button>
-        </div>
-        <div class="current-version">현재: <span id="current-version">v2.1.5</span></div>
-    </div>
-
     <!-- 헤더 -->
     <header class="header" id="home">
         <div class="container">
@@ -203,7 +129,7 @@
                 </div>
             </section>
 
-            <!-- 🎯 NEW: 뉴스레터 구독 섹션 -->
+            <!-- 뉴스레터 구독 섹션 -->
             <section class="newsletter-section" id="newsletter">
                 <h2>📬 바이브코드제로 클럽 구독</h2>
                 <p>AI 코딩의 최신 소식과 실무 팁을 받아보세요. 매주 유용한 콘텐츠를 전달해드립니다.</p>
@@ -218,7 +144,7 @@
         </div>
     </main>
 
-    <!-- 🎯 NEW: 다크 테마 푸터 -->
+    <!-- 다크 테마 푸터 -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -265,42 +191,13 @@
     <script type="module" src="js/analytics.js"></script>
     <script type="module" src="js/page-tracker.js"></script>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script type="module" src="design-system/version-manager.js"></script>
     
     <script>
         // EmailJS 관련 전역 변수
         let emailjsInitialized = false;
         let emailjsConfig = {};
 
-        // 디자인 버전 관리
-        document.getElementById('version-selector').addEventListener('change', async (e) => {
-            const version = e.target.value;
-            try {
-                await window.designVersionManager.switchToVersion(version);
-                document.getElementById('current-version').textContent = version;
-                console.log(`✅ 디자인이 ${version}으로 변경되었습니다.`);
-            } catch (error) {
-                console.error('버전 전환 실패:', error);
-                alert(`버전 전환 실패: ${error.message}`);
-            }
-        });
-
-        // 버전 관리자 열기
-        window.openVersionManager = () => {
-            window.open('design-system/version-selector.html', '_blank', 'width=900,height=700');
-        };
-
-        // 버전 정보 표시
-        window.showVersionInfo = () => {
-            const currentVersion = window.designVersionManager.getCurrentVersion();
-            const versionInfo = window.designVersionManager.getVersionInfo(currentVersion);
-            
-            if (versionInfo) {
-                alert(`현재 버전: ${currentVersion}\n이름: ${versionInfo.name}\n설명: ${versionInfo.description}\n특징: ${versionInfo.features.join(', ')}`);
-            }
-        };
-
-        // 🎯 NEW: 뉴스레터 구독 처리
+        // 뉴스레터 구독 처리
         document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -323,10 +220,12 @@
                     document.getElementById('newsletter-email').value = '';
                     
                     // GA4 추적
-                    window.trackClick('newsletter_subscribe', {
-                        email_domain: email.split('@')[1],
-                        success: true
-                    });
+                    if (typeof window.trackClick === 'function') {
+                        window.trackClick('newsletter_subscribe', {
+                            email_domain: email.split('@')[1],
+                            success: true
+                        });
+                    }
                 } else {
                     statusDiv.innerHTML = `<div class="status-message status-error">${result.message}</div>`;
                 }
@@ -335,11 +234,13 @@
                 console.error('구독 처리 중 오류:', error);
                 statusDiv.innerHTML = '<div class="status-message status-error">구독 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</div>';
                 
-                window.trackClick('newsletter_subscribe', {
-                    email_domain: email.split('@')[1],
-                    success: false,
-                    error: error.message
-                });
+                if (typeof window.trackClick === 'function') {
+                    window.trackClick('newsletter_subscribe', {
+                        email_domain: email.split('@')[1],
+                        success: false,
+                        error: error.message
+                    });
+                }
             }
         });
 
@@ -363,16 +264,22 @@
                 showStatus('step1-status', '✅ EmailJS 설정이 완료되었습니다!', 'success');
                 
                 // GA4 추적
-                window.trackStep(1, '1단계 - EmailJS 설정', true);
-                window.trackClick('emailjs_setup_complete', {
-                    has_public_key: !!publicKey,
-                    has_service_id: !!serviceId,
-                    has_template_id: !!templateId
-                });
+                if (typeof window.trackStep === 'function') {
+                    window.trackStep(1, '1단계 - EmailJS 설정', true);
+                }
+                if (typeof window.trackClick === 'function') {
+                    window.trackClick('emailjs_setup_complete', {
+                        has_public_key: !!publicKey,
+                        has_service_id: !!serviceId,
+                        has_template_id: !!templateId
+                    });
+                }
                 
             } catch (error) {
                 showStatus('step1-status', '❌ 설정 중 오류가 발생했습니다: ' + error.message, 'error');
-                window.trackEmailEvent('setup_error', false, error.message);
+                if (typeof window.trackEmailEvent === 'function') {
+                    window.trackEmailEvent('setup_error', false, error.message);
+                }
             }
         }
 
@@ -396,12 +303,18 @@
             emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, testParams)
                 .then(() => {
                     showStatus('step2-status', '✅ 연결 테스트 성공! 테스트 이메일이 발송되었습니다.', 'success');
-                    window.trackStep(2, '2단계 - 연결 테스트', true);
-                    window.trackEmailEvent('connection_test', true);
+                    if (typeof window.trackStep === 'function') {
+                        window.trackStep(2, '2단계 - 연결 테스트', true);
+                    }
+                    if (typeof window.trackEmailEvent === 'function') {
+                        window.trackEmailEvent('connection_test', true);
+                    }
                 })
                 .catch((error) => {
                     showStatus('step2-status', '❌ 연결 테스트 실패: ' + error.text, 'error');
-                    window.trackEmailEvent('connection_test', false, error.text);
+                    if (typeof window.trackEmailEvent === 'function') {
+                        window.trackEmailEvent('connection_test', false, error.text);
+                    }
                 });
         }
 
@@ -435,8 +348,12 @@
             emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, emailParams)
                 .then(() => {
                     showStatus('step3-status', '✅ 이메일이 성공적으로 발송되었습니다!', 'success');
-                    window.trackStep(3, '3단계 - 이메일 발송', true);
-                    window.trackEmailEvent('email_send', true);
+                    if (typeof window.trackStep === 'function') {
+                        window.trackStep(3, '3단계 - 이메일 발송', true);
+                    }
+                    if (typeof window.trackEmailEvent === 'function') {
+                        window.trackEmailEvent('email_send', true);
+                    }
                     
                     // 폼 초기화
                     document.getElementById('fromName').value = '';
@@ -446,7 +363,9 @@
                 })
                 .catch((error) => {
                     showStatus('step3-status', '❌ 이메일 발송 실패: ' + error.text, 'error');
-                    window.trackEmailEvent('email_send', false, error.text);
+                    if (typeof window.trackEmailEvent === 'function') {
+                        window.trackEmailEvent('email_send', false, error.text);
+                    }
                 });
         }
 
@@ -506,10 +425,12 @@
                 grid.innerHTML = html;
                 
                 // 관련 콘텐츠 로드 완료 추적
-                window.trackClick('related_content_loaded', {
-                    websites_count: websitesResult.blogs?.length || 0,
-                    blogs_count: blogsResult.blogs?.length || 0
-                });
+                if (typeof window.trackClick === 'function') {
+                    window.trackClick('related_content_loaded', {
+                        websites_count: websitesResult.blogs?.length || 0,
+                        blogs_count: blogsResult.blogs?.length || 0
+                    });
+                }
 
             } catch (error) {
                 console.error('관련 콘텐츠 로드 실패:', error);
@@ -541,11 +462,13 @@
             }
             
             // 초기 페이지 로드 추적
-            window.trackPage('home', '홈페이지 - EmailJS 학습 도구', {
-                load_time: Date.now(),
-                user_agent: navigator.userAgent,
-                screen_resolution: `${screen.width}x${screen.height}`
-            });
+            if (typeof window.trackPage === 'function') {
+                window.trackPage('home', '홈페이지 - EmailJS 학습 도구', {
+                    load_time: Date.now(),
+                    user_agent: navigator.userAgent,
+                    screen_resolution: `${screen.width}x${screen.height}`
+                });
+            }
         });
     </script>
 </body>

@@ -1,6 +1,6 @@
-/* 디자인 시스템 v2.1.5 - 뉴스레터 구독 + 다크 테마 푸터 */
+/* 배포된 웹사이트 디자인 시스템 (v2.1.5 실제 배포 버전) */
 /* 생성일: 2024-12-26 */
-/* 특징: 뉴스레터 구독 섹션, 다크 테마 푸터, 구독 폼 디자인 */
+/* 특징: 뉴스레터 구독 섹션, 다크 테마 푸터, 실제 배포와 동일 */
 
 /* 폰트 로딩 */
 @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -211,6 +211,7 @@ body {
     transition: all 0.3s ease;
     text-decoration: none;
     color: inherit;
+    position: relative;
 }
 
 .content-card:hover {
@@ -220,7 +221,37 @@ body {
     color: inherit;
 }
 
-/* 🎯 NEW: 뉴스레터 구독 섹션 */
+.content-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.content-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* 상태 배지 */
+.status-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.status-badge.coming-soon {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fbbf24;
+}
+
+/* 뉴스레터 구독 섹션 */
 .newsletter-section {
     background: var(--background-card);
     border-radius: var(--border-radius);
@@ -292,7 +323,7 @@ body {
     font-size: 0.9rem;
 }
 
-/* 🎯 NEW: 다크 테마 푸터 */
+/* 다크 테마 푸터 */
 .footer {
     background: var(--dark-bg);
     color: var(--dark-text);
@@ -357,10 +388,13 @@ body {
     background: var(--dark-bg-secondary);
     border-radius: 6px;
     transition: all 0.2s ease;
+    text-decoration: none;
+    color: var(--dark-text-secondary);
 }
 
 .footer-social a:hover {
     background: #667eea;
+    color: white;
     transform: translateY(-1px);
 }
 
@@ -388,6 +422,11 @@ body {
     background: #d1ecf1;
     color: #0c5460;
     border: 1px solid #bee5eb;
+}
+
+/* 디자인 버전 컨트롤 패널 숨기기 (배포 버전에서는 불필요) */
+.design-version-controls {
+    display: none;
 }
 
 /* 반응형 디자인 */
