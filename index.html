@@ -347,13 +347,17 @@
     <script type="module" src="js/page-tracker.js"></script>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     
-    <script>
+    <script type="module">
+        // Import required modules
+        import { initializeSupabase } from './js/supabase-client.js';
+        import { getWebsitesWithComingSoon, getBlogPosts } from './js/blogs-client.js';
+
         // EmailJS 관련 전역 변수
         let emailjsInitialized = false;
         let emailjsConfig = {};
 
         // EmailJS 초기화 함수
-        function initializeEmailJS() {
+        window.initializeEmailJS = function() {
             const publicKey = document.getElementById('publicKey').value.trim();
             const serviceId = document.getElementById('serviceId').value.trim();
             const templateId = document.getElementById('templateId').value.trim();
@@ -386,7 +390,7 @@
         }
 
         // 연결 테스트 함수
-        function testConnection() {
+        window.testConnection = function() {
             if (!emailjsInitialized) {
                 showStatus('step2-status', '❌ 먼저 1단계에서 EmailJS를 설정해주세요.', 'error');
                 return;
@@ -415,7 +419,7 @@
         }
 
         // 이메일 발송 함수
-        function sendEmail() {
+        window.sendEmail = function() {
             if (!emailjsInitialized) {
                 showStatus('step3-status', '❌ 먼저 1단계에서 EmailJS를 설정해주세요.', 'error');
                 return;
@@ -468,8 +472,6 @@
         // 관련 콘텐츠 로드
         async function loadRelatedContent() {
             try {
-                const { getWebsitesWithComingSoon, getBlogPosts } = await import('./js/blogs-client.js');
-                
                 const [websitesResult, blogsResult] = await Promise.all([
                     getWebsitesWithComingSoon(6),
                     getBlogPosts(6)
@@ -528,7 +530,11 @@
         }
 
         // 페이지 로드 시 초기화
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize Supabase first
+            await initializeSupabase();
+            
+            // Then load related content
             loadRelatedContent();
             
             // 초기 페이지 로드 추적
