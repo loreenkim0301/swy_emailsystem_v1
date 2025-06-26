@@ -1,0 +1,279 @@
+/* ========================================
+   Related Content Component Design System
+   ======================================== */
+
+/* 1. CSS 변수 정의 (Design Tokens) */
+:root {
+  /* 컴포넌트 전용 색상 */
+  --rc-card-bg: var(--background-card);
+  --rc-card-border: var(--border-light);
+  --rc-card-shadow: var(--shadow-soft);
+  --rc-card-shadow-hover: var(--shadow-hover);
+  
+  /* 텍스트 색상 */
+  --rc-text-primary: var(--text-primary);
+  --rc-text-secondary: var(--text-secondary);
+  
+  /* 상태 배지 색상 */
+  --rc-status-published-bg: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  --rc-status-published-text: #155724;
+  --rc-status-coming-soon-bg: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  --rc-status-coming-soon-text: #856404;
+  
+  /* 링크 색상 */
+  --rc-link-color: #667eea;
+  --rc-link-hover-color: #764ba2;
+  
+  /* 간격 및 크기 */
+  --rc-card-radius: 16px;
+  --rc-card-padding: 24px;
+  --rc-grid-gap: 20px;
+  --rc-section-gap: 60px;
+  
+  /* 애니메이션 */
+  --rc-transition-duration: 0.3s;
+  --rc-hover-transform: translateY(-4px);
+}
+
+/* 2. 컴포넌트 기본 구조 */
+.related-content {
+  margin: 80px 0;
+}
+
+.related-content__title {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 50px;
+  color: var(--rc-text-primary);
+}
+
+.related-content__sections {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--rc-section-gap);
+}
+
+@media (min-width: 1024px) {
+  .related-content__sections {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 3. 섹션 스타일 */
+.related-content__section {
+  /* 섹션별 독립적 스타일링 */
+}
+
+.related-content__section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--rc-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 4. 그리드 레이아웃 */
+.related-content__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--rc-grid-gap);
+}
+
+@media (min-width: 768px) {
+  .related-content__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .related-content__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 5. 카드 컴포넌트 */
+.related-content__card {
+  background: var(--rc-card-bg);
+  border-radius: var(--rc-card-radius);
+  padding: var(--rc-card-padding);
+  box-shadow: var(--rc-card-shadow);
+  transition: all var(--rc-transition-duration) ease;
+  border: 1px solid var(--rc-card-border);
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.related-content__card:hover {
+  transform: var(--rc-hover-transform);
+  box-shadow: var(--rc-card-shadow-hover);
+}
+
+/* 6. 카드 내용 */
+.related-content__card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--rc-text-primary);
+  line-height: 1.4;
+}
+
+.related-content__card-description {
+  color: var(--rc-text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+/* 7. 카드 푸터 */
+.related-content__card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+/* 8. 상태 배지 */
+.related-content__status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.related-content__status--published {
+  background: var(--rc-status-published-bg);
+  color: var(--rc-status-published-text);
+}
+
+.related-content__status--coming-soon {
+  background: var(--rc-status-coming-soon-bg);
+  color: var(--rc-status-coming-soon-text);
+}
+
+/* 9. 링크 스타일 */
+.related-content__link {
+  color: var(--rc-link-color);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color var(--rc-transition-duration) ease;
+}
+
+.related-content__link:hover {
+  color: var(--rc-link-hover-color);
+}
+
+.related-content__link::after {
+  content: '→';
+  transition: transform var(--rc-transition-duration) ease;
+}
+
+.related-content__link:hover::after {
+  transform: translateX(2px);
+}
+
+/* 10. 로딩 상태 */
+.related-content__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: var(--rc-text-secondary);
+}
+
+.related-content__loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: rc-spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes rc-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 11. 에러 상태 */
+.related-content__error {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--rc-text-secondary);
+  background: #f8f9fa;
+  border-radius: var(--rc-card-radius);
+  border: 1px solid var(--rc-card-border);
+}
+
+/* 12. 빈 상태 */
+.related-content__empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--rc-text-secondary);
+}
+
+/* 13. 접근성 개선 */
+.related-content__card:focus {
+  outline: 2px solid var(--rc-link-color);
+  outline-offset: 2px;
+}
+
+.related-content__link:focus {
+  outline: 2px solid var(--rc-link-color);
+  outline-offset: 2px;
+}
+
+/* 14. 프린트 스타일 */
+@media print {
+  .related-content__card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  
+  .related-content__card:hover {
+    transform: none;
+  }
+}
+
+/* 15. 다크 모드 대응 (향후 확장용) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --rc-card-bg: #1a1a1a;
+    --rc-card-border: #333;
+    --rc-text-primary: #fff;
+    --rc-text-secondary: #ccc;
+  }
+}
+
+/* 16. 모션 감소 설정 */
+@media (prefers-reduced-motion: reduce) {
+  .related-content__card {
+    transition: none;
+  }
+  
+  .related-content__card:hover {
+    transform: none;
+  }
+  
+  .related-content__link::after {
+    transition: none;
+  }
+  
+  .related-content__loading::after {
+    animation: none;
+  }
+}
