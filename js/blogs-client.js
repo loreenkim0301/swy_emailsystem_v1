@@ -152,7 +152,7 @@ export async function getTutorialBlogs() {
     return await getBlogPosts();
 }
 
-// 게시글 조회수 증가
+// 게시글 조회수 증가 (최적화된 버전)
 export async function incrementViewCount(blogId) {
     try {
         const { data, error } = await supabaseClient
@@ -175,8 +175,56 @@ export async function incrementViewCount(blogId) {
     }
 }
 
-// 게시글 검색
+// 게시글 검색 (개선된 버전 - 랭킹 기반)
 export async function searchBlogs(searchTerm, options = {}) {
+    const {
+        category = null,
+        limit = 10,
+        offset = 0
+    } = options;
+
+    try {
+        // 새로운 랭킹 기반 검색 함수 사용
+        let query = supabaseClient
+            .rpc('search_blogs_ranked', { 
+                search_term: searchTerm, 
+                search_limit: limit 
+            });
+
+        const { data, error } = await query;
+
+        if (error) {
+            // 폴백: 기존 검색 방식 사용
+            console.warn('랭킹 검색 실패, 기본 검색으로 폴백:', error);
+            return await searchBlogsBasic(searchTerm, options);
+        }
+
+        // 카테고리 필터링 (클라이언트 사이드)
+        let filteredData = data || [];
+        if (category) {
+            filteredData = filteredData.filter(blog => blog.category === category);
+        }
+
+        // 오프셋 적용
+        if (offset > 0) {
+            filteredData = filteredData.slice(offset);
+        }
+
+        return {
+            success: true,
+            blogs: filteredData,
+            count: filteredData.length,
+            searchTerm
+        };
+
+    } catch (error) {
+        console.error('게시글 검색 중 오류:', error);
+        throw new Error('게시글 검색에 실패했습니다.');
+    }
+}
+
+// 기본 검색 함수 (폴백용)
+async function searchBlogsBasic(searchTerm, options = {}) {
     const {
         category = null,
         limit = 10,
@@ -211,7 +259,7 @@ export async function searchBlogs(searchTerm, options = {}) {
         };
 
     } catch (error) {
-        console.error('게시글 검색 중 오류:', error);
+        console.error('기본 게시글 검색 중 오류:', error);
         throw new Error('게시글 검색에 실패했습니다.');
     }
 }
@@ -284,8 +332,36 @@ export async function deleteBlog(blogId) {
     }
 }
 
-// 게시글 통계 조회 (관리자용)
+// 게시글 통계 조회 (최적화된 버전)
 export async function getBlogStats() {
+    try {
+        const { data, error } = await supabaseClient
+            .rpc('get_blog_statistics');
+
+        if (error) {
+            // 폴백: 기존 방식 사용
+            console.warn('통계 함수 실패, 기본 쿼리로 폴백:', error);
+            return await getBlogStatsBasic();
+        }
+
+        return data[0] || {
+            total_blogs: 0,
+            published_blogs: 0,
+            coming_soon_blogs: 0,
+            website_count: 0,
+            blog_count: 0,
+            featured_count: 0,
+            total_views: 0
+        };
+
+    } catch (error) {
+        console.error('게시글 통계 조회 중 오류:', error);
+        throw new Error('게시글 통계를 불러오는데 실패했습니다.');
+    }
+}
+
+// 기본 통계 조회 함수 (폴백용)
+async function getBlogStatsBasic() {
     try {
         // 전체 게시글 수
         const { count: totalCount, error: totalError } = await supabaseClient
@@ -334,17 +410,47 @@ export async function getBlogStats() {
 
         if (featuredError) throw featuredError;
 
+        // 총 조회수
+        const { data: viewData, error: viewError } = await supabaseClient
+            .from('blogs')
+            .select('view_count');
+
+        if (viewError) throw viewError;
+
+        const totalViews = viewData?.reduce((sum, blog) => sum + (blog.view_count || 0), 0) || 0;
+
         return {
             total_blogs: totalCount || 0,
             website_count: websiteCount || 0,
             blog_count: blogCount || 0,
             published_blogs: publishedCount || 0,
             coming_soon_blogs: comingSoonCount || 0,
-            featured_blogs: featuredCount || 0
+            featured_blogs: featuredCount || 0,
+            total_views: totalViews
         };
 
     } catch (error) {
-        console.error('게시글 통계 조회 중 오류:', error);
+        console.error('기본 게시글 통계 조회 중 오류:', error);
         throw new Error('게시글 통계를 불러오는데 실패했습니다.');
+    }
+}
+
+// 성능 모니터링을 위한 블로그 성능 데이터 조회
+export async function getBlogPerformance() {
+    try {
+        const { data, error } = await supabaseClient
+            .from('blog_performance')
+            .select('*');
+
+        if (error) throw error;
+
+        return {
+            success: true,
+            performance: data || []
+        };
+
+    } catch (error) {
+        console.error('블로그 성능 데이터 조회 중 오류:', error);
+        throw new Error('성능 데이터를 불러오는데 실패했습니다.');
     }
 }
