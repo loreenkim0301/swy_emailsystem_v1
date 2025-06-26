@@ -26,217 +26,83 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- 스타일 -->
+    <!-- 디자인 시스템 로드 -->
+    <link rel="stylesheet" href="design-system/v2.2.0/styles.css" id="design-system-styles">
+    
+    <!-- 디자인 버전 선택기 스타일 -->
     <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --text-primary: #333;
-            --text-secondary: #666;
-            --text-muted: #999;
-            --background-card: #ffffff;
-            --background-light: #f8fafc;
-            --border-light: #e2e8f0;
-            --shadow-soft: 0 15px 35px rgba(0, 0, 0, 0.1);
-            --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.05);
-            --border-radius: 12px;
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 1.5rem;
-            --spacing-lg: 2rem;
-            --spacing-xl: 3rem;
+        .design-version-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e2e8f0;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        
+        .design-version-controls h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #333;
         }
-
-        body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--background-light);
+        
+        .version-select {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 8px;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--spacing-md);
-        }
-
-        /* 헤더 */
-        .header {
-            background: var(--primary-gradient);
+        
+        .version-btn {
+            background: #667eea;
             color: white;
-            padding: var(--spacing-xl) 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            margin: 2px;
         }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            pointer-events: none;
+        
+        .version-btn:hover {
+            background: #5a67d8;
         }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
+        
+        .current-version {
+            font-size: 11px;
+            color: #666;
+            margin-top: 8px;
         }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: var(--spacing-sm);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* 메인 콘텐츠 */
-        .main-content {
-            padding: var(--spacing-xl) 0;
-        }
-
-        /* 단계별 섹션 */
-        .step {
-            background: var(--background-card);
-            border-radius: var(--border-radius);
-            padding: var(--spacing-lg);
-            margin-bottom: var(--spacing-lg);
-            box-shadow: var(--shadow-card);
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-        }
-
-        .step:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .step h2 {
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: var(--spacing-md);
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        .step-number {
-            background: var(--primary-gradient);
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* 관련 콘텐츠 섹션 */
-        .related-content {
-            margin-top: var(--spacing-xl);
-            padding: var(--spacing-xl) 0;
-            background: var(--background-card);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-card);
-        }
-
-        .related-content h2 {
-            text-align: center;
-            margin-bottom: var(--spacing-lg);
-            color: var(--text-primary);
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .content-card {
-            background: var(--background-light);
-            border-radius: var(--border-radius);
-            padding: var(--spacing-md);
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .content-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-soft);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* 반응형 디자인 */
+        
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+            .design-version-controls {
+                display: none;
             }
-            
-            .container {
-                padding: 0 var(--spacing-sm);
-            }
-            
-            .step {
-                padding: var(--spacing-md);
-            }
-            
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* 로딩 및 상태 표시 */
-        .status-message {
-            padding: var(--spacing-sm);
-            border-radius: var(--border-radius);
-            margin: var(--spacing-sm) 0;
-            font-weight: 500;
-        }
-
-        .status-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .status-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .status-info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
         }
     </style>
 </head>
 <body>
+    <!-- 디자인 버전 컨트롤 패널 -->
+    <div class="design-version-controls">
+        <h4>🎨 디자인 버전</h4>
+        <select class="version-select" id="version-selector">
+            <option value="v1.0.0">v1.0.0 - 기본 HTML</option>
+            <option value="v2.0.0">v2.0.0 - 모던 그라데이션</option>
+            <option value="v2.1.0">v2.1.0 - 향상된 카드</option>
+            <option value="v2.2.0" selected>v2.2.0 - 완전한 시스템</option>
+        </select>
+        <div>
+            <button class="version-btn" onclick="openVersionManager()">관리</button>
+            <button class="version-btn" onclick="showVersionInfo()">정보</button>
+        </div>
+        <div class="current-version">현재: <span id="current-version">v2.2.0</span></div>
+    </div>
+
     <!-- 헤더 -->
     <header class="header" id="home">
         <div class="container">
@@ -345,11 +211,40 @@
     <script type="module" src="js/analytics.js"></script>
     <script type="module" src="js/page-tracker.js"></script>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="module" src="design-system/version-manager.js"></script>
     
     <script>
         // EmailJS 관련 전역 변수
         let emailjsInitialized = false;
         let emailjsConfig = {};
+
+        // 디자인 버전 관리
+        document.getElementById('version-selector').addEventListener('change', async (e) => {
+            const version = e.target.value;
+            try {
+                await window.designVersionManager.switchToVersion(version);
+                document.getElementById('current-version').textContent = version;
+                console.log(`✅ 디자인이 ${version}으로 변경되었습니다.`);
+            } catch (error) {
+                console.error('버전 전환 실패:', error);
+                alert(`버전 전환 실패: ${error.message}`);
+            }
+        });
+
+        // 버전 관리자 열기
+        window.openVersionManager = () => {
+            window.open('design-system/version-selector.html', '_blank', 'width=900,height=700');
+        };
+
+        // 버전 정보 표시
+        window.showVersionInfo = () => {
+            const currentVersion = window.designVersionManager.getCurrentVersion();
+            const versionInfo = window.designVersionManager.getVersionInfo(currentVersion);
+            
+            if (versionInfo) {
+                alert(`현재 버전: ${currentVersion}\n이름: ${versionInfo.name}\n설명: ${versionInfo.description}\n특징: ${versionInfo.features.join(', ')}`);
+            }
+        };
 
         // EmailJS 초기화 함수
         function initializeEmailJS() {
