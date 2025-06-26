@@ -119,12 +119,23 @@
                 <div id="step3-status"></div>
             </section>
 
-            <!-- 관련 콘텐츠 섹션 -->
+            <!-- 🎯 관련 콘텐츠 섹션 - 배포된 사이트와 동일한 2개 섹션 구조 -->
             <section class="related-content" id="related-content">
                 <div class="container">
-                    <h2>🔧 더 많은 학습 도구와 📚 바이브코딩 인사이트</h2>
-                    <div id="related-content-grid" class="content-grid">
-                        <!-- 동적으로 로드됨 -->
+                    <!-- 🔧 학습 도구 섹션 -->
+                    <div class="content-section">
+                        <h2>🔧 더 많은 학습 도구</h2>
+                        <div id="websites-grid" class="content-grid">
+                            <!-- 웹사이트 카드들이 동적으로 로드됨 -->
+                        </div>
+                    </div>
+
+                    <!-- 📚 블로그 인사이트 섹션 -->
+                    <div class="content-section">
+                        <h2>📚 바이브코딩 인사이트</h2>
+                        <div id="blogs-grid" class="content-grid">
+                            <!-- 블로그 카드들이 동적으로 로드됨 -->
+                        </div>
                     </div>
                 </div>
             </section>
@@ -375,7 +386,7 @@
             element.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
         }
 
-        // 관련 콘텐츠 로드
+        // 🎯 관련 콘텐츠 로드 - 배포된 사이트와 동일한 2개 섹션 구조
         async function loadRelatedContent() {
             try {
                 const { getWebsitesWithComingSoon, getBlogPosts } = await import('./js/blogs-client.js');
@@ -385,16 +396,16 @@
                     getBlogPosts(6)
                 ]);
 
-                const grid = document.getElementById('related-content-grid');
-                let html = '';
+                // 🔧 웹사이트 섹션 렌더링
+                const websitesGrid = document.getElementById('websites-grid');
+                let websitesHtml = '';
 
-                // 웹사이트 섹션
                 if (websitesResult.success && websitesResult.blogs.length > 0) {
                     websitesResult.blogs.forEach(item => {
                         const statusBadge = item.status === 'coming-soon' ? 
                             '<span class="status-badge coming-soon">출시 예정</span>' : '';
                         
-                        html += `
+                        websitesHtml += `
                             <a href="${item.url || '#'}" class="content-card website-card" data-type="website" 
                                ${!item.url ? 'onclick="return false;"' : 'target="_blank"'}>
                                 <h3>${item.title}</h3>
@@ -405,13 +416,18 @@
                     });
                 }
 
-                // 블로그 섹션
+                websitesGrid.innerHTML = websitesHtml;
+
+                // 📚 블로그 섹션 렌더링
+                const blogsGrid = document.getElementById('blogs-grid');
+                let blogsHtml = '';
+
                 if (blogsResult.success && blogsResult.blogs.length > 0) {
                     blogsResult.blogs.forEach(item => {
                         const statusBadge = item.status === 'coming-soon' ? 
                             '<span class="status-badge coming-soon">출시 예정</span>' : '';
                         
-                        html += `
+                        blogsHtml += `
                             <a href="${item.url || '#'}" class="content-card blog-card" data-type="blog"
                                ${!item.url ? 'onclick="return false;"' : 'target="_blank"'}>
                                 <h3>${item.title}</h3>
@@ -422,7 +438,7 @@
                     });
                 }
 
-                grid.innerHTML = html;
+                blogsGrid.innerHTML = blogsHtml;
                 
                 // 관련 콘텐츠 로드 완료 추적
                 if (typeof window.trackClick === 'function') {
@@ -434,8 +450,10 @@
 
             } catch (error) {
                 console.error('관련 콘텐츠 로드 실패:', error);
-                document.getElementById('related-content-grid').innerHTML = 
-                    '<p>관련 콘텐츠를 불러오는 중 오류가 발생했습니다.</p>';
+                document.getElementById('websites-grid').innerHTML = 
+                    '<p>웹사이트 콘텐츠를 불러오는 중 오류가 발생했습니다.</p>';
+                document.getElementById('blogs-grid').innerHTML = 
+                    '<p>블로그 콘텐츠를 불러오는 중 오류가 발생했습니다.</p>';
             }
         }
 
@@ -452,13 +470,17 @@
                     loadRelatedContent();
                 } else {
                     console.warn('⚠️ Supabase 초기화 실패 - 관련 콘텐츠를 로드할 수 없습니다.');
-                    document.getElementById('related-content-grid').innerHTML = 
-                        '<p>데이터베이스 연결 오류로 관련 콘텐츠를 불러올 수 없습니다.</p>';
+                    document.getElementById('websites-grid').innerHTML = 
+                        '<p>데이터베이스 연결 오류로 웹사이트 콘텐츠를 불러올 수 없습니다.</p>';
+                    document.getElementById('blogs-grid').innerHTML = 
+                        '<p>데이터베이스 연결 오류로 블로그 콘텐츠를 불러올 수 없습니다.</p>';
                 }
             } catch (error) {
                 console.error('❌ Supabase 초기화 중 오류:', error);
-                document.getElementById('related-content-grid').innerHTML = 
-                    '<p>데이터베이스 연결 오류로 관련 콘텐츠를 불러올 수 없습니다.</p>';
+                document.getElementById('websites-grid').innerHTML = 
+                    '<p>데이터베이스 연결 오류로 웹사이트 콘텐츠를 불러올 수 없습니다.</p>';
+                document.getElementById('blogs-grid').innerHTML = 
+                    '<p>데이터베이스 연결 오류로 블로그 콘텐츠를 불러올 수 없습니다.</p>';
             }
             
             // 초기 페이지 로드 추적

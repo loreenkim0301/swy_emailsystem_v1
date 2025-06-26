@@ -1,6 +1,6 @@
 /* 배포된 웹사이트 디자인 시스템 (v2.1.5 실제 배포 버전) */
 /* 생성일: 2024-12-26 */
-/* 특징: 뉴스레터 구독 섹션, 다크 테마 푸터, 실제 배포와 동일한 그리드 시스템 */
+/* 특징: 뉴스레터 구독 섹션, 다크 테마 푸터, 2개 섹션으로 나뉜 관련 콘텐츠 */
 
 /* 폰트 로딩 */
 @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -179,7 +179,7 @@ body {
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* 🎯 관련 콘텐츠 섹션 - 배포된 사이트와 동일한 그리드 */
+/* 🎯 관련 콘텐츠 섹션 - 배포된 사이트와 동일한 구조 */
 .related-content {
     margin-top: var(--spacing-xl);
     padding: var(--spacing-xl) 0;
@@ -189,7 +189,16 @@ body {
     border: 1px solid var(--border-light);
 }
 
-.related-content h2 {
+/* 🎯 콘텐츠 섹션 - 각각 독립적인 제목과 그리드 */
+.content-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.content-section:last-child {
+    margin-bottom: 0;
+}
+
+.content-section h2 {
     text-align: center;
     margin-bottom: var(--spacing-lg);
     color: var(--text-primary);
@@ -202,7 +211,6 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
-    margin-bottom: var(--spacing-lg);
     padding: 0 1rem;
 }
 
