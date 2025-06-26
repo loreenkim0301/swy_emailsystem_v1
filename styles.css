@@ -1,6 +1,6 @@
 /* 배포된 웹사이트 디자인 시스템 (v2.1.5 실제 배포 버전) */
 /* 생성일: 2024-12-26 */
-/* 특징: 뉴스레터 구독 섹션, 다크 테마 푸터, 실제 배포와 동일 */
+/* 특징: 뉴스레터 구독 섹션, 다크 테마 푸터, 실제 배포와 동일한 그리드 시스템 */
 
 /* 폰트 로딩 */
 @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
@@ -179,13 +179,14 @@ body {
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* 관련 콘텐츠 섹션 */
+/* 🎯 관련 콘텐츠 섹션 - 배포된 사이트와 동일한 그리드 */
 .related-content {
     margin-top: var(--spacing-xl);
     padding: var(--spacing-xl) 0;
     background: var(--background-card);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-light);
 }
 
 .related-content h2 {
@@ -196,62 +197,73 @@ body {
     font-weight: 600;
 }
 
+/* 🎯 핵심: 배포된 사이트와 동일한 그리드 시스템 */
 .content-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
     margin-bottom: var(--spacing-lg);
+    padding: 0 1rem;
 }
 
+/* 🎯 카드 스타일 - 배포된 사이트와 완전 동일 */
 .content-card {
     background: var(--background-light);
     border-radius: var(--border-radius);
-    padding: var(--spacing-md);
+    padding: 1.5rem;
     border: 1px solid var(--border-light);
     transition: all 0.3s ease;
     text-decoration: none;
     color: inherit;
     position: relative;
+    display: block;
+    height: auto;
+    min-height: 140px;
 }
 
 .content-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-soft);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     text-decoration: none;
     color: inherit;
+    border-color: #667eea;
 }
 
 .content-card h3 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     color: var(--text-primary);
+    line-height: 1.4;
 }
 
 .content-card p {
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0;
 }
 
-/* 상태 배지 */
+/* 🎯 상태 배지 - 배포된 사이트와 동일한 위치 및 스타일 */
 .status-badge {
     position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .status-badge.coming-soon {
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fbbf24;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    box-shadow: 0 2px 4px rgba(251, 191, 36, 0.3);
 }
 
-/* 뉴스레터 구독 섹션 */
+/* 🎯 뉴스레터 구독 섹션 - 배포된 사이트와 동일 */
 .newsletter-section {
     background: var(--background-card);
     border-radius: var(--border-radius);
@@ -292,6 +304,7 @@ body {
     border-radius: 8px;
     font-size: 1rem;
     font-family: inherit;
+    transition: all 0.2s ease;
 }
 
 .newsletter-form input:focus {
@@ -323,7 +336,7 @@ body {
     font-size: 0.9rem;
 }
 
-/* 다크 테마 푸터 */
+/* 🎯 다크 테마 푸터 - 배포된 사이트와 동일 */
 .footer {
     background: var(--dark-bg);
     color: var(--dark-text);
@@ -333,7 +346,7 @@ body {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
 }
@@ -424,12 +437,7 @@ body {
     border: 1px solid #bee5eb;
 }
 
-/* 디자인 버전 컨트롤 패널 숨기기 (배포 버전에서는 불필요) */
-.design-version-controls {
-    display: none;
-}
-
-/* 반응형 디자인 */
+/* 🎯 반응형 디자인 - 배포된 사이트와 동일한 중단점 */
 @media (max-width: 768px) {
     .header h1 {
         font-size: 2rem;
@@ -443,20 +451,75 @@ body {
         padding: var(--spacing-md);
     }
     
+    /* 모바일에서 1열 그리드 */
     .content-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0;
+    }
+    
+    .content-card {
+        padding: 1.25rem;
+        min-height: 120px;
+    }
+    
+    .content-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .content-card p {
+        font-size: 0.9rem;
     }
     
     .newsletter-form {
         flex-direction: column;
+        max-width: 100%;
     }
     
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: var(--spacing-md);
     }
     
     .footer-social {
         justify-content: center;
     }
+}
+
+/* 🎯 태블릿 중단점 - 배포된 사이트와 동일 */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .content-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 🎯 데스크톱 중단점 - 배포된 사이트와 동일 */
+@media (min-width: 1025px) {
+    .content-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* 🎯 대형 화면 최적화 */
+@media (min-width: 1400px) {
+    .content-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.75rem;
+    }
+}
+
+/* 디자인 버전 컨트롤 패널 숨기기 (배포 버전에서는 불필요) */
+.design-version-controls {
+    display: none;
 }
