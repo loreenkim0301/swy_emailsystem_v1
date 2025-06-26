@@ -519,8 +519,26 @@
         }
 
         // 페이지 로드 시 초기화
-        document.addEventListener('DOMContentLoaded', () => {
-            loadRelatedContent();
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Supabase 클라이언트 초기화
+            try {
+                const { initializeSupabase } = await import('./js/supabase-client.js');
+                const initialized = initializeSupabase();
+                
+                if (initialized) {
+                    console.log('✅ Supabase 초기화 완료');
+                    // Supabase 초기화 후 관련 콘텐츠 로드
+                    loadRelatedContent();
+                } else {
+                    console.warn('⚠️ Supabase 초기화 실패 - 관련 콘텐츠를 로드할 수 없습니다.');
+                    document.getElementById('related-content-grid').innerHTML = 
+                        '<p>데이터베이스 연결 오류로 관련 콘텐츠를 불러올 수 없습니다.</p>';
+                }
+            } catch (error) {
+                console.error('❌ Supabase 초기화 중 오류:', error);
+                document.getElementById('related-content-grid').innerHTML = 
+                    '<p>데이터베이스 연결 오류로 관련 콘텐츠를 불러올 수 없습니다.</p>';
+            }
             
             // 초기 페이지 로드 추적
             window.trackPage('home', '홈페이지 - EmailJS 학습 도구', {
