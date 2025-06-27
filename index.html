@@ -475,129 +475,300 @@
             transform: translateX(2px);
         }
 
-        /* Footer - 이미지와 완전히 동일한 디자인 */
+        /* 
+        ===========================================
+        FOOTER DESIGN SYSTEM - 최신 버전 (v2.0)
+        ===========================================
+        다른 Bolt 프로젝트의 푸터 디자인을 적용한 최신 버전
+        모던하고 전문적인 다크 테마 푸터 컴포넌트
+        */
+
         .footer {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-            color: white;
-            padding: 60px 0 40px;
-            margin-top: 100px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        @media (min-width: 768px) {
+        .footer-section h3 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+
+        .footer-section p {
+            color: #cccccc;
+            font-family: 'Pretendard', sans-serif;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: -0.005em;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
+            letter-spacing: -0.005em;
+            font-size: 0.85rem;
+            color: #cccccc;
+        }
+
+        .footer-links a {
+            color: #cccccc;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+            font-size: 0.85rem;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #cccccc;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #ffffff;
+        }
+
+        .tech-list {
+            margin-top: 1rem;
+        }
+
+        .tech-item {
+            color: #cccccc;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: -0.005em;
+            line-height: 1.5;
+        }
+
+        .tech-item:hover {
+            color: #ffffff;
+        }
+
+        .contact-info {
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            color: #cccccc;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: -0.005em;
+            line-height: 1.5;
+        }
+
+        .contact-item a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .contact-item .label {
+            color: #999999;
+            font-size: 0.8rem;
+            min-width: 60px;
+        }
+
+        .subscription-form {
+            background-color: #2a2a2a;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .subscription-form h4 {
+            color: #ffffff;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.005em;
+        }
+
+        .subscription-form p {
+            color: #cccccc;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            letter-spacing: -0.005em;
+        }
+
+        .subscription-input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .subscription-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #444444;
+            border-radius: 0.375rem;
+            background-color: #333333;
+            color: #ffffff;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 400;
+            letter-spacing: -0.005em;
+        }
+
+        .subscription-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #3a3a3a;
+        }
+
+        .subscription-input::placeholder {
+            color: #999999;
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 400;
+        }
+
+        .subscription-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            letter-spacing: -0.005em;
+        }
+
+        .subscription-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .subscription-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .subscription-status {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            margin-top: 0.5rem;
+            display: none;
+            line-height: 1.4;
+            letter-spacing: -0.005em;
+        }
+
+        .subscription-status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .subscription-status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333333;
+            padding-top: 1rem;
+            text-align: center;
+            color: #999999;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 400;
+            letter-spacing: -0.005em;
+        }
+
+        /* ===== 반응형 디자인 ===== */
+        @media (max-width: 1024px) {
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (min-width: 1024px) {
+        @media (max-width: 768px) {
             .footer-content {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .footer-section h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-section p,
-        .footer-section li {
-            color: #a0aec0;
-            line-height: 1.6;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .footer-section a {
-            color: #a0aec0;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        /* 뉴스레터 섹션 (푸터 내부) */
-        .footer-newsletter {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .footer-newsletter h3 {
-            margin-bottom: 12px;
-        }
-
-        .footer-newsletter p {
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .newsletter-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .newsletter-form input {
-            padding: 12px 16px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .newsletter-form input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .newsletter-form input:focus {
-            outline: none;
-            border-color: #667eea;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .newsletter-form button {
-            padding: 12px 20px;
-            font-size: 14px;
-        }
-
-        @media (min-width: 768px) {
-            .newsletter-form {
-                flex-direction: row;
+                grid-template-columns: 1fr;
+                text-align: center;
             }
             
-            .newsletter-form input {
-                flex: 1;
+            .social-links {
+                justify-content: center;
             }
-        }
 
-        .footer-bottom {
-            border-top: 1px solid #4a5568;
-            padding-top: 30px;
-            text-align: center;
-            color: #a0aec0;
-            font-size: 13px;
+            .subscription-input-group {
+                flex-direction: column;
+            }
+
+            .subscription-btn {
+                width: 100%;
+            }
         }
 
         /* Mobile Responsive */
@@ -775,14 +946,14 @@
         </div>
     </main>
 
-    <!-- Footer - 이미지와 완전히 동일한 디자인 -->
+    <!-- Footer (제공된 코드 그대로 적용) -->
     <footer class="footer">
-        <div class="container">
+        <div class="footer-container">
             <div class="footer-content">
                 <!-- 첫 번째 열: 누구를 위해 만들었나요? -->
                 <div class="footer-section">
                     <h3>💡 누구를 위해 만들었나요?</h3>
-                    <ul>
+                    <ul class="footer-links">
                         <li>• Bolt.new를 사용해서 AI 기능을 개발하고 싶은 분들</li>
                         <li>• OpenAI API를 이해하고 테스트해보고 싶은 분들</li>
                         <li>• 웹 개발 초보자부터 전문가까지 누구나</li>
@@ -794,43 +965,59 @@
                 <div class="footer-section">
                     <h3>⚡ 개발 스택</h3>
                     <p>이 프로젝트에 사용된 기술들</p>
-                    <ul>
-                        <li>🌐 HTML5 & CSS3</li>
-                        <li>⚡ Vanilla JavaScript</li>
-                        <li>🤖 OpenAI API</li>
-                        <li>🗄️ Supabase</li>
-                        <li>🚀 Vite</li>
-                        <li>🎨 Pretendard Font</li>
-                    </ul>
+                    <div class="tech-list">
+                        <div class="tech-item">🌐 HTML5 & CSS3</div>
+                        <div class="tech-item">⚡ Vanilla JavaScript</div>
+                        <div class="tech-item">🤖 OpenAI API</div>
+                        <div class="tech-item">🗄️ Supabase</div>
+                        <div class="tech-item">🚀 Vite</div>
+                        <div class="tech-item">🎨 Pretendard Font</div>
+                    </div>
                 </div>
 
                 <!-- 세 번째 열: 제작자 정보 -->
                 <div class="footer-section">
                     <h3>🏠 제작자 정보</h3>
-                    <p>AI코딩하는 김로린 기획자</p>
-                    <p>기획자와 디자이너도 할 수 있는 AI코딩의 가능성</p>
-                    <ul>
-                        <li>업무/광고: loreen@selectway.co.kr</li>
-                        <li>인스타그램: @loreenkim.ceo</li>
-                        <li>브런치: @loreenkim</li>
-                    </ul>
+                    <p><strong>AI코딩하는 김로린 기획자</strong></p>
+                    <p style="font-size: 0.75rem; color: #999;">기획자와 디자이너도 할 수 있는 AI코딩의 가능성</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="label">업무/광고:</span>
+                            <a href="mailto:loreen@selectway.co.kr">loreen@selectway.co.kr</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="label">인스타그램:</span>
+                            <a href="https://www.instagram.com/loreenkim.ceo/" target="_blank">@loreenkim.ceo</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="label">브런치:</span>
+                            <a href="https://brunch.co.kr/@loreenkim/" target="_blank">@loreenkim</a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 네 번째 열: 바이브코드제로 클럽 -->
                 <div class="footer-section">
-                    <div class="footer-newsletter">
-                        <h3>🚀 바이브코드제로 클럽</h3>
-                        <p>더 많은 Bolt.new 및 바이브코딩 자료를 받아보시겠습니까?</p>
-                        <ul>
-                            <li>• Bolt.new 활용 팁과 노하우</li>
-                            <li>• 바이브코딩 실전 프로젝트</li>
-                            <li>• AI 코딩 도구 리뷰 및 가이드</li>
-                        </ul>
-                        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-                            <input type="email" id="newsletter-email" placeholder="이메일 주소를 입력하세요" required>
-                            <button type="submit" class="btn btn-primary">구독하기</button>
-                        </form>
-                        <div id="newsletter-status"></div>
+                    <h3>🚀 바이브코드제로 클럽</h3>
+                    <p>더 많은 Bolt.new 및 바이브코딩 자료를 받아보시겠습니까?</p>
+                    
+                    <div class="subscription-form">
+                        <h4>🎯 최신 소식 받아보기</h4>
+                        <p>• Bolt.new 활용 팁과 노하우<br>
+                           • 바이브코딩 실전 프로젝트<br>
+                           • AI 코딩 도구 리뷰 및 가이드</p>
+                        
+                        <div class="subscription-input-group">
+                            <input type="email" id="subscriptionEmail" class="subscription-input" placeholder="이메일 주소를 입력하세요">
+                            <button class="subscription-btn" onclick="handleSubscription()" id="subscribeBtn">
+                                <span id="subscribeBtnText">구독하기</span>
+                                <span id="subscribeBtnLoading" class="loading hidden">
+                                    <div class="spinner"></div>
+                                </span>
+                            </button>
+                        </div>
+                        
+                        <div id="subscriptionStatus" class="subscription-status"></div>
                     </div>
                 </div>
             </div>
@@ -858,7 +1045,7 @@
         window.initializeEmailJS = initializeEmailJS;
         window.testConnection = testConnection;
         window.sendEmail = sendEmail;
-        window.subscribeNewsletter = subscribeNewsletter;
+        window.handleSubscription = handleSubscription;
 
         // EmailJS 초기화 함수
         function initializeEmailJS() {
@@ -1057,48 +1244,61 @@
             }
         }
 
-        // 뉴스레터 구독 함수
-        async function subscribeNewsletter(event) {
-            event.preventDefault();
-            
-            const email = document.getElementById('newsletter-email').value.trim();
-            const statusDiv = document.getElementById('newsletter-status');
-            const submitBtn = event.target.querySelector('button[type="submit"]');
+        // 구독 처리 함수
+        async function handleSubscription() {
+            const email = document.getElementById('subscriptionEmail').value.trim();
+            const statusDiv = document.getElementById('subscriptionStatus');
+            const submitBtn = document.getElementById('subscribeBtn');
             
             if (!email) {
-                showStatus(statusDiv, 'error', '이메일 주소를 입력해주세요.');
+                showSubscriptionStatus('error', '이메일 주소를 입력해주세요.');
                 return;
             }
             
             // 이메일 형식 검증
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                showStatus(statusDiv, 'error', '올바른 이메일 주소를 입력해주세요.');
+                showSubscriptionStatus('error', '올바른 이메일 주소를 입력해주세요.');
                 return;
             }
             
             // 버튼 상태 변경
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '구독 중...';
+            const originalText = submitBtn.querySelector('#subscribeBtnText').textContent;
+            submitBtn.querySelector('#subscribeBtnText').textContent = '구독 중...';
             submitBtn.disabled = true;
             
             try {
                 const result = await subscribeToNewsletter(email);
                 
                 if (result.success) {
-                    showStatus(statusDiv, 'success', result.message);
-                    document.getElementById('newsletter-email').value = '';
+                    showSubscriptionStatus('success', result.message);
+                    document.getElementById('subscriptionEmail').value = '';
                 } else {
-                    showStatus(statusDiv, 'warning', result.message);
+                    showSubscriptionStatus('error', result.message);
                 }
                 
             } catch (error) {
                 console.error('구독 처리 중 오류:', error);
-                showStatus(statusDiv, 'error', error.message || '구독 처리 중 오류가 발생했습니다.');
+                showSubscriptionStatus('error', error.message || '구독 처리 중 오류가 발생했습니다.');
             } finally {
                 // 버튼 상태 복원
-                submitBtn.textContent = originalText;
+                submitBtn.querySelector('#subscribeBtnText').textContent = originalText;
                 submitBtn.disabled = false;
+            }
+        }
+
+        // 구독 상태 메시지 표시 함수
+        function showSubscriptionStatus(type, message) {
+            const statusDiv = document.getElementById('subscriptionStatus');
+            statusDiv.className = `subscription-status ${type}`;
+            statusDiv.textContent = message;
+            statusDiv.style.display = 'block';
+            
+            // 자동 숨김 (성공 메시지의 경우)
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
             }
         }
 
