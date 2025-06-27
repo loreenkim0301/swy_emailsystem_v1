@@ -475,7 +475,7 @@
             transform: translateX(2px);
         }
 
-        /* Footer - 4열 그리드 버전 */
+        /* Footer - 과거 4열 그리드 버전 복구 */
         .footer {
             background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
             color: white;
@@ -514,6 +514,7 @@
             color: #a0aec0;
             line-height: 1.6;
             margin-bottom: 8px;
+            font-size: 14px;
         }
 
         .footer-section a {
@@ -771,36 +772,58 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer - 과거 4열 그리드 디자인 복구 -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
+                <!-- 첫 번째 열: 누구를 위해 만들었나요? -->
                 <div class="footer-section">
-                    <h3>📧 EmailJS 학습 도구</h3>
-                    <p>기획자와 디자이너도 할 수 있는 AI코딩의 가능성을 보여주는 프로젝트입니다.</p>
-                    <p><strong>제작자:</strong> AI코딩하는 김로린 기획자</p>
-                </div>
-                <div class="footer-section">
-                    <h3>🔗 링크</h3>
+                    <h3>💡 누구를 위해 만들었나요?</h3>
                     <ul>
-                        <li><a href="https://www.emailjs.com/" target="_blank">EmailJS 공식 사이트</a></li>
-                        <li><a href="https://www.instagram.com/loreenkim.ceo/" target="_blank">Instagram</a></li>
-                        <li><a href="https://brunch.co.kr/@loreenkim/" target="_blank">Brunch</a></li>
+                        <li>• Bolt.new를 사용해서 AI 기능을 개발하고 싶은 분들</li>
+                        <li>• OpenAI API를 이해하고 테스트해보고 싶은 분들</li>
+                        <li>• 웹 개발 초보자부터 전문가까지 누구나</li>
+                        <li>• 실무에서 바로 사용할 수 있는 AI 기능이 필요한 분들</li>
                     </ul>
                 </div>
+
+                <!-- 두 번째 열: 개발 스택 -->
                 <div class="footer-section">
-                    <h3>🔒 보안 정책</h3>
+                    <h3>⚡ 개발 스택</h3>
+                    <p>이 프로젝트에 사용된 기술들</p>
                     <ul>
-                        <li>사용자 정보 서버 저장 안함</li>
-                        <li>브라우저 메모리에서만 처리</li>
-                        <li>페이지 새로고침 시 완전 삭제</li>
-                        <li>안전한 학습 환경 제공</li>
+                        <li>🌐 HTML5 & CSS3</li>
+                        <li>⚡ Vanilla JavaScript</li>
+                        <li>🤖 OpenAI API</li>
+                        <li>🗄️ Supabase</li>
+                        <li>🚀 Vite</li>
+                        <li>🎨 Pretendard Font</li>
                     </ul>
                 </div>
+
+                <!-- 세 번째 열: 제작자 정보 -->
+                <div class="footer-section">
+                    <h3>🏠 제작자 정보</h3>
+                    <p>AI코딩하는 김로린 기획자</p>
+                    <p>기획자와 디자이너도 할 수 있는 AI코딩의 가능성</p>
+                    <ul>
+                        <li>업무/광고: loreen@selectway.co.kr</li>
+                        <li>인스타그램: @loreenkim.ceo</li>
+                        <li>브런치: @loreenkim</li>
+                    </ul>
+                </div>
+
+                <!-- 네 번째 열: 바이브코드제로 클럽 -->
                 <div class="footer-section">
                     <div class="footer-newsletter">
                         <h3>🚀 바이브코드제로 클럽</h3>
-                        <p>AI코딩 노하우와 최신 개발 도구 소식을 받아보세요!</p>
+                        <p>더 많은 Bolt.new 및 바이브코딩 자료를 받아보시겠습니까?</p>
+                        <ul>
+                            <li>🎯 최신 소식 받아보기</li>
+                            <li>• Bolt.new 활용 팁과 노하우</li>
+                            <li>• 바이브코딩 실전 프로젝트</li>
+                            <li>• AI 코딩 도구 리뷰 및 가이드</li>
+                        </ul>
                         <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
                             <input type="email" id="newsletter-email" placeholder="이메일 주소를 입력하세요" required>
                             <button type="submit" class="btn btn-primary">구독하기</button>
@@ -810,7 +833,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 AI코딩하는 김로린 기획자. MIT License.</p>
+                <p>&copy; 2025 OpenAI API 학습 도구. 학습 목적으로 제작된 오픈소스 프로젝트입니다.</p>
             </div>
         </div>
     </footer>
