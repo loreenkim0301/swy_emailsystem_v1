@@ -36,9 +36,6 @@ export class FooterComponent {
                 <div class="footer-content">
                     ${this.renderSections()}
                 </div>
-                <div class="footer-bottom">
-                    <p>${this.config.copyright}</p>
-                </div>
             </div>
         `;
 
