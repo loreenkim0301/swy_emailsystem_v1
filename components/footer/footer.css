@@ -257,17 +257,6 @@ FOOTER COMPONENT - 재사용 가능한 컴포넌트
     border: 1px solid #f5c6cb;
 }
 
-.footer-bottom {
-    border-top: 1px solid #333333;
-    padding-top: 1rem;
-    text-align: center;
-    color: #999999;
-    font-family: 'Pretendard', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
-    letter-spacing: -0.005em;
-}
-
 /* ===== 반응형 디자인 ===== */
 @media (max-width: 1024px) {
     .footer-content {
