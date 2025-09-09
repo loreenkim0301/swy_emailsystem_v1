@@ -425,6 +425,12 @@
             gap: 16px;
         }
 
+        .related-grid-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
         .related-card {
             background: var(--background-card);
             border-radius: 12px;
@@ -434,7 +440,7 @@
             border: 1px solid var(--border-light);
             position: relative;
             cursor: pointer;
-            min-height: 140px;
+            min-height: 120px;
             display: flex;
             flex-direction: column;
         }
@@ -673,13 +679,13 @@
                 <div class="related-sections">
                     <div class="related-section">
                         <h3>🔧 더 많은 학습 도구</h3>
-                        <div class="related-grid" id="websites-grid">
+                        <div class="related-grid-vertical" id="websites-grid">
                             <!-- 웹사이트 카드들이 여기에 동적으로 추가됩니다 -->
                         </div>
                     </div>
                     <div class="related-section">
                         <h3>📚 바이브코딩 인사이트</h3>
-                        <div class="related-grid" id="blogs-grid">
+                        <div class="related-grid-vertical" id="blogs-grid">
                             <!-- 블로그 카드들이 여기에 동적으로 추가됩니다 -->
                         </div>
                     </div>
