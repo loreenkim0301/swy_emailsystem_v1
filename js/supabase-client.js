@@ -27,6 +27,14 @@ export function initializeSupabase() {
 // Supabase 클라이언트 내보내기 (다른 모듈에서 사용)
 export { supabaseClient };
 
+// Supabase 클라이언트 getter 함수 (초기화 후 안전하게 접근)
+export function getSupabaseClient() {
+    if (!supabaseClient) {
+        throw new Error('Supabase 클라이언트가 아직 초기화되지 않았습니다. initializeSupabase()를 먼저 호출해주세요.');
+    }
+    return supabaseClient;
+}
+
 // 이메일 구독 등록
 export async function subscribeToNewsletter(email) {
     if (!supabaseClient) {
