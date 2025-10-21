@@ -37,9 +37,7 @@ export function getSupabaseClient() {
 
 // 이메일 구독 등록
 export async function subscribeToNewsletter(email) {
-    if (!supabaseClient) {
-        throw new Error('Supabase 클라이언트가 초기화되지 않았습니다.');
-    }
+    const supabaseClient = getSupabaseClient();
     
     try {
         // 중복 이메일 확인 - maybeSingle() 사용으로 에러 방지
@@ -107,9 +105,7 @@ export async function subscribeToNewsletter(email) {
 
 // 구독 취소
 export async function unsubscribeFromNewsletter(email) {
-    if (!supabaseClient) {
-        throw new Error('Supabase 클라이언트가 초기화되지 않았습니다.');
-    }
+    const supabaseClient = getSupabaseClient();
     
     try {
         const { data, error } = await supabaseClient
@@ -145,9 +141,7 @@ export async function unsubscribeFromNewsletter(email) {
 
 // 구독자 통계 조회 (관리자용)
 export async function getSubscriberStats() {
-    if (!supabaseClient) {
-        throw new Error('Supabase 클라이언트가 초기화되지 않았습니다.');
-    }
+    const supabaseClient = getSupabaseClient();
     
     try {
         // 전체 구독자 수
@@ -199,9 +193,7 @@ export async function getSubscriberStats() {
 
 // 구독자 목록 조회 (관리자용)
 export async function getSubscribers(page = 1, limit = 50, status = 'active') {
-    if (!supabaseClient) {
-        throw new Error('Supabase 클라이언트가 초기화되지 않았습니다.');
-    }
+    const supabaseClient = getSupabaseClient();
     
     try {
         const offset = (page - 1) * limit;

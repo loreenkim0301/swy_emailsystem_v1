@@ -1,5 +1,5 @@
 // Blogs 관련 Supabase 클라이언트 함수들
-import { supabaseClient } from './supabase-client.js';
+import { getSupabaseClient } from './supabase-client.js';
 
 // 모든 게시글 조회
 export async function getAllBlogs(options = {}) {
@@ -12,6 +12,7 @@ export async function getAllBlogs(options = {}) {
     } = options;
 
     try {
+        const supabaseClient = getSupabaseClient();
         let query = supabaseClient
             .from('blogs')
             .select('*')
@@ -67,6 +68,7 @@ export async function getWebsites(limit = 6) {
 // 예정된 웹사이트 포함 조회
 export async function getWebsitesWithComingSoon(limit = 6) {
     try {
+        const supabaseClient = getSupabaseClient();
         let query = supabaseClient
             .from('blogs')
             .select('*')
@@ -97,6 +99,7 @@ export async function getWebsitesWithComingSoon(limit = 6) {
 // 블로그 포스트 조회 (오른쪽 섹션용) - 공개됨과 출시예정 모두 포함
 export async function getBlogPosts(limit = 6) {
     try {
+        const supabaseClient = getSupabaseClient();
         let query = supabaseClient
             .from('blogs')
             .select('*')
@@ -155,6 +158,7 @@ export async function getTutorialBlogs() {
 // 게시글 조회수 증가 (최적화된 버전)
 export async function incrementViewCount(blogId) {
     try {
+        const supabaseClient = getSupabaseClient();
         const { data, error } = await supabaseClient
             .rpc('increment_blog_view_count', { blog_id: blogId });
 
@@ -185,6 +189,7 @@ export async function searchBlogs(searchTerm, options = {}) {
 
     try {
         // 새로운 랭킹 기반 검색 함수 사용
+        const supabaseClient = getSupabaseClient();
         let query = supabaseClient
             .rpc('search_blogs_ranked', { 
                 search_term: searchTerm, 
@@ -232,6 +237,7 @@ async function searchBlogsBasic(searchTerm, options = {}) {
     } = options;
 
     try {
+        const supabaseClient = getSupabaseClient();
         let query = supabaseClient
             .from('blogs')
             .select('*')
@@ -267,6 +273,7 @@ async function searchBlogsBasic(searchTerm, options = {}) {
 // 관리자용: 게시글 생성
 export async function createBlog(blogData) {
     try {
+        const supabaseClient = getSupabaseClient();
         const { data, error } = await supabaseClient
             .from('blogs')
             .insert([blogData])
@@ -290,6 +297,7 @@ export async function createBlog(blogData) {
 // 관리자용: 게시글 수정
 export async function updateBlog(blogId, updateData) {
     try {
+        const supabaseClient = getSupabaseClient();
         const { data, error } = await supabaseClient
             .from('blogs')
             .update(updateData)
@@ -314,6 +322,7 @@ export async function updateBlog(blogId, updateData) {
 // 관리자용: 게시글 삭제
 export async function deleteBlog(blogId) {
     try {
+        const supabaseClient = getSupabaseClient();
         const { error } = await supabaseClient
             .from('blogs')
             .delete()
@@ -335,6 +344,7 @@ export async function deleteBlog(blogId) {
 // 게시글 통계 조회 (최적화된 버전)
 export async function getBlogStats() {
     try {
+        const supabaseClient = getSupabaseClient();
         const { data, error } = await supabaseClient
             .rpc('get_blog_statistics');
 
@@ -364,6 +374,7 @@ export async function getBlogStats() {
 async function getBlogStatsBasic() {
     try {
         // 전체 게시글 수
+        const supabaseClient = getSupabaseClient();
         const { count: totalCount, error: totalError } = await supabaseClient
             .from('blogs')
             .select('*', { count: 'exact', head: true });
@@ -438,6 +449,7 @@ async function getBlogStatsBasic() {
 // 성능 모니터링을 위한 블로그 성능 데이터 조회
 export async function getBlogPerformance() {
     try {
+        const supabaseClient = getSupabaseClient();
         const { data, error } = await supabaseClient
             .from('blog_performance')
             .select('*');
