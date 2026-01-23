@@ -4,6 +4,51 @@
 
 ---
 
+## ⚠️ 중요: 프로젝트 사용 방법
+
+### 🎯 올바른 방법: 전체 프로젝트 클론 + AI-AGENT-GUIDE 읽기
+
+이 프로젝트는 **보일러플레이트 템플릿 저장소**입니다. 새 프로젝트를 시작하려면 **전체 프로젝트를 클론**해야 합니다!
+
+```bash
+# ✅ 올바른 방법
+git clone <이-저장소-URL> my-new-project
+cd my-new-project
+
+# Bolt.new에 업로드 후 AI에게 프롬프트
+"AI-AGENT-GUIDE.md를 읽고 새 프로젝트로 세팅해줘.
+프로젝트명: my-portfolio
+작성자: 김철수
+이메일: hello@kimcs.com"
+```
+
+### ❌ 잘못된 방법
+
+```bash
+# ❌ AI-AGENT-GUIDE.md 파일만 복사 (이렇게 하지 마세요!)
+새 프로젝트에 AI-AGENT-GUIDE.md만 붙여넣기
+
+# 문제점:
+- 필수 파일들(footer, supabase-client 등)이 없음
+- AI가 처음부터 다시 만들어야 함
+- 템플릿의 장점을 활용할 수 없음
+```
+
+### 📦 포함된 필수 파일들
+
+전체 클론을 해야 하는 이유는 다음 필수 파일들이 함께 필요하기 때문입니다:
+
+```
+✅ components/footer/          ← 재사용 가능한 푸터 컴포넌트
+✅ js/supabase-client.js       ← Supabase 유틸리티
+✅ .env.example                 ← 환경 변수 템플릿
+✅ package.json                 ← 의존성 템플릿
+✅ index.html                   ← 페이지 템플릿
+✅ AI-AGENT-GUIDE.md            ← 이 사용 설명서
+```
+
+---
+
 ## 📋 목차
 
 1. [빠른 시작 (5분 안에)](#-빠른-시작-5분-안에)
