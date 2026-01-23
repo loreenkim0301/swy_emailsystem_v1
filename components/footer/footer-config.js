@@ -38,13 +38,13 @@ export const FOOTER_CONFIG = {
             id: "subscription",
             type: "subscription",
             title: "🚀 바이브코드제로 클럽",
-            description: "더 많은 Bolt.new 및 바이브코딩 자료를 받아보시겠습니까?",
+            description: "기획자, 디자이너라면 바이브코드제로 멤버가 될 수 있어요!",
             subscription: {
-                title: "🎯 최신 소식 받아보기",
+                title: "최신 소식 받아보기",
                 benefits: [
-                    "Bolt.new 활용 팁과 노하우",
-                    "바이브코딩 실전 프로젝트",
-                    "AI 코딩 도구 리뷰 및 가이드"
+                    "기획자/디자이너를 위한 AI특강",
+                    "최신 기술 사용 리뷰 및 인사이트",
+                    "바이브코드제로 신규 모집 소식"
                 ],
                 placeholder: "이메일 주소를 입력하세요",
                 button: "구독하기"
