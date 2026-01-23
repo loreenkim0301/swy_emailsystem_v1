@@ -383,142 +383,6 @@
             border: 1px solid var(--border-light);
         }
 
-        /* Related Content */
-        .related-content {
-            margin-top: 80px;
-        }
-
-        .related-content h2 {
-            font-size: 24px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--text-primary);
-        }
-
-        .related-sections {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-
-        @media (min-width: 1024px) {
-            .related-sections {
-                grid-template-columns: 1fr 1fr;
-                gap: 60px;
-            }
-        }
-
-        .related-section h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .related-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        .related-grid-vertical {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .related-card {
-            background: var(--background-card);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: var(--shadow-soft);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-light);
-            position: relative;
-            cursor: pointer;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .related-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .related-card h4 {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--text-primary);
-            line-height: 1.4;
-        }
-
-        .related-card p {
-            color: var(--text-secondary);
-            font-size: 12px;
-            line-height: 1.5;
-            margin-bottom: 12px;
-            flex-grow: 1;
-        }
-
-        /* Card Status Badges */
-        .card-status {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-            display: inline-block;
-            align-self: flex-start;
-        }
-
-        .card-status.published {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            color: #155724;
-        }
-
-        .card-status.coming-soon {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            color: #856404;
-        }
-
-        .card-status.preparing {
-            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
-            color: #0c5460;
-        }
-
-        .card-link {
-            color: #667eea;
-            font-size: 11px;
-            font-weight: 500;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            transition: color 0.3s ease;
-            margin-top: auto;
-        }
-
-        .card-link:hover {
-            color: #764ba2;
-        }
-
-        .card-link::after {
-            content: '→';
-            transition: transform 0.3s ease;
-        }
-
-        .card-link:hover::after {
-            transform: translateX(1px);
-        }
-
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .header {
@@ -672,25 +536,6 @@
                     <div id="step3-status"></div>
                 </div>
             </div>
-
-            <!-- Related Content -->
-            <section class="related-content">
-                <h2>🔧 더 많은 콘텐츠 나아가기</h2>
-                <div class="related-sections">
-                    <div class="related-section">
-                        <h3>🔧 더 많은 학습 도구</h3>
-                        <div class="related-grid-vertical" id="websites-grid">
-                            <!-- 웹사이트 카드들이 여기에 동적으로 추가됩니다 -->
-                        </div>
-                    </div>
-                    <div class="related-section">
-                        <h3>📚 바이브코딩 인사이트</h3>
-                        <div class="related-grid-vertical" id="blogs-grid">
-                            <!-- 블로그 카드들이 여기에 동적으로 추가됩니다 -->
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     </main>
 
@@ -700,7 +545,6 @@
     <!-- JavaScript -->
     <script type="module">
         import { initializeSupabase, subscribeToNewsletter } from './js/supabase-client.js';
-        import { getWebsitesWithComingSoon, getBlogPosts } from './js/blogs-client.js';
         import { FooterComponent } from './components/footer/footer-component.js';
         import { FOOTER_CONFIG } from './components/footer/footer-config.js';
 
@@ -918,7 +762,7 @@
         // 상태 메시지 표시 함수
         function showStatus(element, type, message) {
             element.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
-            
+
             // 자동 숨김 (성공 메시지의 경우)
             if (type === 'success') {
                 setTimeout(() => {
@@ -927,97 +771,13 @@
             }
         }
 
-        // 연관 콘텐츠 로드 함수
-        async function loadRelatedContent() {
-            try {
-                // 웹사이트 목록 로드 (최대 6개, 최신순)
-                const websitesResult = await getWebsitesWithComingSoon(6);
-                if (websitesResult.success) {
-                    renderWebsites(websitesResult.blogs);
-                }
-
-                // 블로그 포스트 로드 (최대 6개, 최신순)
-                const blogsResult = await getBlogPosts(6);
-                if (blogsResult.success) {
-                    renderBlogs(blogsResult.blogs);
-                }
-            } catch (error) {
-                console.error('연관 콘텐츠 로드 중 오류:', error);
-            }
-        }
-
-        // 웹사이트 카드 렌더링
-        function renderWebsites(websites) {
-            const grid = document.getElementById('websites-grid');
-            if (!grid) return;
-
-            // 최대 6개만 표시, ID 기준 최신순 정렬
-            const sortedWebsites = websites
-                .sort((a, b) => b.id - a.id)  // ID 기준 내림차순 (최신순)
-                .slice(0, 6);  // 최대 6개만
-
-            grid.innerHTML = sortedWebsites.map(website => {
-                const statusBadge = getStatusBadge(website.status);
-                const cardContent = `
-                    <div class="related-card" ${website.url ? `onclick="window.open('${website.url}', '_blank')"` : ''}>
-                        ${statusBadge}
-                        <h4>${website.title}</h4>
-                        <p>${website.description || '설명이 없습니다.'}</p>
-                        ${website.url ? '<span class="card-link">자세히 보기</span>' : '<span style="color: #999; font-size: 12px;">출시 예정</span>'}
-                    </div>
-                `;
-                return cardContent;
-            }).join('');
-        }
-
-        // 블로그 카드 렌더링
-        function renderBlogs(blogs) {
-            const grid = document.getElementById('blogs-grid');
-            if (!grid) return;
-
-            // 최대 6개만 표시, ID 기준 최신순 정렬
-            const sortedBlogs = blogs
-                .sort((a, b) => b.id - a.id)  // ID 기준 내림차순 (최신순)
-                .slice(0, 6);  // 최대 6개만
-
-            grid.innerHTML = sortedBlogs.map(blog => {
-                const statusBadge = getStatusBadge(blog.status);
-                const cardContent = `
-                    <div class="related-card" ${blog.url ? `onclick="window.open('${blog.url}', '_blank')"` : ''}>
-                        ${statusBadge}
-                        <h4>${blog.title}</h4>
-                        <p>${blog.description || '설명이 없습니다.'}</p>
-                        ${blog.url ? '<span class="card-link">자세히 보기</span>' : '<span style="color: #999; font-size: 12px;">출시 예정</span>'}
-                    </div>
-                `;
-                return cardContent;
-            }).join('');
-        }
-
-        // 상태 배지 생성 함수
-        function getStatusBadge(status) {
-            const statusMap = {
-                'published': { text: '공개됨', class: 'published' },
-                'coming-soon': { text: '출시 예정', class: 'coming-soon' },
-                'preparing': { text: '준비 중', class: 'preparing' }
-            };
-
-            const statusInfo = statusMap[status];
-            if (!statusInfo) return '';
-
-            return `<span class="card-status ${statusInfo.class}">${statusInfo.text}</span>`;
-        }
-
         // 페이지 로드 시 초기화
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('📧 EmailJS 학습 도구 시작');
-            
+
             // Supabase 초기화
             const supabaseInitialized = initializeSupabase();
             if (supabaseInitialized) {
-                // 연관 콘텐츠 로드
-                await loadRelatedContent();
-                
                 // 푸터 컴포넌트 초기화
                 const footer = new FooterComponent(
                     document.querySelector('.footer'),
@@ -1028,7 +788,7 @@
                 );
                 footer.init();
             } else {
-                console.warn('⚠️ Supabase 초기화 실패 - 연관 콘텐츠를 로드할 수 없습니다.');
+                console.warn('⚠️ Supabase 초기화 실패');
             }
         });
 
