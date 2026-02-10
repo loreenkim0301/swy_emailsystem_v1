@@ -620,33 +620,31 @@
 
                 showStatus(statusDiv, 'info', '🔄 EmailJS 초기화 완료. 자동 테스트 중...');
 
-                // 디폴트 템플릿 파라미터로 자동 테스트 이메일 발송
-                const defaultParams = {
-                    from_name: 'EmailJS 학습도구',
-                    from_email: 'test@vibecode.zero',
-                    to_email: 'admin@example.com',
-                    subject: '[자동 테스트] EmailJS 설정 완료',
-                    message: 'EmailJS가 정상적으로 설정되었습니다. 이 메시지는 자동 테스트 이메일입니다.'
-                };
-
+                // 템플릿 기본값으로 자동 테스트 이메일 발송 (파라미터 없이)
                 const response = await emailjs.send(
                     serviceId,
                     templateId,
-                    defaultParams
+                    {} // 빈 객체로 전송하여 템플릿의 기본값 사용
                 );
 
                 console.log('자동 테스트 이메일 발송 성공:', response);
-                console.log('발송된 파라미터:', defaultParams);
+                console.log('응답 상태:', response.status, response.text);
 
                 let successMessage = '✅ EmailJS가 초기화되었으며, 자동 테스트 이메일이 발송되었습니다.<br>';
                 successMessage += '<div class="code-block" style="margin-top: 8px; font-size: 11px; background: #fff9e6; border: 1px solid #ffeaa7;">';
-                successMessage += '<strong>발송 정보:</strong><br>';
-                successMessage += `- 발송자 이름: ${defaultParams.from_name}<br>`;
-                successMessage += `- 발송자 이메일: ${defaultParams.from_email}<br>`;
-                successMessage += `- 받는 사람: ${defaultParams.to_email}<br>`;
-                successMessage += `- 제목: ${defaultParams.subject}<br>`;
-                successMessage += `- 내용: ${defaultParams.message}<br><br>`;
-                successMessage += '<em style="color: #666;">※ 템플릿에 설정된 기본값으로 발송됩니다. EmailJS Dashboard에서 확인하세요.</em>';
+                successMessage += '<strong>📋 발송 정보:</strong><br><br>';
+                successMessage += `<strong>Service ID:</strong> ${serviceId}<br>`;
+                successMessage += `<strong>Template ID:</strong> ${templateId}<br>`;
+                successMessage += `<strong>응답 상태:</strong> ${response.status} (${response.text})<br><br>`;
+                successMessage += '<div style="background: #fffbf0; padding: 10px; border-left: 3px solid #f39c12; margin: 10px 0;">';
+                successMessage += '🔍 <strong>템플릿 설정 기반 발송</strong><br>';
+                successMessage += '이 테스트는 EmailJS Dashboard에서 설정한 템플릿의 <strong>기본값</strong>을 사용하여 발송되었습니다.<br><br>';
+                successMessage += '<strong>템플릿에 설정된 항목:</strong><br>';
+                successMessage += '• 기본 수신자 (To Email)<br>';
+                successMessage += '• 발신자 정보 (From Name, From Email)<br>';
+                successMessage += '• 제목 및 내용<br><br>';
+                successMessage += '<em>※ <a href="https://dashboard.emailjs.com/admin/templates/' + templateId + '" target="_blank" style="color: #f39c12; text-decoration: underline;">EmailJS Dashboard</a>에서 템플릿을 확인하여 실제 발송 내역을 확인하세요.</em>';
+                successMessage += '</div>';
                 successMessage += '</div>';
 
                 showStatus(statusDiv, 'success', successMessage);
@@ -889,13 +887,7 @@
         // 상태 메시지 표시 함수
         function showStatus(element, type, message) {
             element.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
-
-            // 자동 숨김 (성공 메시지의 경우)
-            if (type === 'success') {
-                setTimeout(() => {
-                    element.innerHTML = '';
-                }, 5000);
-            }
+            // 자동 숨김 기능 제거 - 사용자가 확인할 수 있도록 유지
         }
 
         // 페이지 로드 시 초기화
