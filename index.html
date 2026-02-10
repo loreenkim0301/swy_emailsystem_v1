@@ -524,15 +524,25 @@
                     <p>실제 이메일을 작성하고 발송해봅니다. 모든 필드는 선택사항이며, 비워두면 EmailJS 템플릿에 설정된 기본값이 사용됩니다.</p>
 
                     <div class="form-group">
+                        <label>📧 발송자 정보</label>
+                        <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border: 1px solid #ffeaa7; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+                            <div style="font-size: 13px; color: #856404; line-height: 1.6;">
+                                <strong>Personal Service에서는 발송자 이메일 변경 불가</strong><br>
+                                이메일 서비스 내의 이름을 자동으로 사용됩니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="fromName">발송자 이름 (선택사항)</label>
                         <input type="text" id="fromName" placeholder="비워두면 템플릿 기본값 사용">
                         <div class="help-text">템플릿 변수: {{from_name}}</div>
                     </div>
 
                     <div class="form-group">
-                        <label for="fromEmail">발송자 이메일 (선택사항)</label>
-                        <input type="email" id="fromEmail" placeholder="비워두면 템플릿 기본값 사용">
-                        <div class="help-text">템플릿 변수: {{from_email}}</div>
+                        <label for="replyTo">답장받을 이메일 (선택사항)</label>
+                        <input type="email" id="replyTo" placeholder="비워두면 템플릿 기본값 사용">
+                        <div class="help-text">템플릿 변수: {{reply_to}} - 답장을 받을 이메일 주소</div>
                     </div>
 
                     <div class="form-group">
@@ -819,15 +829,15 @@
 
             // 입력값 가져오기 (모두 선택사항)
             const fromName = document.getElementById('fromName').value.trim();
-            const fromEmail = document.getElementById('fromEmail').value.trim();
+            const replyTo = document.getElementById('replyTo').value.trim();
             const toEmail = document.getElementById('toEmail').value.trim();
             const emailSubject = document.getElementById('emailSubject').value.trim();
             const emailMessage = document.getElementById('emailMessage').value.trim();
 
             // 이메일 형식 검증 (입력된 경우에만)
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (fromEmail && !emailRegex.test(fromEmail)) {
-                showStatus(statusDiv, 'error', '발송자 이메일 형식이 올바르지 않습니다.');
+            if (replyTo && !emailRegex.test(replyTo)) {
+                showStatus(statusDiv, 'error', '답장받을 이메일 형식이 올바르지 않습니다.');
                 return;
             }
             if (toEmail && !emailRegex.test(toEmail)) {
@@ -846,7 +856,7 @@
                 // 템플릿 파라미터 구성 (입력된 값 또는 기본값 사용)
                 const templateParams = {};
                 if (fromName) templateParams.from_name = fromName;
-                if (fromEmail) templateParams.from_email = fromEmail;
+                if (replyTo) templateParams.reply_to = replyTo;
                 // to_email은 입력값이 없으면 기본 수신자 사용
                 templateParams.to_email = toEmail || 'loreen@selectway.co.kr';
                 if (emailSubject) templateParams.subject = emailSubject;
@@ -871,10 +881,12 @@
                     successMessage += '- 발송자 이름: <em>템플릿 기본값 사용</em><br>';
                 }
 
-                if (fromEmail) {
-                    successMessage += `- 발송자 이메일: ${fromEmail}<br>`;
+                successMessage += '- 발송자 이메일: <em>서비스 이메일 자동 사용 (Personal Service)</em><br>';
+
+                if (replyTo) {
+                    successMessage += `- 답장받을 이메일: ${replyTo}<br>`;
                 } else {
-                    successMessage += '- 발송자 이메일: <em>템플릿 기본값 사용</em><br>';
+                    successMessage += '- 답장받을 이메일: <em>템플릿 기본값 사용</em><br>';
                 }
 
                 if (toEmail) {
@@ -902,7 +914,7 @@
 
                 // 폼 초기화
                 document.getElementById('fromName').value = '';
-                document.getElementById('fromEmail').value = '';
+                document.getElementById('replyTo').value = '';
                 document.getElementById('toEmail').value = '';
                 document.getElementById('emailSubject').value = '';
                 document.getElementById('emailMessage').value = '';
