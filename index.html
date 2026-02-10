@@ -521,32 +521,42 @@
                 <div class="step-card">
                     <div class="step-number">3</div>
                     <h2>이메일 발송</h2>
-                    <p>실제 이메일을 작성하고 발송해봅니다. 제목과 내용을 비워두면 템플릿의 기본값이 사용됩니다. <strong>템플릿에 설정된 기본 수신자</strong>에게 발송됩니다.</p>
-                    
+                    <p>실제 이메일을 작성하고 발송해봅니다. 모든 필드는 선택사항이며, 비워두면 EmailJS 템플릿에 설정된 기본값이 사용됩니다.</p>
+
                     <div class="form-group">
-                        <label for="fromName">발송하는 사람의 이름</label>
-                        <input type="text" id="fromName" placeholder="홍길동" required>
+                        <label for="fromName">발송자 이름 (선택사항)</label>
+                        <input type="text" id="fromName" placeholder="비워두면 템플릿 기본값 사용">
+                        <div class="help-text">템플릿 변수: {{from_name}}</div>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="fromEmail">보내는 사람 이메일 *</label>
-                        <input type="email" id="fromEmail" placeholder="hong@example.com" required>
+                        <label for="fromEmail">발송자 이메일 (선택사항)</label>
+                        <input type="email" id="fromEmail" placeholder="비워두면 템플릿 기본값 사용">
+                        <div class="help-text">템플릿 변수: {{from_email}}</div>
                     </div>
-                    
+
+                    <div class="form-group">
+                        <label for="toEmail">받는 사람 이메일 (선택사항)</label>
+                        <input type="email" id="toEmail" placeholder="비워두면 템플릿 기본값 사용">
+                        <div class="help-text">템플릿 변수: {{to_email}}</div>
+                    </div>
+
                     <div class="form-group">
                         <label for="emailSubject">제목 (선택사항)</label>
                         <input type="text" id="emailSubject" placeholder="비워두면 템플릿 기본값 사용">
+                        <div class="help-text">템플릿 변수: {{subject}}</div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="emailMessage">내용 (선택사항)</label>
                         <textarea id="emailMessage" placeholder="비워두면 템플릿 기본값 사용"></textarea>
+                        <div class="help-text">템플릿 변수: {{message}}</div>
                     </div>
-                    
+
                     <button class="btn btn-primary" onclick="sendEmail()" disabled id="sendBtn">
                         <span class="btn-text">이메일 발송</span>
                     </button>
-                    
+
                     <div id="step3-status"></div>
                 </div>
             </div>
@@ -611,12 +621,12 @@
                 showStatus(statusDiv, 'info', '🔄 EmailJS 초기화 완료. 자동 테스트 중...');
 
                 // 디폴트 템플릿 파라미터로 자동 테스트 이메일 발송
-                const testTargetEmail = 'test@example.com';
                 const defaultParams = {
-                    name: 'EmailJS 학습도구',
-                    email: testTargetEmail,
+                    from_name: 'EmailJS 학습도구',
+                    from_email: 'test@vibecode.zero',
+                    to_email: 'admin@example.com',
                     subject: '[자동 테스트] EmailJS 설정 완료',
-                    message: 'EmailJS가 정상적으로 설정되었습니다. 템플릿 기본값으로 테스트 이메일을 발송했습니다.'
+                    message: 'EmailJS가 정상적으로 설정되었습니다. 이 메시지는 자동 테스트 이메일입니다.'
                 };
 
                 const response = await emailjs.send(
@@ -628,15 +638,15 @@
                 console.log('자동 테스트 이메일 발송 성공:', response);
                 console.log('발송된 파라미터:', defaultParams);
 
-                let successMessage = '✅ EmailJS가 초기화되었으며, 템플릿 기본 설정으로 테스트 이메일이 발송되었습니다.<br>';
+                let successMessage = '✅ EmailJS가 초기화되었으며, 자동 테스트 이메일이 발송되었습니다.<br>';
                 successMessage += '<div class="code-block" style="margin-top: 8px; font-size: 11px; background: #fff9e6; border: 1px solid #ffeaa7;">';
-                successMessage += `<strong>📮 발송 대상:</strong> <span style="color: #d63031; font-weight: 600;">${testTargetEmail}</span><br><br>`;
                 successMessage += '<strong>발송 정보:</strong><br>';
-                successMessage += `- 보내는 사람: ${defaultParams.name}<br>`;
-                successMessage += `- 이메일: ${defaultParams.email}<br>`;
+                successMessage += `- 발송자 이름: ${defaultParams.from_name}<br>`;
+                successMessage += `- 발송자 이메일: ${defaultParams.from_email}<br>`;
+                successMessage += `- 받는 사람: ${defaultParams.to_email}<br>`;
                 successMessage += `- 제목: ${defaultParams.subject}<br>`;
                 successMessage += `- 내용: ${defaultParams.message}<br><br>`;
-                successMessage += '<em style="color: #666;">※ 템플릿에 설정된 기본 수신자에게 발송됩니다. EmailJS Dashboard에서 확인하세요.</em>';
+                successMessage += '<em style="color: #666;">※ 템플릿에 설정된 기본값으로 발송됩니다. EmailJS Dashboard에서 확인하세요.</em>';
                 successMessage += '</div>';
 
                 showStatus(statusDiv, 'success', successMessage);
@@ -701,8 +711,9 @@
             try {
                 // 테스트 이메일 발송
                 const templateParams = {
-                    name: '연결 테스트',
-                    email: testEmail,
+                    from_name: '연결 테스트',
+                    from_email: 'test@vibecode.zero',
+                    to_email: testEmail,
                     subject: '[EmailJS 학습도구] 연결 테스트',
                     message: 'EmailJS 연결이 정상적으로 작동합니다!'
                 };
@@ -718,10 +729,10 @@
 
                 let successMessage = `✅ 연결 테스트 성공!<br>`;
                 successMessage += '<div class="code-block" style="margin-top: 8px; font-size: 11px; background: #d4edda; border: 1px solid #c3e6cb;">';
-                successMessage += `<strong>📮 발송 대상:</strong> <span style="color: #155724; font-weight: 600;">${testEmail}</span><br><br>`;
                 successMessage += '<strong>발송 정보:</strong><br>';
-                successMessage += `- 보내는 사람: ${templateParams.name}<br>`;
-                successMessage += `- 이메일: ${templateParams.email}<br>`;
+                successMessage += `- 발송자 이름: ${templateParams.from_name}<br>`;
+                successMessage += `- 발송자 이메일: ${templateParams.from_email}<br>`;
+                successMessage += `- 받는 사람: <span style="color: #155724; font-weight: 600;">${templateParams.to_email}</span><br>`;
                 successMessage += `- 제목: ${templateParams.subject}<br>`;
                 successMessage += `- 내용: ${templateParams.message}<br><br>`;
                 successMessage += '<em style="color: #155724;">※ 입력한 이메일 주소로 테스트 메일이 발송되었습니다.</em>';
@@ -758,47 +769,45 @@
         async function sendEmail() {
             const statusDiv = document.getElementById('step3-status');
             const sendBtn = document.getElementById('sendBtn');
-            
+
             if (!emailjsConfig.initialized) {
                 showStatus(statusDiv, 'error', '먼저 EmailJS를 초기화하고 연결 테스트를 완료해주세요.');
                 return;
             }
-            
-            // 필수 입력값 확인
+
+            // 입력값 가져오기 (모두 선택사항)
             const fromName = document.getElementById('fromName').value.trim();
             const fromEmail = document.getElementById('fromEmail').value.trim();
-            
-            if (!fromName || !fromEmail) {
-                showStatus(statusDiv, 'error', '보내는 사람 이름과 이메일은 필수입니다.');
-                return;
-            }
-            
-            // 이메일 형식 검증
+            const toEmail = document.getElementById('toEmail').value.trim();
+            const emailSubject = document.getElementById('emailSubject').value.trim();
+            const emailMessage = document.getElementById('emailMessage').value.trim();
+
+            // 이메일 형식 검증 (입력된 경우에만)
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(fromEmail)) {
-                showStatus(statusDiv, 'error', '올바른 이메일 주소를 입력해주세요.');
+            if (fromEmail && !emailRegex.test(fromEmail)) {
+                showStatus(statusDiv, 'error', '발송자 이메일 형식이 올바르지 않습니다.');
                 return;
             }
-            
+            if (toEmail && !emailRegex.test(toEmail)) {
+                showStatus(statusDiv, 'error', '받는 사람 이메일 형식이 올바르지 않습니다.');
+                return;
+            }
+
             // 버튼 상태 변경
             const originalText = sendBtn.querySelector('.btn-text').textContent;
             sendBtn.querySelector('.btn-text').textContent = '발송 중...';
             sendBtn.disabled = true;
-            
-            showStatus(statusDiv, 'info', '📧 이메일 발송 중...');
-            
-            try {
-                // 선택적 입력값
-                const emailSubject = document.getElementById('emailSubject').value.trim();
-                const emailMessage = document.getElementById('emailMessage').value.trim();
 
-                // 템플릿 파라미터 구성 (항상 모든 파라미터 전송)
-                const templateParams = {
-                    name: fromName,
-                    email: fromEmail,
-                    subject: emailSubject || '[제목 없음]',
-                    message: emailMessage || '[내용 없음]'
-                };
+            showStatus(statusDiv, 'info', '📧 이메일 발송 중...');
+
+            try {
+                // 템플릿 파라미터 구성 (입력된 값만 전송)
+                const templateParams = {};
+                if (fromName) templateParams.from_name = fromName;
+                if (fromEmail) templateParams.from_email = fromEmail;
+                if (toEmail) templateParams.to_email = toEmail;
+                if (emailSubject) templateParams.subject = emailSubject;
+                if (emailMessage) templateParams.message = emailMessage;
 
                 const response = await emailjs.send(
                     emailjsConfig.serviceId,
@@ -812,24 +821,53 @@
                 let successMessage = '✅ 이메일이 성공적으로 발송되었습니다!<br>';
                 successMessage += '<div class="code-block" style="margin-top: 8px; font-size: 11px; background: #e8f5e9; border: 1px solid #a5d6a7;">';
                 successMessage += '<strong>발송 정보:</strong><br>';
-                successMessage += `- 보내는 사람: ${templateParams.name} (${templateParams.email})<br>`;
-                successMessage += `- 제목: ${templateParams.subject}${emailSubject ? '' : ' (기본값)'}<br>`;
-                successMessage += `- 내용: ${templateParams.message}${emailMessage ? '' : ' (기본값)'}<br><br>`;
-                successMessage += '<em style="color: #2e7d32;">📮 템플릿에 설정된 기본 수신자에게 발송되었습니다.</em>';
+
+                if (fromName) {
+                    successMessage += `- 발송자 이름: ${fromName}<br>`;
+                } else {
+                    successMessage += '- 발송자 이름: <em>템플릿 기본값 사용</em><br>';
+                }
+
+                if (fromEmail) {
+                    successMessage += `- 발송자 이메일: ${fromEmail}<br>`;
+                } else {
+                    successMessage += '- 발송자 이메일: <em>템플릿 기본값 사용</em><br>';
+                }
+
+                if (toEmail) {
+                    successMessage += `- 받는 사람: ${toEmail}<br>`;
+                } else {
+                    successMessage += '- 받는 사람: <em>템플릿 기본값 사용</em><br>';
+                }
+
+                if (emailSubject) {
+                    successMessage += `- 제목: ${emailSubject}<br>`;
+                } else {
+                    successMessage += '- 제목: <em>템플릿 기본값 사용</em><br>';
+                }
+
+                if (emailMessage) {
+                    successMessage += `- 내용: ${emailMessage.substring(0, 50)}${emailMessage.length > 50 ? '...' : ''}<br>`;
+                } else {
+                    successMessage += '- 내용: <em>템플릿 기본값 사용</em><br>';
+                }
+
+                successMessage += '<br><em style="color: #2e7d32;">📮 EmailJS 템플릿 설정에 따라 발송되었습니다.</em>';
                 successMessage += '</div>';
 
                 showStatus(statusDiv, 'success', successMessage);
 
-                // 폼 초기화 (선택사항)
+                // 폼 초기화
                 document.getElementById('fromName').value = '';
                 document.getElementById('fromEmail').value = '';
+                document.getElementById('toEmail').value = '';
                 document.getElementById('emailSubject').value = '';
                 document.getElementById('emailMessage').value = '';
 
             } catch (error) {
                 console.error('이메일 발송 실패:', error);
                 let errorMessage = '❌ 이메일 발송에 실패했습니다.';
-                
+
                 if (error.status === 400) {
                     errorMessage += ' 템플릿 변수를 확인해주세요.';
                 } else if (error.status === 402) {
@@ -839,7 +877,7 @@
                 } else {
                     errorMessage += ` (오류 코드: ${error.status || 'Unknown'})`;
                 }
-                
+
                 showStatus(statusDiv, 'error', errorMessage);
             } finally {
                 // 버튼 상태 복원
