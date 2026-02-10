@@ -731,13 +731,9 @@
             showStatus(statusDiv, 'info', '🔄 연결 테스트 중...');
 
             try {
-                // 테스트 이메일 발송
+                // 테스트 이메일 발송 (to_email만 전달하고 나머지는 템플릿 기본값 사용)
                 const templateParams = {
-                    from_name: '연결 테스트',
-                    from_email: 'test@vibecode.zero',
-                    to_email: testEmail,
-                    subject: '[EmailJS 학습도구] 연결 테스트',
-                    message: 'EmailJS 연결이 정상적으로 작동합니다!'
+                    to_email: testEmail
                 };
 
                 const response = await emailjs.send(
@@ -766,12 +762,8 @@
                 successMessage += `<code style="font-family: var(--font-code); color: #27ae60; background: #f0f9f4; padding: 3px 8px; border-radius: 4px; flex: 1; overflow-wrap: break-word; font-weight: 600;">${templateParams.to_email}</code>`;
                 successMessage += `</div>`;
                 successMessage += `<div style="display: flex; align-items: center; gap: 8px; word-break: break-all; overflow-wrap: break-word;">`;
-                successMessage += `<span style="color: #999; min-width: 85px; flex-shrink: 0;">제목</span>`;
-                successMessage += `<span style="color: #333;">${templateParams.subject}</span>`;
-                successMessage += `</div>`;
-                successMessage += `<div style="display: flex; align-items: center; gap: 8px; word-break: break-all; overflow-wrap: break-word;">`;
-                successMessage += `<span style="color: #999; min-width: 85px; flex-shrink: 0;">내용</span>`;
-                successMessage += `<span style="color: #333;">${templateParams.message}</span>`;
+                successMessage += `<span style="color: #999; min-width: 85px; flex-shrink: 0;">발송자/제목/내용</span>`;
+                successMessage += `<span style="color: #666; font-style: italic;">템플릿 기본값 사용됨</span>`;
                 successMessage += `</div>`;
                 successMessage += '</div>';
                 successMessage += '</div>';
