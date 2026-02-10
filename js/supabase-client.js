@@ -35,7 +35,7 @@ export function getSupabaseClient() {
     return supabaseClient;
 }
 
-// Brevo API에 구독자 추가
+// Brevo API에 구독자 추가 (선택사항)
 async function addToBrevo(email) {
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -52,16 +52,21 @@ async function addToBrevo(email) {
 
         const result = await response.json();
 
+        if (result.skipped) {
+            console.info('ℹ️ Brevo 통합이 설정되지 않아 스킵되었습니다.');
+            return { success: true, skipped: true };
+        }
+
         if (!response.ok) {
-            console.error('Brevo API 호출 실패:', result);
-            return { success: false, error: result.error };
+            console.warn('⚠️ Brevo API 호출 실패 (구독은 Supabase에 저장됨):', result);
+            return { success: true, error: result.error };
         }
 
         console.log('✅ Brevo 컨택 추가 성공:', result);
         return { success: true, data: result };
     } catch (error) {
-        console.error('Brevo API 호출 중 오류:', error);
-        return { success: false, error: error.message };
+        console.warn('⚠️ Brevo API 호출 중 오류 (구독은 Supabase에 저장됨):', error);
+        return { success: true, error: error.message };
     }
 }
 

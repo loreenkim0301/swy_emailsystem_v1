@@ -21,10 +21,6 @@ Deno.serve(async (req: Request) => {
   try {
     const brevoApiKey = Deno.env.get("BREVO_API_KEY");
 
-    if (!brevoApiKey) {
-      throw new Error("BREVO_API_KEY is not configured");
-    }
-
     const { email }: BrevoSubscribeRequest = await req.json();
 
     if (!email) {
@@ -32,6 +28,24 @@ Deno.serve(async (req: Request) => {
         JSON.stringify({ error: "Email is required" }),
         {
           status: 400,
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
+    if (!brevoApiKey) {
+      console.warn("BREVO_API_KEY is not configured. Skipping Brevo integration.");
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: "Brevo integration is not configured",
+          skipped: true
+        }),
+        {
+          status: 200,
           headers: {
             ...corsHeaders,
             "Content-Type": "application/json",
