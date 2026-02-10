@@ -620,11 +620,12 @@
 
                 showStatus(statusDiv, 'info', '🔄 EmailJS 초기화 완료. 자동 테스트 중...');
 
-                // 템플릿 기본값으로 자동 테스트 이메일 발송 (파라미터 없이)
+                // 템플릿 기본값으로 자동 테스트 이메일 발송
+                // 템플릿에 to_email 기본값이 없는 경우를 대비해 하드코딩된 기본 수신자 사용
                 const response = await emailjs.send(
                     serviceId,
                     templateId,
-                    {} // 빈 객체로 전송하여 템플릿의 기본값 사용
+                    { to_email: 'loreen@selectway.co.kr' } // 기본 수신자
                 );
 
                 console.log('자동 테스트 이메일 발송 성공:', response);
@@ -732,8 +733,9 @@
 
             try {
                 // 테스트 이메일 발송 (to_email만 전달하고 나머지는 템플릿 기본값 사용)
+                // 입력값이 없으면 기본 수신자 사용
                 const templateParams = {
-                    to_email: testEmail
+                    to_email: testEmail || 'loreen@selectway.co.kr'
                 };
 
                 const response = await emailjs.send(
@@ -841,11 +843,12 @@
             showStatus(statusDiv, 'info', '📧 이메일 발송 중...');
 
             try {
-                // 템플릿 파라미터 구성 (입력된 값만 전송)
+                // 템플릿 파라미터 구성 (입력된 값 또는 기본값 사용)
                 const templateParams = {};
                 if (fromName) templateParams.from_name = fromName;
                 if (fromEmail) templateParams.from_email = fromEmail;
-                if (toEmail) templateParams.to_email = toEmail;
+                // to_email은 입력값이 없으면 기본 수신자 사용
+                templateParams.to_email = toEmail || 'loreen@selectway.co.kr';
                 if (emailSubject) templateParams.subject = emailSubject;
                 if (emailMessage) templateParams.message = emailMessage;
 
@@ -877,7 +880,7 @@
                 if (toEmail) {
                     successMessage += `- 받는 사람: ${toEmail}<br>`;
                 } else {
-                    successMessage += '- 받는 사람: <em>템플릿 기본값 사용</em><br>';
+                    successMessage += '- 받는 사람: loreen@selectway.co.kr <em>(기본 수신자)</em><br>';
                 }
 
                 if (emailSubject) {
