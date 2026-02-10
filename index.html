@@ -471,7 +471,7 @@
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <h2>EmailJS 설정</h2>
-                    <p>EmailJS 계정 정보를 입력하여 서비스를 초기화합니다. .env 파일로 관리하거나 직접 입력할 수 있으며, 모든 정보는 브라우저 메모리에서만 처리됩니다.</p>
+                    <p>EmailJS 계정 정보를 입력하여 서비스를 초기화합니다. 초기화 후 템플릿 기본값으로 자동 테스트 이메일을 발송하여 설정된 정보를 확인할 수 있습니다.</p>
                     
                     <div class="form-group">
                         <label for="publicKey">Public Key</label>
@@ -577,18 +577,24 @@
         window.sendEmail = sendEmail;
 
         // EmailJS 초기화 함수
-        function initializeEmailJS() {
+        async function initializeEmailJS() {
             const publicKey = document.getElementById('publicKey').value.trim();
             const serviceId = document.getElementById('serviceId').value.trim();
             const templateId = document.getElementById('templateId').value.trim();
 
             const statusDiv = document.getElementById('step1-status');
+            const initBtn = document.querySelector('.step-card:first-child .btn-primary');
 
             // 입력값 검증
             if (!publicKey || !serviceId || !templateId) {
                 showStatus(statusDiv, 'error', '모든 필드를 입력해주세요.');
                 return;
             }
+
+            // 버튼 상태 변경
+            const originalText = initBtn.querySelector('.btn-text').textContent;
+            initBtn.querySelector('.btn-text').textContent = '초기화 중...';
+            initBtn.disabled = true;
 
             try {
                 // EmailJS 초기화
@@ -602,14 +608,63 @@
                     initialized: true
                 };
 
-                showStatus(statusDiv, 'success', '✅ EmailJS가 성공적으로 초기화되었습니다!');
+                showStatus(statusDiv, 'info', '🔄 EmailJS 초기화 완료. 자동 테스트 중...');
+
+                // 환경 변수에서 테스트 이메일 가져오기
+                const envConfig = getEmailJSConfig();
+
+                // 디폴트 템플릿 파라미터로 자동 테스트 이메일 발송
+                const defaultParams = {
+                    name: 'EmailJS 학습도구',
+                    email: envConfig.testEmail || 'test@example.com',
+                    subject: '[자동 테스트] EmailJS 설정 완료',
+                    message: 'EmailJS가 정상적으로 설정되었습니다. 템플릿 기본값으로 테스트 이메일을 발송했습니다.'
+                };
+
+                const response = await emailjs.send(
+                    serviceId,
+                    templateId,
+                    defaultParams
+                );
+
+                console.log('자동 테스트 이메일 발송 성공:', response);
+                console.log('발송된 파라미터:', defaultParams);
+
+                let successMessage = '✅ EmailJS가 초기화되었으며, 템플릿 기본 설정으로 테스트 이메일이 발송되었습니다.<br>';
+                successMessage += '<div class="code-block" style="margin-top: 8px; font-size: 11px;">';
+                successMessage += '<strong>발송 정보:</strong><br>';
+                successMessage += `- 보내는 사람: ${defaultParams.name}<br>`;
+                successMessage += `- 이메일: ${defaultParams.email}<br>`;
+                successMessage += `- 제목: ${defaultParams.subject}<br>`;
+                successMessage += `- 내용: ${defaultParams.message}`;
+                successMessage += '</div>';
+
+                showStatus(statusDiv, 'success', successMessage);
 
                 // 다음 단계 버튼 활성화
                 document.getElementById('testBtn').disabled = false;
 
             } catch (error) {
-                console.error('EmailJS 초기화 오류:', error);
-                showStatus(statusDiv, 'error', '❌ EmailJS 초기화에 실패했습니다. Public Key를 확인해주세요.');
+                console.error('EmailJS 초기화 또는 테스트 오류:', error);
+                let errorMessage = '❌ 오류가 발생했습니다. ';
+
+                if (error.status === 400) {
+                    errorMessage += 'Service ID 또는 Template ID를 확인해주세요.';
+                } else if (error.status === 401) {
+                    errorMessage += 'Public Key가 올바르지 않거나 비활성화되었습니다.';
+                } else if (error.status === 404) {
+                    errorMessage += 'Service 또는 Template을 찾을 수 없습니다.';
+                } else if (error.text) {
+                    errorMessage += error.text;
+                } else {
+                    errorMessage += 'Public Key, Service ID, Template ID를 확인해주세요.';
+                }
+
+                showStatus(statusDiv, 'error', errorMessage);
+            } finally {
+                // 버튼 상태 복원
+                initBtn.querySelector('.btn-text').textContent = originalText;
+                initBtn.disabled = false;
             }
         }
 
