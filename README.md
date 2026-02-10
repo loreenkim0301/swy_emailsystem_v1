@@ -282,13 +282,49 @@ code: JetBrains Mono (코드 블록)
    ```bash
    # .env.example을 .env로 복사
    cp .env.example .env
-   
+
    # .env 파일에서 Supabase 정보 입력
    VITE_SUPABASE_URL=your_supabase_project_url
    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
 
-2. **의존성 설치**
+2. **Brevo API 설정** (뉴스레터 구독 기능)
+
+   Brevo를 사용하여 이메일 구독자를 관리합니다. 다음 단계를 따라 설정하세요:
+
+   **a) Brevo 계정 생성 및 API Key 발급**
+   - [Brevo 웹사이트](https://www.brevo.com/)에서 무료 계정 생성
+   - Dashboard → SMTP & API → API Keys 메뉴로 이동
+   - "Create a new API key" 클릭
+   - API Key 이름 입력 후 생성
+   - 생성된 API Key 복사 (한 번만 표시되므로 안전한 곳에 저장)
+
+   **b) Brevo 컨택 리스트 설정**
+   - Dashboard → Contacts → Lists 메뉴로 이동
+   - 구독자를 저장할 리스트 선택 또는 생성
+   - 리스트 ID 확인 (현재 프로젝트는 List #5 사용)
+
+   **c) Supabase에 Brevo API Key 등록**
+
+   Brevo API Key는 보안을 위해 Supabase Edge Function의 환경 변수로 관리됩니다:
+
+   ```bash
+   # Supabase CLI를 사용하는 경우
+   supabase secrets set BREVO_API_KEY=your_brevo_api_key
+   ```
+
+   또는 Supabase Dashboard에서 직접 설정:
+   - Supabase Dashboard → Edge Functions → Secrets
+   - Secret name: `BREVO_API_KEY`
+   - Secret value: 복사한 Brevo API Key
+   - "Save" 클릭
+
+   **d) Brevo 연동 확인**
+   - 웹사이트 하단의 "최신 소식 받아보기" 섹션에서 이메일 입력
+   - "구독하기" 버튼 클릭
+   - Brevo Dashboard → Contacts에서 구독자가 추가되었는지 확인
+
+3. **의존성 설치**
    ```bash
    npm install
    ```
