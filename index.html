@@ -749,15 +749,41 @@
                 console.log('테스트 이메일 발송 성공:', response);
                 console.log('발송된 파라미터:', templateParams);
 
-                let successMessage = `✅ 연결 테스트 성공!<br>`;
-                successMessage += '<div class="code-block" style="margin-top: 8px; font-size: 11px; background: #d4edda; border: 1px solid #c3e6cb;">';
-                successMessage += '<strong>발송 정보:</strong><br>';
-                successMessage += `- 발송자 이름: ${templateParams.from_name}<br>`;
-                successMessage += `- 발송자 이메일: ${templateParams.from_email}<br>`;
-                successMessage += `- 받는 사람: <span style="color: #155724; font-weight: 600;">${templateParams.to_email}</span><br>`;
-                successMessage += `- 제목: ${templateParams.subject}<br>`;
-                successMessage += `- 내용: ${templateParams.message}<br><br>`;
-                successMessage += '<em style="color: #155724;">※ 입력한 이메일 주소로 테스트 메일이 발송되었습니다.</em>';
+                let successMessage = '<div style="padding: 20px; background: #ffffff; border-radius: 8px; border: 2px solid #27ae60; max-width: 100%; overflow: hidden;">';
+
+                // 헤더
+                successMessage += '<div style="margin-bottom: 16px;">';
+                successMessage += '<div style="font-size: 15px; font-weight: 600; color: #27ae60; margin-bottom: 6px;">✅ 연결 테스트 성공</div>';
+                successMessage += '<div style="font-size: 13px; color: #666; line-height: 1.5;">입력하신 이메일 주소로 테스트 메일이 발송되었습니다.</div>';
+                successMessage += '</div>';
+
+                // 발송 정보
+                successMessage += '<div style="margin-bottom: 16px;">';
+                successMessage += '<div style="font-size: 12px; font-weight: 600; color: #333; margin-bottom: 10px;">발송 정보</div>';
+                successMessage += '<div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">';
+                successMessage += `<div style="display: flex; align-items: center; gap: 8px; word-break: break-all; overflow-wrap: break-word;">`;
+                successMessage += `<span style="color: #999; min-width: 85px; flex-shrink: 0;">받는 사람</span>`;
+                successMessage += `<code style="font-family: var(--font-code); color: #27ae60; background: #f0f9f4; padding: 3px 8px; border-radius: 4px; flex: 1; overflow-wrap: break-word; font-weight: 600;">${templateParams.to_email}</code>`;
+                successMessage += `</div>`;
+                successMessage += `<div style="display: flex; align-items: center; gap: 8px; word-break: break-all; overflow-wrap: break-word;">`;
+                successMessage += `<span style="color: #999; min-width: 85px; flex-shrink: 0;">제목</span>`;
+                successMessage += `<span style="color: #333;">${templateParams.subject}</span>`;
+                successMessage += `</div>`;
+                successMessage += `<div style="display: flex; align-items: center; gap: 8px; word-break: break-all; overflow-wrap: break-word;">`;
+                successMessage += `<span style="color: #999; min-width: 85px; flex-shrink: 0;">내용</span>`;
+                successMessage += `<span style="color: #333;">${templateParams.message}</span>`;
+                successMessage += `</div>`;
+                successMessage += '</div>';
+                successMessage += '</div>';
+
+                // 발송 완료 안내
+                successMessage += '<div style="background: #f0f9f4; border-left: 3px solid #27ae60; padding: 12px; border-radius: 4px;">';
+                successMessage += '<div style="font-size: 12px; color: #155724; line-height: 1.6;">';
+                successMessage += '<strong>📮 발송 완료</strong><br>';
+                successMessage += `<strong style="color: #27ae60;">${templateParams.to_email}</strong> 주소로 테스트 이메일이 정상적으로 발송되었습니다.<br>`;
+                successMessage += '받은 편지함을 확인해주세요. (스팸 메일함도 확인하세요)';
+                successMessage += '</div>';
+                successMessage += '</div>';
                 successMessage += '</div>';
 
                 showStatus(statusDiv, 'success', successMessage);
