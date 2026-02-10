@@ -1,4 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "npm:@supabase/supabase-js@2.39.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -20,6 +21,8 @@ Deno.serve(async (req: Request) => {
 
   try {
     const brevoApiKey = Deno.env.get("BREVO_API_KEY");
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
     const { email }: BrevoSubscribeRequest = await req.json();
 
@@ -37,15 +40,10 @@ Deno.serve(async (req: Request) => {
     }
 
     if (!brevoApiKey) {
-      console.warn("BREVO_API_KEY is not configured. Skipping Brevo integration.");
       return new Response(
-        JSON.stringify({
-          success: true,
-          message: "Brevo integration is not configured",
-          skipped: true
-        }),
+        JSON.stringify({ error: "BREVO_API_KEY is not configured" }),
         {
-          status: 200,
+          status: 500,
           headers: {
             ...corsHeaders,
             "Content-Type": "application/json",
@@ -72,30 +70,32 @@ Deno.serve(async (req: Request) => {
 
     if (!brevoResponse.ok) {
       if (brevoResponse.status === 400 && brevoData.code === "duplicate_parameter") {
-        return new Response(
-          JSON.stringify({
-            success: true,
-            message: "Contact already exists in Brevo",
-            alreadyExists: true
-          }),
-          {
-            status: 200,
-            headers: {
-              ...corsHeaders,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        console.log("Contact already exists in Brevo");
+      } else {
+        throw new Error(`Brevo API error: ${brevoData.message || "Unknown error"}`);
       }
+    }
 
-      throw new Error(`Brevo API error: ${brevoData.message || "Unknown error"}`);
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createClient(supabaseUrl, supabaseKey);
+
+      const { error: supabaseError } = await supabase
+        .from("subscribers")
+        .upsert(
+          { email, updated_at: new Date().toISOString() },
+          { onConflict: "email" }
+        );
+
+      if (supabaseError) {
+        console.warn("Failed to backup to Supabase:", supabaseError);
+      }
     }
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: "Successfully added to Brevo contacts",
-        id: brevoData.id
+        message: "Successfully subscribed",
+        email: email
       }),
       {
         status: 200,

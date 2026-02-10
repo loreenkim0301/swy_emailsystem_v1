@@ -35,112 +35,75 @@ export function getSupabaseClient() {
     return supabaseClient;
 }
 
-// Brevo API에 구독자 추가 (선택사항)
+// Brevo API에 구독자 추가 (메인 저장소)
 async function addToBrevo(email) {
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+    const response = await fetch(`${supabaseUrl}/functions/v1/brevo-subscribe`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseAnonKey}`,
+        },
+        body: JSON.stringify({ email })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.error || 'Brevo API 호출 실패');
+    }
+
+    console.log('✅ Brevo 컨택 추가 성공:', result);
+    return result;
+}
+
+// Supabase에 구독자 백업 저장
+async function backupToSupabase(email, brevoData) {
+    const supabaseClient = getSupabaseClient();
+
     try {
-        const response = await fetch(`${supabaseUrl}/functions/v1/brevo-subscribe`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${supabaseAnonKey}`,
-            },
-            body: JSON.stringify({ email })
-        });
+        const { error } = await supabaseClient
+            .from('subscribers')
+            .upsert(
+                {
+                    email: email,
+                    source: 'emailjs-learning-tool',
+                    status: 'active',
+                    subscribed_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                },
+                { onConflict: 'email' }
+            );
 
-        const result = await response.json();
-
-        if (result.skipped) {
-            console.info('ℹ️ Brevo 통합이 설정되지 않아 스킵되었습니다.');
-            return { success: true, skipped: true };
-        }
-
-        if (!response.ok) {
-            console.warn('⚠️ Brevo API 호출 실패 (구독은 Supabase에 저장됨):', result);
-            return { success: true, error: result.error };
-        }
-
-        console.log('✅ Brevo 컨택 추가 성공:', result);
-        return { success: true, data: result };
+        if (error) throw error;
+        console.log(`✅ Supabase 백업 완료: ${email}`);
     } catch (error) {
-        console.warn('⚠️ Brevo API 호출 중 오류 (구독은 Supabase에 저장됨):', error);
-        return { success: true, error: error.message };
+        console.warn('⚠️ Supabase 백업 실패 (Brevo에는 저장됨):', error);
     }
 }
 
 // 이메일 구독 등록
 export async function subscribeToNewsletter(email) {
-    const supabaseClient = getSupabaseClient();
-
     try {
-        // 중복 이메일 확인 - maybeSingle() 사용으로 에러 방지
-        const { data: existingSubscriber, error: checkError } = await supabaseClient
-            .from('subscribers')
-            .select('id, status')
-            .eq('email', email)
-            .maybeSingle();
+        // 1. Brevo에 먼저 추가 (메인 저장소) - 실패하면 즉시 에러 반환
+        const brevoData = await addToBrevo(email);
 
-        if (checkError) {
-            throw checkError;
-        }
-
-        if (existingSubscriber) {
-            if (existingSubscriber.status === 'active') {
-                return {
-                    success: false,
-                    message: '이미 구독 중인 이메일 주소입니다.'
-                };
-            } else {
-                // 구독 취소된 사용자 재활성화
-                const { error: updateError } = await supabaseClient
-                    .from('subscribers')
-                    .update({
-                        status: 'active',
-                        updated_at: new Date().toISOString()
-                    })
-                    .eq('email', email);
-
-                if (updateError) throw updateError;
-
-                // Brevo에도 추가
-                await addToBrevo(email);
-
-                return {
-                    success: true,
-                    message: '다시 구독해주셔서 감사합니다! 바이브코드제로 클럽의 최신 소식을 받아보세요.'
-                };
-            }
-        }
-
-        // 새 구독자 추가
-        const { data, error: insertError } = await supabaseClient
-            .from('subscribers')
-            .insert([{
-                email: email,
-                source: 'emailjs-learning-tool',
-                status: 'active'
-            }])
-            .select()
-            .single();
-
-        if (insertError) throw insertError;
-
-        console.log(`✅ 새 구독자 추가: ${email}`);
-
-        // Brevo에도 추가 (비동기로 처리하되 실패해도 Supabase 저장은 유지)
-        await addToBrevo(email);
+        // 2. Supabase에 백업 저장 (비동기로 처리하되 실패해도 무시)
+        backupToSupabase(email, brevoData);
 
         return {
             success: true,
-            message: '구독이 완료되었습니다! 바이브코드제로 클럽의 최신 소식을 받아보세요.',
-            subscriber_id: data.id
+            message: '구독이 완료되었습니다! 바이브코드제로 클럽의 최신 소식을 받아보세요.'
         };
 
     } catch (error) {
         console.error('구독 처리 중 오류:', error);
-        throw new Error('구독 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        return {
+            success: false,
+            message: error.message || '구독 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+        };
     }
 }
 
