@@ -792,19 +792,13 @@
                 const emailSubject = document.getElementById('emailSubject').value.trim();
                 const emailMessage = document.getElementById('emailMessage').value.trim();
 
-                // 템플릿 파라미터 구성
+                // 템플릿 파라미터 구성 (항상 모든 파라미터 전송)
                 const templateParams = {
                     name: fromName,
-                    email: fromEmail
+                    email: fromEmail,
+                    subject: emailSubject || '[제목 없음]',
+                    message: emailMessage || '[내용 없음]'
                 };
-
-                // 선택적 파라미터 추가 (값이 있을 때만)
-                if (emailSubject) {
-                    templateParams.subject = emailSubject;
-                }
-                if (emailMessage) {
-                    templateParams.message = emailMessage;
-                }
 
                 const response = await emailjs.send(
                     emailjsConfig.serviceId,
@@ -819,16 +813,8 @@
                 successMessage += '<div class="code-block" style="margin-top: 8px; font-size: 11px; background: #e8f5e9; border: 1px solid #a5d6a7;">';
                 successMessage += '<strong>발송 정보:</strong><br>';
                 successMessage += `- 보내는 사람: ${templateParams.name} (${templateParams.email})<br>`;
-                if (templateParams.subject) {
-                    successMessage += `- 제목: ${templateParams.subject}<br>`;
-                } else {
-                    successMessage += `- 제목: (템플릿 기본값 사용)<br>`;
-                }
-                if (templateParams.message) {
-                    successMessage += `- 내용: ${templateParams.message}<br><br>`;
-                } else {
-                    successMessage += `- 내용: (템플릿 기본값 사용)<br><br>`;
-                }
+                successMessage += `- 제목: ${templateParams.subject}${emailSubject ? '' : ' (기본값)'}<br>`;
+                successMessage += `- 내용: ${templateParams.message}${emailMessage ? '' : ' (기본값)'}<br><br>`;
                 successMessage += '<em style="color: #2e7d32;">📮 템플릿에 설정된 기본 수신자에게 발송되었습니다.</em>';
                 successMessage += '</div>';
 
